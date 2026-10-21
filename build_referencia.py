@@ -65,6 +65,17 @@ def main():
     ref[cols + ["lat", "lon"]].sort_values("cut").to_csv("data/ref_comunas.csv", index=False, encoding="utf-8-sig")
     print("centroides:", len(cen))
 
+    # poligonos (anillos exteriores, generalizados) para ubicar eventos de distribuidoras dentro de una comuna
+    g2 = consulta(outFields="CUT", returnGeometry="true", outSR=4326, maxAllowableOffset=0.003,
+                  geometryPrecision=4, f="geojson")
+    geo = {}
+    for f in g2["features"]:
+        geom = f["geometry"]
+        polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+        geo[str(f["properties"]["CUT"])] = [[[round(x, 4), round(y, 4)] for x, y in poly[0]] for poly in polys]
+    Path("data/comunas_geo.json").write_text(json.dumps(geo, separators=(",", ":")), encoding="utf-8")
+    print(f"poligonos -> data/comunas_geo.json ({Path('data/comunas_geo.json').stat().st_size/1024:.0f} KB)")
+
 
 def area(r):
     return sum(r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1] for i in range(len(r) - 1)) / 2

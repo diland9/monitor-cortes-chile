@@ -47,7 +47,10 @@ if ((Run "git-pull" { git pull --rebase --autostash origin main }) -ne 0) { Log 
 
 if ((Run "scraper" { & $Python sec_scraper.py }) -ne 0) { Log "ERROR: el scraper fallo"; exit 1 }
 
-git add data docs/data.json docs/mapa.json
+# distribuidoras (Enel, CGE, SAESA): solo muestran el estado actual, por eso se capturan cada hora; no es fatal si falla
+if ((Run "distribucion" { & $Python distribucion.py --fuente local }) -ne 0) { Log "aviso: la captura de distribuidoras fallo" }
+
+git add data docs/data.json docs/mapa.json docs/dist.json
 git diff --staged --quiet
 if ($LASTEXITCODE -ne 0) {
     $stamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm")

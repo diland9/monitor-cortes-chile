@@ -1,0 +1,39 @@
+name: Captura distribuidoras
+
+on:
+  schedule:
+    - cron: "10,40 * * * *"   # cada 30 min (UTC). GitHub puede retrasar corridas; el PC tambien captura.
+  workflow_dispatch:
+
+concurrency:
+  group: distribuidoras
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  captura:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependencias
+        run: pip install requests pandas
+
+      - name: Capturar Enel, CGE y Grupo SAESA (solo agrega al historial)
+        run: python distribucion.py --fuente nube --sin-construir
+
+      - name: Commit historial
+        run: |
+          git config user.name  "sec-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/dist_nube.csv data/dist_areas_nube.json data/enel_clientes.json
+          git diff --staged --quiet || git commit -m "distribuidoras $(date -u +%Y-%m-%dT%H:%M)"
+          git pull --rebase origin main
+          git push

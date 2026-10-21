@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor distribución - Clientes sin suministro por distribuidora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--n9:#000814;--n8:#001d3d;--n7:#003566;--am:#ffc300;--bg:#eef2f7;--card:#fff;--line:#e2e8f0;--tx:#0b2545;--mu:#64748b;--bad:#c0392b;--pw:380px;
+        --hd:"Bricolage Grotesque",Inter,system-ui,sans-serif;--bd:Inter,system-ui,sans-serif}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;overflow:hidden}
+  body{font:13.5px/1.45 var(--bd);color:var(--tx);background:var(--bg);display:flex;flex-direction:column}
+  h1,h2,h3{font-family:var(--hd)} a{color:inherit}
+  .lbl{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--mu)}
+  .tg{display:inline-block;font:700 9px var(--bd);letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:2px 6px;vertical-align:middle;margin-left:6px;white-space:nowrap}
+  .tg.of{background:#e3f4ea;color:#15803d}.tg.es{background:#fff3c4;color:#7a5600;border:1px dashed #b07d00}
+
+  .top{height:58px;flex:0 0 auto;background:var(--n8);color:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;position:relative;z-index:800}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:0 0 auto}
+  .logo{width:34px;height:34px;border-radius:10px;background:var(--am);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .logo svg{width:19px;height:19px;fill:none;stroke:var(--n8);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .brand h1{margin:0;font-size:17px;font-weight:700;line-height:1.1;white-space:nowrap}
+  .brand a.h{display:block;margin-top:2px;color:var(--am);text-decoration:none;font-weight:600;font-size:12px}
+  .nav{display:flex;gap:6px}.nav a{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 13px;white-space:nowrap}
+  .nav a:hover{border-color:var(--am);color:var(--am)}.nav a.on{background:var(--am);border-color:var(--am);color:var(--n8)}
+  .tops{margin-left:auto;display:flex;align-items:center;gap:10px;min-width:0}
+  .sr{position:relative;display:flex;align-items:center}
+  .sr svg{position:absolute;left:11px;width:15px;height:15px;fill:none;stroke:#64748b;stroke-width:2;stroke-linecap:round}
+  .sr input{width:200px;background:#fff;color:var(--tx);border:0;border-radius:999px;padding:8px 14px 8px 33px;font:500 12.5px var(--bd);outline:0}
+  .sr input:focus{box-shadow:0 0 0 3px rgba(255,195,0,.55)}
+  .top select{background:#fff;color:var(--tx);border:0;border-radius:999px;padding:8px 28px 8px 12px;font:500 12.5px var(--bd);max-width:170px;cursor:pointer}
+  .upd{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:4px 12px;font-size:11.5px;line-height:1.25;white-space:nowrap}
+  .upd i{width:8px;height:8px;border-radius:50%;background:#ff5a5f;animation:pulso 1.4s infinite}.upd b{display:block;font-weight:600}.upd span{color:#9fb4cf}
+  @keyframes pulso{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}100%{opacity:1;transform:scale(1)}}
+  .cafe{display:inline-flex;align-items:center;gap:8px;background:#009ee3;color:#fff;text-decoration:none;font-weight:600;font-size:12.5px;border-radius:999px;padding:6px 14px 6px 10px;white-space:nowrap}
+  .cafe img{width:22px;height:22px;filter:invert(1)}
+
+  main{position:relative;flex:1;min-height:0}
+  #map{position:absolute;inset:0;z-index:0;background:#e6ebf2}
+  .left{position:absolute;z-index:500;left:14px;top:14px;bottom:14px;width:var(--pw);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:2px 6px 2px 2px;scrollbar-width:thin;transition:transform .25s ease}
+  .pc .left{transform:translateX(calc(-100% - 24px))}
+  .rz{position:absolute;z-index:501;left:calc(var(--pw) + 18px);top:14px;bottom:14px;width:12px;cursor:col-resize;touch-action:none}
+  .rz::after{content:"";position:absolute;left:4px;top:50%;width:4px;height:46px;margin-top:-23px;border-radius:3px;background:rgba(0,29,61,.35)}.rz:hover::after,.rz.on::after{background:var(--am)}.pc .rz{display:none}
+  .pt{position:absolute;z-index:502;left:calc(var(--pw) + 22px);top:22px;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--n8);font:700 14px/1 var(--bd);cursor:pointer;box-shadow:0 4px 12px rgba(0,29,61,.2)}
+  .pt:hover{background:var(--am)}.pc .pt{left:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 20px rgba(0,29,61,.10);padding:14px 16px}
+  .card h3{margin:0 0 10px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .card h3 small{font:500 11px var(--bd);color:var(--mu);margin-left:6px}
+  .card.col h3{margin-bottom:0}.card.col .cb{display:none}
+  .ctr{display:inline-flex;gap:3px;flex:0 0 auto}.ctr button{width:22px;height:22px;border:1px solid var(--line);background:#fff;color:var(--mu);border-radius:6px;font:600 11px/1 var(--bd);cursor:pointer;padding:0}
+  .ctr button:hover{background:var(--am);color:var(--n8);border-color:var(--am)}
+  .rngs{display:flex;gap:4px}.rngs button,.btn,.seg button{border:1px solid var(--line);background:#fff;color:var(--tx);font:600 11px var(--bd);border-radius:8px;padding:4px 9px;cursor:pointer}
+  .rngs button.on{background:var(--am);border-color:var(--am);color:var(--n8)}
+  .btn.pri{background:var(--am);border-color:var(--am);color:var(--n8);letter-spacing:.04em;text-transform:uppercase}.btn.dark{background:var(--n8);border-color:var(--n8);color:#fff}
+  .seg{display:inline-flex;background:#eef2f7;border-radius:9px;padding:3px}.seg button{border:0;background:transparent;border-radius:7px}.seg button.on{background:var(--am);color:var(--n8)}
+  .cv{position:relative;height:190px}
+  .emp{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 11px;margin-bottom:7px;cursor:pointer;color:var(--tx)}
+  .emp:hover{border-color:var(--n7)}.emp.off{opacity:.45}
+  .emp .ck{width:18px;height:18px;border-radius:5px;border:2px solid;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1}
+  .emp b{display:block;font:700 13px var(--bd)}.emp small{display:block;color:var(--mu);font-size:10.5px;line-height:1.3}
+  .emp .n{font:800 22px/1 var(--hd);text-align:right;color:var(--n8)}.emp .n small{font:500 10.5px var(--bd)}
+  .tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;padding-top:9px;border-top:1px solid var(--line)}
+  .tot b{font:800 26px/1 var(--hd);color:var(--n8)}
+  .rk{display:grid;grid-template-columns:16px 1fr auto;gap:8px;align-items:center;cursor:pointer;padding:5px 0;border-bottom:1px dashed var(--line)}
+  .rk:last-child{border-bottom:0}.rk:hover .nm{color:var(--n7);text-decoration:underline}
+  .rk .i{color:var(--mu);font-size:11px;text-align:right}.rk .nm{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rk .b{display:flex;height:5px;border-radius:3px;background:#eef2f7;margin-top:4px;overflow:hidden}.rk .b i{display:block;height:100%}
+  .rk .v{text-align:right;line-height:1.2;font-variant-numeric:tabular-nums}.rk .v b{font-weight:700}.rk .v small{display:block;color:var(--mu);font-size:10.5px}
+  .note{font-size:11.5px;color:var(--mu);line-height:1.5}.note b{color:var(--tx)}
+  .mpb{display:flex;align-items:center;gap:12px;margin-top:10px;background:#009ee3;color:#fff;text-decoration:none;border-radius:12px;padding:10px 14px}
+  .mpb img{width:28px;height:28px;filter:invert(1)}.mpb span{display:flex;flex-direction:column;line-height:1.2;flex:1}.mpb b{font:700 14px var(--hd)}.mpb small{font-size:11px;opacity:.92}
+
+  .ctl{position:absolute;z-index:500;left:calc(var(--pw) + 52px);right:320px;bottom:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:9px 12px}
+  .pc .ctl{left:14px}
+  .ctl input[type=range]{flex:1;min-width:110px;accent-color:var(--n7)}.ctl .hr{font-size:12px;color:var(--mu);min-width:112px;font-variant-numeric:tabular-nums}
+  .lgd{position:absolute;z-index:500;right:14px;bottom:14px;width:290px}
+  .lgd .it{display:flex;align-items:center;gap:8px;font-size:12px;margin:5px 0}.lgd .it i{width:13px;height:13px;border-radius:50%;border:1.5px solid #001d3d;flex:0 0 auto}
+  .lgd .st{margin-top:9px;padding-top:9px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mu)}
+  .lgd label{display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;margin-top:8px}
+  .leaflet-control-zoom{border:0!important;box-shadow:0 4px 14px rgba(0,29,61,.18)!important}.leaflet-control-zoom a{color:var(--n8)!important}
+  .leaflet-tooltip{background:var(--n8);color:#fff;border:0;border-radius:8px;font:500 12px var(--bd)}.leaflet-tooltip:before{display:none}
+  .leaflet-popup-content-wrapper{background:transparent;box-shadow:none;padding:0}.leaflet-popup-content{margin:0;width:auto!important}.leaflet-popup-tip{background:#fff}
+  .leaflet-container{font-family:var(--bd)}.leaflet-container a.leaflet-popup-close-button{color:#9fb4cf;top:9px;right:11px}
+  .pp{width:300px;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,29,61,.28);overflow:hidden;max-height:calc(100vh - 140px);overflow-y:auto}
+  .pp .hh{background:var(--n8);color:#fff;padding:11px 14px 10px;border-bottom:3px solid var(--am)}.pp .hh b{display:block;font:700 16px var(--hd);padding-right:16px}.pp .hh span{font-size:11px;color:#9fb4cf}
+  .pp .bd{padding:11px 14px 12px}.pp .big{font:800 28px/1 var(--hd);color:var(--n8)}
+  .pp .row{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;margin-top:7px;font-size:12px}.pp .row i{width:11px;height:11px;border-radius:50%}
+  .pp .row b{font-variant-numeric:tabular-nums}.pp .bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:#eef2f7;margin:9px 0}.pp .bar i{display:block}
+  .pp .sp{margin-top:9px;border-top:1px solid var(--line);padding-top:8px;font-size:10px;color:var(--mu)}
+
+  .handle-bar{display:none;width:38px;height:4px;border-radius:2px;background:#cbd5e1;margin:0 auto 8px}
+  @media (max-width:900px){
+    .nav a:not(.on),.upd,.cafe,.brand>div:last-child,.rz,.pt{display:none}.top{gap:8px;padding:0 10px}.tops{margin-left:0;flex:1}
+    .sr{flex:1;min-width:0}.sr input{width:100%}.top select{flex:1;min-width:0;max-width:none}
+    .left{position:fixed;left:0;right:0;bottom:0;top:auto;width:auto;max-height:76dvh;border-radius:18px 18px 0 0;background:var(--bg);padding:10px 10px 12px;z-index:900;transform:translateY(calc(100% - 150px));transition:transform .32s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 24px rgba(0,29,61,.25)}
+    .pc .left{transform:translateY(calc(100% - 150px))}.left.abierto,.pc .left.abierto{transform:none}.handle-bar{display:block}.ctr{display:none}
+    .ctl{left:10px;right:10px;bottom:auto;top:10px}.pc .ctl{left:10px}.lgd{right:10px;bottom:160px;width:220px}.lgd .st{display:none}
+  }
+  #estado{position:fixed;inset:0;z-index:2000;background:var(--n9);color:#9fb4cf;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+</style>
+</head>
+<body>
+<div id="estado">Cargando datos...</div>
+<header class="top">
+  <div class="brand">
+    <div class="logo"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+    <div><h1>Monitor distribución</h1><a class="h" href="https://www.instagram.com/aprendecondiland/" target="_blank" rel="noopener noreferrer">@aprendecondiland</a></div>
+  </div>
+  <nav class="nav"><a href="index.html">Monitor de cortes</a><a href="distribucion.html" class="on">Monitor distribución</a></nav>
+  <div class="tops">
+    <div class="sr"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" list="dl" type="search" placeholder="Buscar comuna…" autocomplete="off" aria-label="Buscar comuna"><datalist id="dl"></datalist></div>
+    <select id="fReg" aria-label="Filtrar por región"></select>
+    <div class="upd"><i></i><div><span>Actualizado</span><b id="tsH"></b></div></div>
+    <a class="cafe" href="https://link.mercadopago.cl/aprendecondiland" target="_blank" rel="noopener noreferrer"><img src="assets/mercadopago.svg" alt="" width="22" height="22">Invítame un café</a>
+  </div>
+</header>
+
+<main>
+  <div id="map"></div>
+  <aside class="left" id="sheet">
+    <div id="sheetHandle" onclick="document.getElementById('sheet').classList.toggle('abierto')" style="cursor:pointer">
+      <div class="handle-bar"></div>
+      <div class="card">
+        <div class="lbl">Clientes sin suministro por distribuidora</div>
+        <div style="margin:3px 0 9px;font-size:12px;color:var(--mu)" id="zonaT">Todo Chile</div>
+        <div id="emps"></div>
+        <div class="tot"><span class="lbl">Total (SEC)<span class="tg of">Dato oficial</span></span><b id="totSec">-</b></div>
+        <div class="note" style="margin-top:6px" id="hrTxt"></div>
+      </div>
+    </div>
+    <div id="sheetBody" style="display:flex;flex-direction:column;gap:12px">
+      <section class="card adj" data-id="evo">
+        <h3><span>Evolución por distribuidora</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb">
+          <div class="rngs" id="rng" style="margin-bottom:8px"><button data-h="24">24h</button><button data-h="48">48h</button><button data-h="72">72h</button><button data-h="168" class="on">7 días</button></div>
+          <div class="cv"><canvas id="evo"></canvas></div>
+          <div class="note" style="margin-top:6px" id="evoN"></div>
+        </div>
+      </section>
+      <section class="card adj" data-id="top">
+        <h3><span>Comunas más afectadas <small>por distribuidora</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb" id="topCom"></div>
+      </section>
+      <section class="card adj" data-id="areas">
+        <h3><span>Áreas de corte activas <small>CGE y Grupo SAESA</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb"><div class="note" style="margin-bottom:6px">Zonas que cada empresa informa como afectadas ahora, con restitución estimada. Haz clic para verla en el mapa.</div><div id="topAreas"></div></div>
+      </section>
+      <section class="card adj" data-id="notas">
+        <h3><span>Fuentes y alcance</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb note">
+          <p style="margin:0 0 6px"><b>Enel, CGE y Grupo SAESA</b> (Saesa, Frontel, Edelaysen, Luz Osorno): clientes sin suministro según el mapa público de cada empresa. Estas fuentes solo muestran el estado actual; por eso vamos guardando una captura cada hora.</p>
+          <p style="margin:0 0 6px"><b>Chilquinta y otras (por diferencia)</b> = total de la SEC en la comuna − (Enel + CGE + SAESA). Es una estimación: incluye Chilquinta y cooperativas, y puede tener diferencias de horario entre fuentes.</p>
+          <p style="margin:0 0 6px"><b>Historial:</b> <span id="hist"></span> Crece solo; no se puede recuperar el pasado porque las empresas no lo publican.</p>
+          <p style="margin:0"><a href="index.html" style="color:var(--n7);font-weight:600">← Volver al Monitor de cortes</a></p>
+          <a class="mpb" href="https://link.mercadopago.cl/aprendecondiland" target="_blank" rel="noopener noreferrer"><img src="assets/mercadopago.svg" alt="" width="28" height="28"><span><b>Invítame un café</b><small>Sugerido $5.000 · con Mercado Pago</small></span><i style="font-style:normal">→</i></a>
+        </div>
+      </section>
+    </div>
+  </aside>
+  <div class="rz" id="rz" title="Arrastra para ajustar el ancho del panel"></div>
+  <button class="pt" id="pt" title="Ocultar / mostrar panel" aria-label="Ocultar o mostrar panel">‹</button>
+
+  <div class="card ctl">
+    <button class="btn pri" id="playb">&#9654; Reproducir</button>
+    <input type="range" id="sl" min="0" max="0" value="0" aria-label="Hora a mostrar">
+    <span class="hr" id="hl"></span>
+    <button class="btn dark" id="now">Ahora</button>
+    <div class="seg" id="zoom"><button data-z="rm" class="on">RM</button><button data-z="chile">Chile</button><button data-z="norte">Norte</button><button data-z="centro">Centro</button><button data-z="sur">Sur</button></div>
+  </div>
+
+  <div class="card lgd">
+    <div style="font:800 16px var(--hd);color:var(--n8);margin-bottom:6px">Color = distribuidora</div>
+    <div id="lgi"></div>
+    <div class="st">Tamaño de la esfera = clientes sin suministro (suma de las distribuidoras activas). El color indica la distribuidora con más clientes sin suministro en la comuna.</div>
+    <label><input type="checkbox" id="chkAreas" checked> Mostrar áreas de corte (CGE y SAESA)</label>
+  </div>
+</main>
+
+<script>
+const EMP = { ENEL: { n: "Enel", c: "#2b78c2", t: "Mapa público de Enel" }, CGE: { n: "CGE", c: "#f77f00", t: "Mapa público de CGE" },
+              SAESA: { n: "Grupo SAESA", c: "#8e44ad", t: "Saesa · Frontel · Edelaysen · Luz Osorno" }, OTRAS: { n: "Chilquinta y otras", c: "#0f766e", t: "Por diferencia con el total SEC" } };
+const KEYS = ["ENEL", "CGE", "SAESA", "OTRAS"];
+const ZOOMS = { chile: [[-56, -76], [-17.5, -66]], norte: [[-30.5, -72], [-17.5, -66.5]], centro: [[-37.6, -73.6], [-32, -69.5]], sur: [[-47, -76], [-37.4, -70.5]] };
+const LS = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v === null ? d : v; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+const $ = id => document.getElementById(id);
+const miles = x => Math.round(Number(x)).toLocaleString("es-CL");
+const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const S = { d: null, hi: 0, h0: 0, ult: 0, sel: new Set(KEYS), reg: "__all__", com: "__all__", win: 168, chart: null, timer: null };
+let MAP, capa, capaAreas;
+
+const shortReg = r => /Magallanes/i.test(r) ? "Magallanes" : /Ays/i.test(r) ? "Aysén" : /Libertador/i.test(r) ? "O'Higgins" : /Metropolitana/i.test(r) ? "Metropolitana" : /B.o-?B.o/i.test(r) ? "Biobío" : r.replace(/^Regi.n (del |de la |de los |de )?/i, "");
+function horaLabel(h) { const d = new Date(S.d.horas[h]); return d.toLocaleDateString("es-CL", { weekday: "short", day: "2-digit", month: "2-digit" }) + " " + String(d.getHours()).padStart(2, "0") + ":00"; }
+function horaCorta(i) { const t = new Date(S.d.horas[i]); return String(t.getDate()).padStart(2, "0") + "-" + String(t.getMonth() + 1).padStart(2, "0") + " " + String(t.getHours()).padStart(2, "0") + ":00"; }
+function fechaLarga(s) { const m = String(s).match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/); if (!m) return s; const d = new Date(+m[1], +m[2] - 1, +m[3]); return d.toLocaleDateString("es-CL", { weekday: "short", day: "numeric", month: "short", year: "numeric" }).replace(",", "").replace(/\./g, "") + " · " + m[4] + ":" + m[5] + " hrs"; }
+
+// ---------- datos por zona ----------
+const cutsZona = () => Object.keys(S.d.comunas).filter(c => (S.com === "__all__" || c === S.com) && (S.reg === "__all__" || S.d.comunas[c].r === S.reg));
+const zonaTodo = () => S.reg === "__all__" && S.com === "__all__";
+function val(cut, e, h) { const a = S.d.series[cut] && S.d.series[cut][e]; return a && a[h] != null ? a[h] : 0; }
+function totZona(e, h) {      // total de la distribuidora en la zona; null = sin captura en esa hora
+  if (zonaTodo()) return S.d.totales[e][h];
+  if (e !== "OTRAS" && S.d.totales[e][h] == null) return null;
+  if (e === "OTRAS" && S.d.totales.OTRAS[h] == null) return null;
+  return cutsZona().reduce((s, c) => s + val(c, e, h), 0);
+}
+
+// ---------- panel ----------
+function kpis() {
+  const h = S.hi, d = S.d;
+  $("zonaT").textContent = S.com !== "__all__" ? d.comunas[S.com].n + " (" + shortReg(d.comunas[S.com].r) + ")" : S.reg !== "__all__" ? "Región " + shortReg(S.reg) : "Todo Chile";
+  let sum = 0, any = false;
+  $("emps").innerHTML = KEYS.map(e => {
+    const v = totZona(e, h), on = S.sel.has(e); if (v != null) { sum += v; any = true; }
+    const cap = e === "OTRAS" ? "Por diferencia con el total SEC" : (d.fuentes[e] && d.fuentes[e].captura ? "Captura " + String(d.fuentes[e].captura).slice(-5) + " hrs" : "");
+    return `<button class="emp ${on ? "" : "off"}" data-e="${e}" title="Clic para ${on ? "ocultar" : "mostrar"}"><span class="ck" style="border-color:${EMP[e].c};background:${on ? EMP[e].c : "#fff"}">${on ? "✓" : ""}</span>
+      <span><b>${EMP[e].n}</b><small>${EMP[e].t}${e === "OTRAS" ? ' <span class="tg es" style="margin-left:2px">Estimado</span>' : ""}</small></span>
+      <span class="n">${v == null ? "s/d" : miles(v)}<small>${v == null ? "sin captura" : ""}</small></span></button>`;
+  }).join("");
+  const sec = zonaTodo() ? d.totales.SEC[h] : cutsZona().reduce((s, c) => s + KEYS.reduce((a, e) => a + val(c, e, h), 0), 0);
+  $("totSec").textContent = sec == null ? "-" : miles(sec);
+  $("hrTxt").textContent = "Hora mostrada: " + horaLabel(h) + (h === S.ult ? " (última captura)" : "") + ". Los totales por distribuidora suman el total SEC.";
+}
+function rkRow(i, c, parts, tot) {
+  const bar = parts.filter(p => p.v > 0).map(p => `<i style="width:${p.v / tot * 100}%;background:${EMP[p.e].c}"></i>`).join("");
+  const sub = parts.filter(p => p.v > 0).map(p => EMP[p.e].n + " " + miles(p.v)).join(" · ");
+  return `<div class="rk" data-k="${c.cut}"><span class="i">${i + 1}</span><div style="min-width:0"><span class="nm">${c.n}</span><div class="b">${bar}</div></div><div class="v"><b>${miles(tot)}</b><small>${sub}</small></div></div>`;
+}
+function topCom() {
+  const h = S.hi, act = KEYS.filter(e => S.sel.has(e));
+  const l = cutsZona().map(c => { const parts = act.map(e => ({ e, v: val(c, e, h) })); return { cut: c, n: S.d.comunas[c].n, parts, tot: parts.reduce((s, p) => s + p.v, 0) }; })
+    .filter(x => x.tot > 0).sort((a, b) => b.tot - a.tot).slice(0, 10);
+  $("topCom").innerHTML = l.length ? l.map((x, i) => rkRow(i, x, x.parts, x.tot)).join("") : '<span class="note">Sin clientes sin suministro en esta hora para la selección.</span>';
+}
+function topAreas() {
+  const cs = new Set(cutsZona());
+  const l = S.d.areas.filter(a => S.sel.has(a.emp) && cs.has(String(a.cut))).sort((a, b) => b.clientes - a.clientes).slice(0, 8);
+  $("topAreas").innerHTML = l.length ? l.map((a, i) => `<div class="rk" data-a="${S.d.areas.indexOf(a)}"><span class="i">${i + 1}</span><div style="min-width:0"><span class="nm">${S.d.comunas[a.cut] ? S.d.comunas[a.cut].n : "Comuna " + a.cut}</span><div class="b"><i style="width:100%;background:${EMP[a.emp].c}"></i></div></div>
+    <div class="v"><b>${miles(a.clientes)}</b><small>${EMP[a.emp].n} · restitución ${a.restitucion || "en evaluación"}</small></div></div>`).join("") : '<span class="note">Sin áreas informadas para la selección.</span>';
+}
+
+// ---------- gráfico de evolución ----------
+function evo() {
+  const d = S.d, n = d.horas.length, start = Math.max(S.h0, n - S.win), labels = [], hrs = [];
+  for (let i = start; i <= S.ult; i++) { labels.push(horaCorta(i)); hrs.push(i); }
+  const ds = KEYS.filter(e => S.sel.has(e)).map(e => ({ label: EMP[e].n, backgroundColor: EMP[e].c, borderWidth: 0, data: hrs.map(h => totZona(e, h)) }));
+  if (S.chart) S.chart.destroy();
+  S.chart = new Chart($("evo"), { type: "bar", data: { labels, datasets: ds },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: "index", intersect: false },
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } }, tooltip: { backgroundColor: "#001d3d", callbacks: { label: c => c.dataset.label + ": " + (c.parsed.y == null ? "s/d" : miles(c.parsed.y)) } } },
+      onClick: (e, els, ch) => { const p = ch.getElementsAtEventForMode(e, "index", { intersect: false }, true); if (p.length) { stop(); setHour(hrs[p[0].index]); } },
+      scales: { x: { stacked: true, ticks: { color: "#64748b", maxTicksLimit: 5, font: { size: 9.5 }, maxRotation: 0 }, grid: { display: false } },
+                y: { stacked: true, beginAtZero: true, ticks: { color: "#64748b", font: { size: 9.5 }, callback: v => miles(v), maxTicksLimit: 4 }, grid: { color: "#e8edf3" } } } } });
+  const nh = d.totales.ENEL.filter(v => v != null).length;
+  $("evoN").textContent = nh < 6 ? `Historial de distribuidoras en construcción: ${nh} hora(s) capturadas hasta ahora. Se completa solo, hora a hora (hasta 7 días).` : "Horas sin barra = sin captura de esa distribuidora (equipo apagado o fuente caída).";
+}
+
+// ---------- mapa ----------
+function popup(cut) {
+  const h = S.hi, c = S.d.comunas[cut], vals = KEYS.map(e => ({ e, v: val(cut, e, h) })), tot = vals.reduce((s, x) => s + x.v, 0);
+  const bar = vals.filter(x => x.v > 0).map(x => `<i style="width:${x.v / tot * 100}%;background:${EMP[x.e].c}"></i>`).join("");
+  const rows = vals.map(x => `<div class="row"><i style="background:${EMP[x.e].c}"></i><span>${EMP[x.e].n}${x.e === "OTRAS" ? ' <span class="tg es" style="margin-left:2px">Estimado</span>' : ""}</span><b>${miles(x.v)}</b></div>`).join("");
+  const W = 268, H = 34, n = S.ult - S.h0 + 1, bw = W / n; let sp = `<svg width="${W}" height="${H}" style="display:block;margin-top:4px">`;
+  for (let i = S.h0; i <= S.ult; i++) { let y = H; const x = (i - S.h0) * bw, mx = Math.max(1, ...Array.from({ length: n }, (_, k) => KEYS.reduce((s, e) => s + val(cut, e, S.h0 + k), 0)));
+    for (const e of KEYS) { const hh = val(cut, e, i) / mx * (H - 2); y -= hh; if (hh > 0) sp += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${Math.max(bw - .5, .8).toFixed(1)}" height="${hh.toFixed(1)}" fill="${EMP[e].c}"/>`; } }
+  sp += "</svg>";
+  return `<div class="pp"><div class="hh"><b>${c.n}</b><span>${shortReg(c.r)} · ${horaLabel(h)}</span></div><div class="bd">
+    <div class="big">${miles(tot)}</div><div class="note" style="margin-top:2px">clientes sin suministro (total SEC en la comuna)</div>
+    <div class="bar">${bar}</div>${rows}
+    <div class="sp">Evolución por distribuidora (horas capturadas)${sp}</div></div></div>`;
+}
+const padL = () => (document.body.classList.contains("pc") || innerWidth <= 900) ? 20 : (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pw")) || 380) + 50;
+function mapa() {
+  const h = S.hi, act = KEYS.filter(e => S.sel.has(e));
+  if (capa) MAP.removeLayer(capa); if (capaAreas) MAP.removeLayer(capaAreas);
+  capa = L.layerGroup(); capaAreas = L.layerGroup();
+  const L1 = cutsZona().map(c => { const v = act.map(e => ({ e, v: val(c, e, h) })); return { c, v, tot: v.reduce((s, x) => s + x.v, 0) }; }).filter(x => x.tot > 0);
+  const mx = Math.max(1, ...L1.map(x => x.tot)), pad = innerWidth > 900 ? [padL(), 20] : [20, 70];
+  L1.sort((a, b) => b.tot - a.tot).forEach(x => {
+    const dom = x.v.slice().sort((a, b) => b.v - a.v)[0].e, cm = S.d.comunas[x.c];
+    const mk = L.circleMarker([cm.lat, cm.lon], { radius: 5 + 17 * Math.sqrt(x.tot / mx), fillColor: EMP[dom].c, color: "#001d3d", weight: 1.2, fillOpacity: .85 });
+    mk.bindPopup(() => popup(x.c), { maxWidth: 310, minWidth: 0, autoPanPaddingTopLeft: pad, autoPanPaddingBottomRight: innerWidth > 900 ? [320, 70] : [20, 20] });
+    mk.bindTooltip(`${cm.n}: ${miles(x.tot)} clientes · ${EMP[dom].n}`, { sticky: true }); mk.cut = x.c; capa.addLayer(mk);
+  });
+  capa.addTo(MAP);
+  if ($("chkAreas").checked && h === S.ult) {
+    const cs = new Set(cutsZona());
+    S.d.areas.forEach((a, i) => { if (!S.sel.has(a.emp) || !cs.has(String(a.cut))) return; const c = EMP[a.emp].c;
+      const sh = a.poly && a.poly.length > 2 ? L.polygon(a.poly, { color: c, weight: 1.6, fillColor: c, fillOpacity: .3 }) : L.circleMarker([a.lat, a.lon], { radius: 5, color: c, fillColor: c, fillOpacity: .5 });
+      sh.bindPopup(`<div class="pp"><div class="hh"><b>Área de corte · ${EMP[a.emp].n}</b><span>${S.d.comunas[a.cut] ? S.d.comunas[a.cut].n : "Comuna " + a.cut} · informado por la empresa</span></div><div class="bd"><div class="big">${miles(a.clientes)}</div><div class="note">clientes sin suministro en esta área</div>
+        <div class="row" style="grid-template-columns:1fr auto"><span>Restitución estimada</span><b>${a.restitucion || "en evaluación"}</b></div>${a.estado ? `<div class="row" style="grid-template-columns:1fr auto"><span>Estado</span><b>${a.estado}</b></div>` : ""}</div></div>`, { maxWidth: 300, minWidth: 0 });
+      sh.areaIdx = i; capaAreas.addLayer(sh); });
+    capaAreas.addTo(MAP);
+  }
+  $("lgi").innerHTML = KEYS.map(e => `<div class="it" style="opacity:${S.sel.has(e) ? 1 : .4}"><i style="background:${EMP[e].c}"></i><span>${EMP[e].n}${e === "OTRAS" ? ' <span class="tg es" style="margin-left:2px">Estimado</span>' : ""}</span></div>`).join("");
+}
+function zoomTo(k) {
+  MAP.stop();
+  const b = k === "rm" ? L.latLngBounds(Object.values(S.d.comunas).filter(c => /Metropolitana/i.test(c.r)).map(c => [c.lat, c.lon])).pad(0.06) : ZOOMS[k];
+  MAP.fitBounds(b, { paddingTopLeft: [padL(), 0] });
+}
+function focusCom(cut) {
+  if (!S.d.comunas[cut]) return;
+  if (S.reg !== "__all__" && S.d.comunas[cut].r !== S.reg) { S.reg = "__all__"; $("fReg").value = "__all__"; }
+  S.com = String(cut); $("q").value = S.d.comunas[cut].n; update();
+  const c = S.d.comunas[cut]; MAP.stop(); MAP.setView([c.lat, c.lon], 10, { animate: false }); MAP.panBy([-(padL() / 2), 0], { animate: false });
+  capa.eachLayer(l => { if (l.cut === String(cut)) l.openPopup(); });
+}
+function irRegion(r) {
+  S.reg = r; S.com = "__all__"; $("q").value = ""; update();
+  const cs = Object.values(S.d.comunas).filter(c => r === "__all__" || c.r === r); MAP.stop();
+  if (r !== "__all__" && cs.length) MAP.fitBounds(L.latLngBounds(cs.map(c => [c.lat, c.lon])).pad(0.2), { maxZoom: 9, paddingTopLeft: [padL(), 0] }); else zoomTo("chile");
+}
+
+// ---------- control ----------
+function update() {
+  const h = S.hi;
+  $("hl").textContent = horaLabel(h) + (h === S.ult ? " (última captura)" : "");
+  $("sl").value = h; $("tsH").textContent = fechaLarga(S.d.actualizado);
+  kpis(); topCom(); topAreas(); mapa(); evo();
+}
+function setHour(i) { S.hi = Math.max(S.h0, Math.min(S.ult, +i)); update(); }
+function stop() { clearInterval(S.timer); S.timer = null; $("playb").innerHTML = "&#9654; Reproducir"; }
+
+function panelRegulable() {
+  const root = document.documentElement, body = $("sheetBody");
+  let pw = LS.get("pw_d", 380); root.style.setProperty("--pw", pw + "px");
+  if (LS.get("pc_d", false)) { document.body.classList.add("pc"); $("pt").textContent = "›"; }
+  (LS.get("orden_d", [])).forEach(id => { const el = body.querySelector(`[data-id="${id}"]`); if (el) body.appendChild(el); });
+  (LS.get("pleg_d", [])).forEach(id => { const el = body.querySelector(`[data-id="${id}"]`); if (el) { el.classList.add("col"); el.querySelector('[data-a="tg"]').textContent = "+"; } });
+  const guarda = () => LS.set("orden_d", [...body.querySelectorAll(".adj")].map(e => e.dataset.id));
+  body.addEventListener("click", e => { const b = e.target.closest(".ctr button"); if (!b) return; const card = b.closest(".adj");
+    if (b.dataset.a === "up" && card.previousElementSibling) { body.insertBefore(card, card.previousElementSibling); guarda(); }
+    else if (b.dataset.a === "dn" && card.nextElementSibling) { body.insertBefore(card.nextElementSibling, card); guarda(); }
+    else if (b.dataset.a === "tg") { const c = card.classList.toggle("col"); b.textContent = c ? "+" : "–"; LS.set("pleg_d", [...body.querySelectorAll(".adj.col")].map(e => e.dataset.id)); if (!c && S.chart) S.chart.resize(); } });
+  $("pt").onclick = () => { const c = document.body.classList.toggle("pc"); $("pt").textContent = c ? "›" : "‹"; LS.set("pc_d", c); };
+  const rz = $("rz");
+  rz.onpointerdown = e => { rz.setPointerCapture(e.pointerId); rz.classList.add("on"); };
+  rz.onpointermove = e => { if (!rz.classList.contains("on")) return; pw = Math.round(Math.max(290, Math.min(680, e.clientX - 16, innerWidth - 420))); root.style.setProperty("--pw", pw + "px"); };
+  rz.onpointerup = () => { rz.classList.remove("on"); LS.set("pw_d", pw); };
+}
+
+async function cargar(primera) {
+  try {
+    const d = await fetch("dist.json?t=" + Date.now()).then(r => r.json());
+    const alFinal = !S.d || S.hi === S.ult;
+    S.d = d;
+    const conDatos = d.horas.map((_, i) => ["ENEL", "CGE", "SAESA"].some(e => d.totales[e][i] != null));
+    S.h0 = conDatos.indexOf(true); S.ult = conDatos.lastIndexOf(true); if (S.h0 < 0) { S.h0 = S.ult = d.horas.length - 1; }
+    $("sl").min = S.h0; $("sl").max = S.ult;
+    const nH = conDatos.filter(Boolean).length, a = d.horas[S.h0];
+    $("hist").textContent = `desde ${horaCorta(S.h0)} (${nH} hora${nH === 1 ? "" : "s"} capturada${nH === 1 ? "" : "s"}).`;
+    if (primera) { S.hi = S.ult; inicia(); } else { if (alFinal) S.hi = S.ult; update(); }
+    $("estado").style.display = "none";
+  } catch (e) { console.error(e); $("estado").innerHTML = "Error cargando datos:<br><span style='color:#ff8a8a;font-size:11px'>" + (e && e.message ? e.message : e) + "</span>"; }
+}
+function inicia() {
+  panelRegulable();
+  MAP = L.map("map", { zoomControl: false, zoomSnap: 0.25, minZoom: 4 }); MAP.attributionControl.setPrefix(false); L.control.zoom({ position: "topright" }).addTo(MAP);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 11, attribution: "Tiles © Esri" }).addTo(MAP);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 11 }).addTo(MAP);
+  const regs = [...new Set(Object.values(S.d.comunas).map(c => c.r))].sort((a, b) => shortReg(a).localeCompare(shortReg(b), "es"));
+  $("fReg").innerHTML = `<option value="__all__">Todas las regiones</option>` + regs.map(r => `<option value="${r}">${shortReg(r)}</option>`).join("");
+  $("dl").innerHTML = Object.entries(S.d.comunas).sort((a, b) => a[1].n.localeCompare(b[1].n, "es")).map(([k, c]) => `<option value="${c.n}">${shortReg(c.r)}</option>`).join("");
+  zoomTo("rm"); update();
+  $("zoom").onclick = e => { const b = e.target.closest("button"); if (!b) return; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); zoomTo(b.dataset.z); };
+  $("sl").oninput = e => { stop(); setHour(e.target.value); };
+  $("now").onclick = () => { stop(); setHour(S.ult); };
+  $("playb").onclick = () => { if (S.timer) return stop(); if (S.hi >= S.ult) S.hi = S.h0; $("playb").innerHTML = "&#10074;&#10074; Pausar"; S.timer = setInterval(() => { if (S.hi >= S.ult) return stop(); setHour(S.hi + 1); }, 450); };
+  $("rng").onclick = e => { const b = e.target.closest("button"); if (!b) return; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); S.win = +b.dataset.h; evo(); };
+  $("fReg").onchange = e => irRegion(e.target.value);
+  $("chkAreas").onchange = () => mapa();
+  $("emps").onclick = e => { const b = e.target.closest(".emp"); if (!b) return; const k = b.dataset.e; S.sel.has(k) ? S.sel.delete(k) : S.sel.add(k); if (!S.sel.size) S.sel.add(k); update(); };
+  const buscar = txt => { const t = norm(txt); if (!t) { S.com = "__all__"; update(); return; }
+    const es = Object.entries(S.d.comunas), m = es.find(([k, c]) => norm(c.n) === t) || es.find(([k, c]) => norm(c.n).startsWith(t)) || es.find(([k, c]) => norm(c.n).includes(t));
+    if (m) focusCom(m[0]); else $("q").style.boxShadow = "0 0 0 3px rgba(214,40,40,.6)"; };
+  $("q").onchange = e => buscar(e.target.value); $("q").onkeydown = e => { if (e.key === "Enter") { buscar(e.target.value); e.target.blur(); } };
+  $("q").oninput = e => { e.target.style.boxShadow = ""; const v = norm(e.target.value); if (!v && S.com !== "__all__") { S.com = "__all__"; update(); } else if (Object.values(S.d.comunas).some(c => norm(c.n) === v)) buscar(e.target.value); };
+  $("topCom").onclick = e => { const r = e.target.closest("[data-k]"); if (r) focusCom(r.dataset.k); };
+  $("topAreas").onclick = e => { const r = e.target.closest("[data-a]"); if (!r) return; const a = S.d.areas[+r.dataset.a]; MAP.stop(); MAP.setView([a.lat, a.lon], 11, { animate: false }); MAP.panBy([-(padL() / 2), 0], { animate: false });
+    capaAreas.eachLayer(l => { if (l.areaIdx === +r.dataset.a) l.openPopup([a.lat, a.lon]); }); };
+}
+cargar(true);
+setInterval(() => cargar(false), 5 * 60 * 1000);
+</script>
+</body>
+</html>
