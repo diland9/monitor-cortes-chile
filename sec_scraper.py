@@ -131,12 +131,14 @@ def actualizar():
         time.sleep(0.15)
 
     horas = set(pendientes["hkey"])
-    def unir(hist, nuevas):
+    def unir(hist, nuevas, orden):
+        # orden determinista: si no, el CSV se reordena en cada corrida y git lo ve como cambio total
         base = hist[~hist["hora"].isin(horas)]
-        return pd.concat([base] + [n for n in nuevas if len(n)], ignore_index=True).sort_values("hora")
-    nac = unir(nac, [pd.DataFrame(nuevas_nac)])
-    reg = unir(reg, nuevas_reg)
-    com = unir(com, nuevas_com)
+        todo = pd.concat([base] + [n for n in nuevas if len(n)], ignore_index=True)
+        return todo.sort_values(orden, kind="mergesort").reset_index(drop=True)
+    nac = unir(nac, [pd.DataFrame(nuevas_nac)], ["hora"])
+    reg = unir(reg, nuevas_reg, ["hora", "region"])
+    com = unir(com, nuevas_com, ["hora", "region", "comuna"])
 
     DATA.mkdir(exist_ok=True)
     nac.to_csv(DATA / "nacional.csv", index=False, encoding="utf-8-sig")
