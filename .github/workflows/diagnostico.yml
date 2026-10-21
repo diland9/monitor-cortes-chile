@@ -1,0 +1,25 @@
+name: Diagnostico fuentes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probar cada fuente desde GitHub
+        run: |
+          probar() {
+            printf '%-12s ' "$1"
+            curl -s -o /dev/null -m 20 -A "Mozilla/5.0" ${3:+-X POST -d ""} -w 'HTTP %{http_code}  %{time_total}s\n' "$2" || echo "FALLO (timeout/conexion)"
+          }
+          probar sec_api    https://apps.sec.cl/INTONLINEv1/ClientesAfectados/GetHoraServer post
+          probar sec_web    "https://www.sec.cl/interrupciones-en-linea/"
+          probar enel       https://mapaemergencia.enel.com/galeria/documento/me-capa-estado.txt
+          probar cge        https://mapa-afectaciones.grupocge.cl/afectaciones/mapa_cge.kmz
+          probar saesa      https://mfallas.saesa.cl/outage.kml
+          probar chilquinta https://www.chilquinta.cl/interrupciones
+          probar google     https://www.google.com
+          probar cne        https://www.cne.cl
+          echo "IP saliente: $(curl -s -m 10 https://api.ipify.org)"
