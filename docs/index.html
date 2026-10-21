@@ -17,6 +17,13 @@
   body{font:13.5px/1.45 var(--bd);color:var(--tx);background:var(--bg);display:flex;flex-direction:column}
   h1,h2,h3{font-family:var(--hd)}
   a{color:inherit}
+  .tg{display:inline-block;font:700 9px var(--bd);letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:2px 6px;vertical-align:middle;margin-left:6px;white-space:nowrap}
+  .tg.of{background:#e3f4ea;color:#15803d}
+  .tg.es{background:#fff3c4;color:#7a5600;border:1px dashed #b07d00}
+  .pers{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+  .pers b{display:block;font:800 24px/1.1 var(--hd);color:var(--n7);margin-top:3px}.pers small{display:block;color:var(--mu);font-size:11px;margin-top:2px}
+  .pp .sec{font:700 9.5px var(--bd);letter-spacing:.07em;text-transform:uppercase;padding:7px 0 2px;display:flex;align-items:center;justify-content:space-between;color:var(--mu)}
+  .lgd .nt{margin-top:9px;font-size:10.5px;color:var(--mu);line-height:1.5}
   .lbl{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--mu)}
 
   /* ---------- barra superior ---------- */
@@ -180,14 +187,15 @@
     <div id="sheetHandle" onclick="toggleSheet()" style="cursor:pointer">
       <div class="handle-bar"></div>
       <div class="card kpi">
-        <div class="lbl">Clientes sin suministro</div>
+        <div class="lbl">Clientes sin suministro<span class="tg of">Dato oficial SEC</span></div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px"><span class="big" id="total">-</span><span class="chip" id="pct">-</span></div>
+        <div class="pers"><div class="lbl">Personas sin suministro<span class="tg es">Estimado</span></div><b id="persK">≈ -</b><small>clientes × personas por cliente (Censo 2024)</small></div>
         <div class="upx"><i></i><div><div class="lbl">Hora de actualización</div><b id="upL">-</b><small id="upD"></small><small id="kh" style="color:#b07d00"></small></div></div>
       </div>
     </div>
     <div id="sheetBody" style="display:flex;flex-direction:column;gap:12px">
       <section class="card adj" data-id="evo">
-        <h3><span>Evolución nacional</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <h3><span>Evolución nacional <span class="tg of">Clientes · oficial SEC</span></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
         <div class="cb">
           <div class="rngs" id="rng" style="margin-bottom:8px"><button data-h="24">24h</button><button data-h="48">48h</button><button data-h="72">72h</button><button data-h="168" class="on">7 días</button></div>
           <div class="cv"><canvas id="evo"></canvas></div>
@@ -199,11 +207,11 @@
         <div class="cb"><div class="cv" id="dnw" style="height:300px"><canvas id="dn"></canvas></div></div>
       </section>
       <section class="card adj" data-id="pct">
-        <h3><span>Comunas más afectadas en % <small>% de clientes · mín. 20</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <h3><span>Comunas más afectadas en % de clientes <span class="tg es">Estimado</span><small>mín. 20 clientes</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
         <div class="cb" id="topPct"></div>
       </section>
       <section class="card adj" data-id="cli">
-        <h3><span>Comunas más afectadas en clientes <small>clientes · %</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <h3><span>Comunas más afectadas en clientes <span class="tg of">Oficial SEC</span></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
         <div class="cb" id="topCli"></div>
       </section>
       <section class="card adj au" data-id="autor">
@@ -217,6 +225,7 @@
       <section class="card adj" data-id="met">
         <h3><span>Cómo se calculan las estimaciones</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
         <div class="cb"><details open><summary>Ver detalle</summary>
+          <p><span class="tg of" style="margin:0">Dato oficial</span> lo publica la SEC (clientes sin suministro por comuna y hora) o el INE (población). <span class="tg es" style="margin:0">Estimado</span> lo calculamos aquí: clientes totales por comuna, % de clientes y personas sin suministro.</p>
           <p><b>Clientes sin suministro:</b> dato oficial de la SEC por comuna y hora.</p>
           <p><b>Clientes totales de la comuna (est.)</b> = viviendas ocupadas del Censo 2024 (INE) × <span id="mk">k</span>, para que la suma de todas las comunas coincida con los clientes del país que informa la SEC.</p>
           <p><b>% de clientes</b> = clientes sin suministro ÷ clientes totales (est.).</p>
@@ -240,10 +249,11 @@
 
   <div class="card lgd">
     <h3>Leyenda</h3>
-    <div class="seg" id="seg" style="width:100%"><button data-m="per" class="on" style="flex:1.2">Personas (est.)</button><button data-m="pct" style="flex:1">% clientes</button><button data-m="cli" style="flex:1">Clientes</button></div>
+    <div class="seg" id="seg" style="width:100%"><button data-m="per" class="on" style="flex:1.2" title="Estimado con el Censo 2024">Personas (est.)</button><button data-m="pct" style="flex:1" title="Estimado: clientes sin suministro ÷ clientes totales (est.)">% (est.)</button><button data-m="cli" style="flex:1" title="Dato oficial de la SEC">Clientes (SEC)</button></div>
     <div class="lbl" style="margin-top:12px" id="lgt"></div>
     <div class="sw" id="sw"></div>
     <div class="lb" id="lb"></div>
+    <div class="nt"><span class="tg of" style="margin:0">Oficial SEC</span> clientes sin suministro<br><span class="tg es" style="margin:0">Estimado</span> personas y %, calculados con el Censo 2024</div>
     <div class="st"><span class="lbl">Comunas con cortes</span><br><b id="nAct">-</b> <span style="color:var(--mu);font-size:12px" id="nTot"></span></div>
   </div>
 </main>
@@ -254,7 +264,9 @@ const LS = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); re
 
 // colores de verde (bueno) a rojo (malo): el índice 0 = más afectadas
 const CLS = ["#d62828", "#f77f00", "#f5c518", "#2a9d5c"], RAD = [15, 12, 9, 7];
-const NOMB = { pct: "% de clientes sin suministro", cli: "Clientes sin suministro", per: "Personas sin suministro (est.)" };
+const NOMB = { pct: "% de clientes sin suministro", cli: "Clientes sin suministro", per: "Personas sin suministro" };
+const TAG = { pct: '<span class="tg es">Estimado</span>', cli: '<span class="tg of">Dato oficial SEC</span>', per: '<span class="tg es">Estimado</span>' };
+const UNIT = { pct: " de clientes (est.)", cli: " clientes (SEC)", per: " personas (est.)" };
 const ZOOMS = { chile: [[-56, -76], [-17.5, -66]], norte: [[-30.5, -72], [-17.5, -66.5]], centro: [[-37.6, -73.6], [-32, -69.5]], sur: [[-47, -76], [-37.4, -70.5]] };
 const miles = x => Math.round(Number(x)).toLocaleString("es-CL");
 const fpct = v => (v >= 10 ? v.toFixed(0) : v >= 1 ? v.toFixed(1) : v.toFixed(2)).replace(".", ",") + "%";
@@ -291,6 +303,7 @@ function panel() {
   const h = S.hi, d = S.d, tot = S.totH[h], fl = fechaLarga(d.actualizado);
   $("total").textContent = miles(tot);
   $("pct").textContent = fpct(tot / d.total_pais * 100) + " del país";
+  $("persK").textContent = "≈ " + miles(S.perH[h]);
   $("upL").textContent = fl.dia.charAt(0).toUpperCase() + fl.dia.slice(1) + " · " + fl.hora + " hrs";
   $("upD").textContent = "Datos de la SEC de las " + String(d.hora_datos).slice(-5) + " hrs (hora de Chile)";
   $("kh").textContent = h === d.horas.length - 1 ? "" : "Mostrando: " + horaLabel(h);
@@ -309,9 +322,9 @@ function tops() {
   const lp = vis.filter(c => c.a[h] >= 20).map(c => ({ c, v: F.pct(c, h) })).sort((x, y) => y.v - x.v).slice(0, 10);
   const lc = vis.filter(c => c.a[h] > 0).map(c => ({ c, v: c.a[h] })).sort((x, y) => y.v - x.v).slice(0, 10);
   const mP = lp.length ? lp[0].v : 1, mC = lc.length ? lc[0].v : 1;
-  $("topPct").innerHTML = lp.length ? lp.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bP)], c.n, fpct(v), miles(c.a[h]) + " clientes", v / mP * 100, "c:" + c.cut)).join("")
+  $("topPct").innerHTML = lp.length ? lp.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bP)], c.n, fpct(v) + " (est.)", miles(c.a[h]) + " clientes (SEC)", v / mP * 100, "c:" + c.cut)).join("")
     : '<span style="color:var(--mu)">Sin comunas sobre el umbral</span>';
-  $("topCli").innerHTML = lc.length ? lc.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bC)], c.n, miles(v), fpct(F.pct(c, h)) + " de sus clientes", v / mC * 100, "c:" + c.cut)).join("")
+  $("topCli").innerHTML = lc.length ? lc.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bC)], c.n, miles(v), fpct(F.pct(c, h)) + " de sus clientes (est.)", v / mC * 100, "c:" + c.cut)).join("")
     : '<span style="color:var(--mu)">Sin cortes</span>';
 }
 
@@ -320,14 +333,14 @@ function regChart() {
   const h = S.hi, m = S.metric, R = {};
   for (const c of S.d.comunas) { const r = (R[c.r] ||= { k: c.r, a: 0, cli: 0, per: 0 }); r.a += c.a[h]; r.cli += c.cli; r.per += F.per(c, h); }
   const arr = Object.values(R).map(r => ({ ...r, v: m === "pct" ? r.a / r.cli * 100 : m === "per" ? r.per : r.a })).filter(r => r.v > 0).sort((x, y) => y.v - x.v).slice(0, 10);
-  S.regList = arr; $("regT").textContent = "· " + NOMB[m].toLowerCase();
+  S.regList = arr; $("regT").innerHTML = "· " + NOMB[m].toLowerCase() + TAG[m];
   $("dnw").style.height = Math.max(70, arr.length * 28 + 16) + "px";
   if (S.don) S.don.destroy();
   S.don = new Chart($("dn"), { type: "bar",
     data: { labels: arr.map(r => shortReg(r.k)), datasets: [{ data: arr.map(r => r.v), backgroundColor: arr.map((r, i) => rankCol(i, arr.length)), borderColor: "#001d3d", borderWidth: 1, borderRadius: 4, barThickness: 17 }] },
     options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { right: 62 } },
       plugins: { legend: { display: false }, tooltip: { backgroundColor: "#001d3d", callbacks: { title: it => it[0].label,
-        label: it => { const r = arr[it.dataIndex]; return [`${miles(r.a)} clientes (${fpct(r.a / r.cli * 100)} de sus clientes)`, `≈ ${miles(r.per)} personas (est.)`]; } } } },
+        label: it => { const r = arr[it.dataIndex]; return [`${miles(r.a)} clientes sin suministro (oficial SEC)`, `${fpct(r.a / r.cli * 100)} de sus clientes (est.)`, `≈ ${miles(r.per)} personas (est.)`]; } } } },
       onClick: (e, els) => { if (els.length) irRegion(arr[els[0].index].k); },
       scales: { x: { display: false, beginAtZero: true }, y: { grid: { display: false }, border: { display: false }, ticks: { color: "#0b2545", font: { size: 11.5, weight: "500" }, autoSkip: false } } } },
     plugins: [{ id: "vl", afterDatasetsDraw(ch) { const { ctx } = ch; ctx.save(); ctx.fillStyle = "#0b2545"; ctx.font = "700 11.5px Inter,sans-serif"; ctx.textBaseline = "middle";
@@ -346,21 +359,29 @@ function popup(c) {
   const pk = Math.max(...c.a), pkI = c.a.indexOf(pk), ch = c.a.reduce((s, x) => s + x, 0);
   const rank = a > 0 ? S.d.comunas.filter(x => x.a[h] > 0 && F.pct(x, h) > pct).length + 1 : null, nAct = S.d.comunas.filter(x => x.a[h] > 0).length;
   return `<div class="pp"><div class="hh"><b>${c.n}</b><span>${shortReg(c.r)} · ${horaLabel(h)}</span></div><div class="bd">
-    <div class="kk"><div><big>${miles(a)}</big><small>clientes sin suministro</small></div><div><big class="p">${fpct(pct)}</big><small>de los clientes de la comuna</small></div></div>
+    <div class="kk">
+      <div><big>${miles(a)}</big><small>clientes sin suministro<span class="tg of">Oficial SEC</span></small></div>
+      <div><big class="p">≈ ${miles(per)}</big><small>personas sin suministro<span class="tg es">Estimado</span></small></div>
+    </div>
     <div class="bar"><i style="width:${Math.min(pct, 100)}%;background:${a > 0 ? CLS[k] : "#cbd5e1"}"></i></div>
-    <table><tr><td>Clientes totales (est.)</td><td>${miles(c.cli)}</td></tr>
-      <tr><td>Personas sin suministro (est.)</td><td>${miles(per)}</td></tr>
-      <tr><td>Población (Censo 2024)</td><td>${miles(c.pob)}</td></tr>
+    <div style="font-size:11px;color:var(--mu);margin:-2px 0 2px"><b style="color:var(--tx)">${fpct(pct)}</b> de los clientes de la comuna<span class="tg es">Estimado</span></div>
+    <div class="sec"><span>Dato oficial (SEC)</span></div>
+    <table><tr><td>Clientes sin suministro</td><td>${miles(a)}</td></tr>
       <tr><td>Máximo en 7 días</td><td>${miles(pk)} · ${horaCorta(pkI)}</td></tr>
-      <tr><td>Cliente-horas (7 días)</td><td>${miles(ch)}</td></tr>
+      <tr><td>Cliente-horas (7 días)</td><td>${miles(ch)}</td></tr></table>
+    <div class="sec"><span>Estimado con el Censo 2024</span></div>
+    <table><tr><td>Clientes totales de la comuna</td><td>≈ ${miles(c.cli)}</td></tr>
+      <tr><td>% de clientes sin suministro</td><td>${fpct(pct)}</td></tr>
+      <tr><td>Personas sin suministro</td><td>≈ ${miles(per)}</td></tr>
+      <tr><td>Población (Censo 2024, INE)</td><td>${miles(c.pob)}</td></tr>
       ${rank ? `<tr><td>Puesto por % (esta hora)</td><td>${rank} de ${nAct} comunas</td></tr>` : ""}</table>
-    <div class="sp">${spark(c, h)}<small>Clientes sin suministro, últimos 7 días (ámbar = hora mostrada)</small></div></div></div>`;
+    <div class="sp">${spark(c, h)}<small>Clientes sin suministro (oficial SEC), últimos 7 días · ámbar = hora mostrada</small></div></div></div>`;
 }
 
 // ---------- mapa ----------
 const padL = () => (document.body.classList.contains("pc") || innerWidth <= 900) ? 20 : (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pw")) || 372) + 50;
 function leyenda(m, b, hay, nAct) {
-  $("lgt").textContent = NOMB[m];
+  $("lgt").innerHTML = NOMB[m] + TAG[m];
   $("sw").innerHTML = CLS.slice().reverse().map(c => `<i style="background:${c}"></i>`).join("");
   const f = FMT[m];
   $("lb").innerHTML = hay ? `<span>&lt; ${f(b[2])}</span><span>${f(b[2])}</span><span>${f(b[1])}</span><span>&ge; ${f(b[0])}</span>` : "<span>Sin cortes en esta hora</span>";
@@ -377,8 +398,8 @@ function mapa() {
   cs.map(c => ({ c, v: F[m](c, h) })).sort((x, y) => y.v - x.v).forEach(({ c, v }) => {
     const k = cls(v, b);
     const mk = L.circleMarker([c.lat, c.lon], { radius: RAD[k], fillColor: CLS[k], color: "#001d3d", weight: 1.2, fillOpacity: .9 });
-    mk.bindPopup(() => popup(c), { maxWidth: 310, minWidth: 0, autoPanPaddingTopLeft: pad, autoPanPaddingBottomRight: [20, 20] });
-    mk.bindTooltip(`${c.n}: ${FMT[m](v)}`, { sticky: true }); mk.cut = c.cut; capa.addLayer(mk);
+    mk.bindPopup(() => popup(c), { maxWidth: 310, minWidth: 0, autoPanPaddingTopLeft: pad, autoPanPaddingBottomRight: innerWidth > 900 ? [300, 70] : [20, 20] });
+    mk.bindTooltip(`${c.n}: ${m === "per" ? "≈ " : ""}${FMT[m](v)}${UNIT[m]}`, { sticky: true }); mk.cut = c.cut; capa.addLayer(mk);
   });
   if (S.com !== "__all__" && S.byCut[S.com] && S.byCut[S.com].a[h] <= 0) {     // comuna buscada sin cortes: marca neutra
     const c = S.byCut[S.com], mk = L.circleMarker([c.lat, c.lon], { radius: 7, fillColor: CLS[3], color: "#001d3d", weight: 1.2, fillOpacity: .5 });
@@ -396,7 +417,7 @@ function evo() {
   S.chart = new Chart($("evo"), { type: "bar",
     data: { labels, datasets: [{ data, backgroundColor: data.map((_, i) => start + i === S.hi ? "#ffc300" : "#003566"), borderWidth: 0, borderRadius: 2, barPercentage: 1, categoryPercentage: 0.9 }] },
     options: { responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: "index", intersect: false },
-      plugins: { legend: { display: false }, tooltip: { backgroundColor: "#001d3d", callbacks: { title: it => it.length ? it[0].label : "", label: it => miles(it.parsed.y) + " sin suministro",
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: "#001d3d", callbacks: { title: it => it.length ? it[0].label : "", label: it => miles(it.parsed.y) + " clientes sin suministro (oficial SEC)",
         afterLabel: it => "≈ " + miles(S.perH[S.start + it.dataIndex]) + " personas (est.) · " + fpct(it.parsed.y / S.d.total_pais * 100) + " del país" } } },
       onClick: (e, els, ch) => { const p = ch.getElementsAtEventForMode(e, "index", { intersect: false }, true); if (p.length) { stop(); setHour(S.start + p[0].index); } },
       scales: { x: { ticks: { color: "#64748b", maxTicksLimit: 5, font: { size: 9.5 }, maxRotation: 0 }, grid: { display: false }, border: { display: false } },
@@ -432,8 +453,14 @@ function buscar(txt) {
 function abrePopup(cut) {
   MAP.stop(); const c = S.byCut[cut]; if (!c) return;
   MAP.setView([c.lat, c.lon], 10, { animate: false });
-  MAP.panBy(innerWidth > 900 ? [-(padL() / 2), -150] : [0, -60], { animate: false });     // esfera a la derecha del panel y con espacio arriba para el popup
-  capa.eachLayer(l => { if (l.cut === +cut) l.openPopup(); });
+  if (innerWidth > 900) MAP.panBy([-(padL() / 2), 0], { animate: false });          // centra la esfera en el área libre, a la derecha del panel
+  capa.eachLayer(l => { if (l.cut !== +cut) return; l.openPopup();
+    requestAnimationFrame(() => {                                                     // asegura que el popup completo quede dentro del mapa
+      const pp = l.getPopup(), el = pp && pp.getElement(); if (!el) return;
+      const p = MAP.latLngToContainerPoint(l.getLatLng()), left = innerWidth > 900 ? padL() : 12;
+      const dy = Math.min(0, p.y - el.offsetHeight - 58), dx = Math.min(0, p.x - el.offsetWidth / 2 - left);
+      if (dx || dy) MAP.panBy([dx, dy], { animate: false });
+    }); });
 }
 function irRegion(r) {
   S.reg = r; S.com = "__all__"; $("fReg").value = r; $("q").value = ""; sugerencias(); update();
