@@ -1,9 +1,9 @@
 name: Snapshot cortes SEC
 
 on:
-  schedule:
-    - cron: "5 * * * *"      # cada hora, minuto 5 (UTC). GitHub puede retrasar corridas.
-  workflow_dispatch:          # ejecucion manual desde la pestana Actions
+  # apps.sec.cl bloquea las IPs de GitHub (verificado con diagnostico.yml): este
+  # workflow queda solo manual. La SEC se captura desde un equipo local.
+  workflow_dispatch:
 
 concurrency:
   group: sec-scraper
