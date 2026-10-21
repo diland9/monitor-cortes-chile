@@ -10,66 +10,85 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root{--n9:#000814;--n8:#001d3d;--n7:#003566;--am:#ffc300;--ye:#ffd60a;--bg:#eef2f7;--card:#fff;--line:#e2e8f0;--tx:#0b2545;--mu:#64748b;--ok:#15803d;--bad:#c0392b;
+  :root{--n9:#000814;--n8:#001d3d;--n7:#003566;--am:#ffc300;--ye:#ffd60a;--bg:#eef2f7;--card:#fff;--line:#e2e8f0;--tx:#0b2545;--mu:#64748b;--ok:#15803d;--bad:#c0392b;--pw:372px;
         --hd:"Bricolage Grotesque",Inter,system-ui,sans-serif;--bd:Inter,system-ui,sans-serif}
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;overflow:hidden}
   body{font:13.5px/1.45 var(--bd);color:var(--tx);background:var(--bg);display:flex;flex-direction:column}
-  h1,h2,h3,.hd{font-family:var(--hd)}
+  h1,h2,h3{font-family:var(--hd)}
+  a{color:inherit}
   .lbl{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--mu)}
 
   /* ---------- barra superior ---------- */
-  .top{height:58px;flex:0 0 auto;background:var(--n8);color:#fff;display:flex;align-items:center;gap:14px;padding:0 16px;position:relative;z-index:800}
+  .top{height:58px;flex:0 0 auto;background:var(--n8);color:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;position:relative;z-index:800}
   .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:0 0 auto}
   .logo{width:34px;height:34px;border-radius:10px;background:var(--am);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
   .logo svg{width:19px;height:19px;fill:var(--n8)}
   .brand h1{margin:0;font-size:17px;font-weight:700;line-height:1.1;white-space:nowrap}
-  .brand .lbl{color:#9fb4cf;display:block;margin-top:2px}
-  .tag{background:var(--am);color:var(--n8);font-weight:700;font-size:10px;letter-spacing:.09em;text-transform:uppercase;border-radius:6px;padding:5px 10px;white-space:nowrap}
-  .tops{margin-left:auto;display:flex;align-items:center;gap:10px}
-  .top select{background:#fff;color:var(--tx);border:0;border-radius:999px;padding:7px 28px 7px 12px;font:500 12.5px var(--bd);max-width:190px;cursor:pointer}
-  .upd{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 12px;font-size:12px;white-space:nowrap}
-  .upd i{width:8px;height:8px;border-radius:50%;background:#ff5a5f;animation:pulso 1.4s infinite}
+  .brand a.h{display:block;margin-top:2px;color:var(--am);text-decoration:none;font-weight:600;letter-spacing:.04em;text-transform:none;font-size:12px}
+  .hl{color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 13px;white-space:nowrap}
+  .hl:hover{border-color:var(--am);color:var(--am)}
+  .tops{margin-left:auto;display:flex;align-items:center;gap:10px;min-width:0}
+  .sr{position:relative;display:flex;align-items:center}
+  .sr svg{position:absolute;left:11px;width:15px;height:15px;fill:none;stroke:#64748b;stroke-width:2;stroke-linecap:round}
+  .sr input{width:210px;background:#fff;color:var(--tx);border:0;border-radius:999px;padding:8px 14px 8px 33px;font:500 12.5px var(--bd);outline:0}
+  .sr input:focus{box-shadow:0 0 0 3px rgba(255,195,0,.55)}
+  .top select{background:#fff;color:var(--tx);border:0;border-radius:999px;padding:8px 28px 8px 12px;font:500 12.5px var(--bd);max-width:170px;cursor:pointer}
+  .upd{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:4px 12px;font-size:11.5px;line-height:1.25;white-space:nowrap}
+  .upd i{width:8px;height:8px;border-radius:50%;background:#ff5a5f;animation:pulso 1.4s infinite;flex:0 0 auto}
+  .upd b{display:block;font-weight:600}.upd span{color:#9fb4cf}
   @keyframes pulso{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}100%{opacity:1;transform:scale(1)}}
-  .soc{display:flex;gap:6px}
-  .sb{width:32px;height:32px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
-  .sb svg{width:17px;height:17px}.sb:hover{transform:translateY(-1px)}
-  .ig{background:linear-gradient(45deg,#f09433,#dc2743 50%,#bc1888);color:#fff}.tt{background:#010101;color:#fff;border:1px solid #25f4ee}
+  .cafe{display:inline-flex;align-items:center;gap:8px;background:#009ee3;color:#fff;text-decoration:none;font-weight:600;font-size:12.5px;border-radius:999px;padding:6px 14px 6px 10px;white-space:nowrap;box-shadow:0 6px 16px -8px rgba(0,158,227,.9)}
+  .cafe:hover{background:#0b8fcc}.cafe img{width:22px;height:22px;filter:invert(1)}
 
   /* ---------- mapa y paneles flotantes ---------- */
   main{position:relative;flex:1;min-height:0}
   #map{position:absolute;inset:0;z-index:0;background:#e6ebf2}
-  .left{position:absolute;z-index:500;left:14px;top:14px;bottom:14px;width:372px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:2px 4px 2px 2px;scrollbar-width:thin}
+  .left{position:absolute;z-index:500;left:14px;top:14px;bottom:14px;width:var(--pw);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:2px 6px 2px 2px;scrollbar-width:thin;transition:transform .25s ease}
+  .pc .left{transform:translateX(calc(-100% - 24px))}
+  .rz{position:absolute;z-index:501;left:calc(var(--pw) + 18px);top:14px;bottom:14px;width:12px;cursor:col-resize;touch-action:none}
+  .rz::after{content:"";position:absolute;left:4px;top:50%;width:4px;height:46px;margin-top:-23px;border-radius:3px;background:rgba(0,29,61,.35)}
+  .rz:hover::after,.rz.on::after{background:var(--am)}
+  .pc .rz{display:none}
+  .pt{position:absolute;z-index:502;left:calc(var(--pw) + 22px);top:22px;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--n8);font:700 14px/1 var(--bd);cursor:pointer;box-shadow:0 4px 12px rgba(0,29,61,.2)}
+  .pt:hover{background:var(--am)}.pc .pt{left:14px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 6px 20px rgba(0,29,61,.10);padding:14px 16px}
   .card h3{margin:0 0 10px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .card h3 small{font:500 11px var(--bd);color:var(--mu)}
-  .kpi .big{font:800 38px/1 var(--hd);letter-spacing:-.02em;color:var(--n8)}
-  .kpi .row{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
-  .chip{font-size:11.5px;font-weight:600;border-radius:999px;padding:2px 9px}
-  .chip.up{background:#fdeaea;color:var(--bad)}.chip.dn{background:#e6f6ec;color:var(--ok)}.chip.eq{background:#eef2f7;color:var(--mu)}
-  .kpi .pp2{display:flex;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
-  .kpi .pp2 b{display:block;font:700 18px var(--hd);color:var(--n7)}
-  .mini{display:flex;align-items:flex-end;gap:2px;height:34px;margin-top:10px}
-  .mini i{flex:1;background:var(--n7);border-radius:2px 2px 0 0;min-height:2px}.mini i.sel{background:var(--am)}
+  .card h3 small{font:500 11px var(--bd);color:var(--mu);margin-left:6px}
+  .card.col h3{margin-bottom:0}.card.col .cb{display:none}
+  .ctr{display:inline-flex;gap:3px;flex:0 0 auto}
+  .ctr button{width:22px;height:22px;border:1px solid var(--line);background:#fff;color:var(--mu);border-radius:6px;font:600 11px/1 var(--bd);cursor:pointer;padding:0}
+  .ctr button:hover{background:var(--am);color:var(--n8);border-color:var(--am)}
+  .kpi .big{font:800 42px/1 var(--hd);letter-spacing:-.02em;color:var(--n8)}
+  .chip{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;background:#fff3c4;color:#7a5600}
+  .upx{display:flex;gap:10px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+  .upx i{width:9px;height:9px;margin-top:5px;border-radius:50%;background:#ff5a5f;animation:pulso 1.4s infinite;flex:0 0 auto}
+  .upx b{display:block;font:700 14.5px/1.25 var(--hd);color:var(--n8)}
+  .upx small{display:block;color:var(--mu);font-size:11.5px;margin-top:2px}
   .rngs{display:flex;gap:4px}
   .rngs button,.seg button,.btn{border:1px solid var(--line);background:#fff;color:var(--tx);font:600 11px var(--bd);border-radius:8px;padding:4px 9px;cursor:pointer}
   .rngs button.on,.seg button.on{background:var(--am);border-color:var(--am);color:var(--n8)}
   .btn:hover,.rngs button:hover,.seg button:hover{border-color:var(--n7)}
   .btn.pri{background:var(--am);border-color:var(--am);color:var(--n8);letter-spacing:.04em;text-transform:uppercase}
   .btn.dark{background:var(--n8);border-color:var(--n8);color:#fff}
-  .seg{display:inline-flex;gap:0;background:#eef2f7;border-radius:9px;padding:3px}
+  .seg{display:inline-flex;background:#eef2f7;border-radius:9px;padding:3px}
   .seg button{border:0;background:transparent;border-radius:7px;white-space:nowrap}.seg button.on{box-shadow:0 1px 3px rgba(0,0,0,.15)}
-  .cv{position:relative;height:150px}.cv.dn{height:178px}
-  .dlg{display:grid;gap:5px;margin-top:8px}
+  .cv{position:relative;height:150px}
   .rk{display:grid;grid-template-columns:16px 10px 1fr auto;gap:8px;align-items:center;cursor:pointer;padding:4px 0;border-bottom:1px dashed var(--line)}
   .rk:last-child{border-bottom:0}.rk:hover .nm{color:var(--n7);text-decoration:underline}
   .rk .i{color:var(--mu);font-size:11px;text-align:right}.rk .d{width:10px;height:10px;border-radius:50%;border:1px solid var(--n8)}
   .rk .nm{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .rk .b{height:4px;border-radius:2px;background:#eef2f7;margin-top:3px}.rk .b i{display:block;height:100%;border-radius:2px;background:var(--n7)}
   .rk .v{text-align:right;line-height:1.2;font-variant-numeric:tabular-nums}.rk .v b{font-weight:700}.rk .v small{display:block;color:var(--mu);font-size:10.5px}
-  details summary{cursor:pointer;font:700 15px var(--hd)}details p{margin:8px 0 0;color:var(--mu);font-size:12px}details b{color:var(--tx)}
+  details summary{cursor:pointer;font:700 13px var(--bd)}details p{margin:8px 0 0;color:var(--mu);font-size:12px}details b{color:var(--tx)}
+  .au a.lk{color:var(--n7);font-weight:600;text-decoration:none}.au a.lk:hover{text-decoration:underline}
+  .mpb{display:flex;align-items:center;gap:12px;margin-top:12px;background:#009ee3;color:#fff;text-decoration:none;border-radius:12px;padding:11px 14px;box-shadow:0 12px 26px -12px rgba(0,158,227,.9)}
+  .mpb:hover{background:#0b8fcc}.mpb img{width:30px;height:30px;filter:invert(1);flex:0 0 auto}
+  .mpb span{display:flex;flex-direction:column;line-height:1.2;flex:1}.mpb b{font:700 14px var(--hd)}.mpb small{font-size:11px;opacity:.92}
+  .mpb i{font-style:normal;font-size:18px}
 
-  .ctl{position:absolute;z-index:500;left:402px;right:300px;bottom:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:9px 12px}
+  .ctl{position:absolute;z-index:500;left:calc(var(--pw) + 52px);right:300px;bottom:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:9px 12px}
+  .pc .ctl{left:14px}
   .ctl input[type=range]{flex:1;min-width:110px;accent-color:var(--n7)}
   .ctl .hr{font-size:12px;color:var(--mu);min-width:112px;font-variant-numeric:tabular-nums}
   .lgd{position:absolute;z-index:500;right:14px;bottom:14px;width:274px}
@@ -82,7 +101,7 @@
   .leaflet-tooltip{background:var(--n8);color:#fff;border:0;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);font:500 12px var(--bd)}.leaflet-tooltip:before{display:none}
   .leaflet-popup-content-wrapper{background:transparent;box-shadow:none;padding:0}.leaflet-popup-content{margin:0;width:auto!important}
   .leaflet-popup-tip{background:#fff}.leaflet-container{font-family:var(--bd)}
-  .leaflet-container a.leaflet-popup-close-button{color:var(--mu);top:8px;right:10px}
+  .leaflet-container a.leaflet-popup-close-button{color:#9fb4cf;top:9px;right:11px}
 
   /* ---------- popup ---------- */
   .pp{width:304px;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,29,61,.28);overflow:hidden}
@@ -97,17 +116,17 @@
   .pp .sp{margin-top:8px;border-top:1px solid var(--line);padding-top:8px}.pp .sp small{font-size:10px;color:var(--mu)}
 
   /* ---------- movil: panel como hoja inferior ---------- */
-  .mob{display:none}
   .handle-bar{display:none;width:38px;height:4px;border-radius:2px;background:#cbd5e1;margin:0 auto 8px}
   @media (max-width:900px){
-    .tag,.upd,.brand>div:last-child{display:none}.top{gap:8px;padding:0 10px}.tops{margin-left:0;flex:1}.top select{flex:1;min-width:0;max-width:none;padding:6px 22px 6px 10px}.soc{display:none}.mob{display:block!important}
-    .left{position:fixed;left:0;right:0;bottom:0;top:auto;width:auto;max-height:74dvh;border-radius:18px 18px 0 0;background:var(--bg);padding:10px 10px 12px;z-index:900;
-          transform:translateY(calc(100% - 128px));transition:transform .32s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 24px rgba(0,29,61,.25)}
-    .left.abierto{transform:none}
-    .handle-bar{display:block}
-    .ctl{left:10px;right:10px;bottom:auto;top:10px}
-    .lgd{right:10px;bottom:140px;width:236px}.lgd h3{font-size:13px}.lgd .st{display:none}.lgd .seg button{padding:4px 5px;font-size:10px}
-    .left .kpi .big{font-size:30px}
+    .hl,.upd,.cafe,.brand>div:last-child,.rz,.pt{display:none}.top{gap:8px;padding:0 10px}.tops{margin-left:0;flex:1}
+    .sr{flex:1.4;min-width:0}.sr input{width:100%}.top select{flex:1;min-width:0;max-width:none;padding:8px 22px 8px 10px}
+    .left{position:fixed;left:0;right:0;bottom:0;top:auto;width:auto;max-height:76dvh;border-radius:18px 18px 0 0;background:var(--bg);padding:10px 10px 12px;z-index:900;
+          transform:translateY(calc(100% - 178px));transition:transform .32s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 24px rgba(0,29,61,.25)}
+    .pc .left{transform:translateY(calc(100% - 178px))}.left.abierto,.pc .left.abierto{transform:none}
+    .handle-bar{display:block}.ctr{display:none}
+    .ctl{left:10px;right:10px;bottom:auto;top:10px}.pc .ctl{left:10px}
+    .lgd{right:10px;bottom:190px;width:236px}.lgd h3{font-size:13px}.lgd .st{display:none}.lgd .seg button{padding:4px 5px;font-size:10px}
+    .kpi .big{font-size:34px}
   }
   /* ---------- bienvenida ---------- */
   #bienvenida{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,8,20,.66);backdrop-filter:blur(6px);transition:opacity .4s}
@@ -116,8 +135,8 @@
   @keyframes bwIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
   .bw h2{margin:0;padding-right:28px;font-size:24px;line-height:1.15;font-weight:800}.bw h2 em{font-style:normal;color:var(--am)}
   .bw .x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.08);color:#cbd5e1;border:1px solid rgba(255,255,255,.18);cursor:pointer;font-size:16px}
-  .bw .au{display:flex;align-items:center;gap:12px;margin-top:16px}.bw .au p{margin:0}.bw .au .lbl{color:#9fb4cf}
   .bw .inf{margin-top:16px;border-top:1px solid rgba(255,255,255,.14);padding-top:12px;font-size:13px;color:#cbd5e1}.bw .inf b{color:#fff;font-weight:500}
+  .bw .inf a{color:var(--am);font-weight:600;text-decoration:none}
   .bw .pg{height:3px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:16px}
   .bw .pg i{display:block;height:100%;background:var(--am);transform-origin:left;animation:prog 5s linear forwards}@keyframes prog{from{transform:scaleX(1)}to{transform:scaleX(0)}}
   #estado{position:fixed;inset:0;z-index:2000;background:var(--n9);color:#9fb4cf;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
@@ -128,11 +147,11 @@
   <div class="bw">
     <button class="x" onclick="cerrarBienvenida()" aria-label="Cerrar">&times;</button>
     <h2>Monitor de <em>Clientes sin Luz</em></h2>
-    <div class="au">
-      <div style="flex:1"><p class="lbl">Autor</p><p style="font-weight:600">Diland Castro <span style="color:#9fb4cf;font-weight:400">@aprendecondiland</span></p></div>
-      <div class="soc" style="display:flex"><a class="sb ig" href="https://www.instagram.com/aprendecondiland/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-ico="ig"></a><a class="sb tt" href="https://www.tiktok.com/@aprendecondiland" target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-ico="tt"></a></div>
+    <div class="inf">
+      <p style="margin:0 0 6px"><span style="color:#9fb4cf">Autor:</span> <b>Diland Castro</b> · <a href="https://www.instagram.com/aprendecondiland/" target="_blank" rel="noopener noreferrer">@aprendecondiland</a> · <a href="https://dilandcastro.com" target="_blank" rel="noopener noreferrer">dilandcastro.com</a></p>
+      <p style="margin:0 0 6px"><span style="color:#9fb4cf">Fuente de datos:</span> <b>SEC (clientes sin suministro) y Censo 2024 del INE.</b></p>
+      <p style="margin:0"><span style="color:#9fb4cf">Actualización:</span> <b>cada 1 hora.</b></p>
     </div>
-    <div class="inf"><p style="margin:0 0 6px"><span style="color:#9fb4cf">Fuente de datos:</span> <b>SEC (clientes sin suministro) y Censo 2024 del INE.</b></p><p style="margin:0"><span style="color:#9fb4cf">Actualización:</span> <b>cada 1 hora.</b></p></div>
     <p style="margin:14px 0 0;font-size:11px;color:#7f93ad">Cargando visualizador... esta ventana se cerrará automáticamente.</p>
     <div class="pg"><i></i></div>
   </div>
@@ -142,53 +161,73 @@
 <header class="top">
   <div class="brand">
     <div class="logo"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div>
-    <div><h1>Monitor de Cortes de Luz</h1><span class="lbl">Fuente: SEC Chile</span></div>
+    <div><h1>Monitor de Cortes de Luz</h1><a class="h" href="https://www.instagram.com/aprendecondiland/" target="_blank" rel="noopener noreferrer">@aprendecondiland</a></div>
   </div>
-  <span class="tag">Fundador de @aprendecondiland</span>
+  <a class="hl" href="https://dilandcastro.com" target="_blank" rel="noopener noreferrer">dilandcastro.com ↗</a>
   <div class="tops">
+    <div class="sr"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" list="dl" type="search" placeholder="Buscar comuna…" autocomplete="off" aria-label="Buscar comuna"><datalist id="dl"></datalist></div>
     <select id="fReg" aria-label="Filtrar por región"></select>
-    <select id="fCom" aria-label="Filtrar por comuna"></select>
-    <div class="upd"><i></i><span class="l" style="color:#9fb4cf">Actualizado</span><b id="ts" style="font-weight:600"></b></div>
-    <div class="soc"><a class="sb ig" href="https://www.instagram.com/aprendecondiland/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-ico="ig"></a><a class="sb tt" href="https://www.tiktok.com/@aprendecondiland" target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-ico="tt"></a></div>
+    <div class="upd"><i></i><div><span>Actualizado</span><b id="tsH"></b></div></div>
+    <a class="cafe" href="https://link.mercadopago.cl/aprendecondiland" target="_blank" rel="noopener noreferrer"><img src="assets/mercadopago.svg" alt="" width="22" height="22">Invítame un café</a>
   </div>
 </header>
 
-<main>
+<main id="main">
   <div id="map"></div>
 
   <aside class="left" id="sheet">
     <div id="sheetHandle" onclick="toggleSheet()" style="cursor:pointer">
       <div class="handle-bar"></div>
       <div class="card kpi">
-        <div class="lbl">Clientes sin suministro <span id="kh" style="text-transform:none;letter-spacing:0"></span></div>
-        <div style="display:flex;align-items:baseline;gap:10px;margin-top:6px"><span class="big" id="total">-</span><span class="chip eq" id="delta"></span></div>
-        <div class="row"><span class="chip" style="background:#fff3c4;color:#7a5600" id="pct">-</span><span style="color:var(--mu);font-size:12px" id="pers"></span></div>
-        <div class="mini" id="mini"></div>
-        <div class="lbl mob" style="margin-top:8px">Actualizado <b id="ts2" style="color:var(--tx)"></b></div>
+        <div class="lbl">Clientes sin suministro</div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px"><span class="big" id="total">-</span><span class="chip" id="pct">-</span></div>
+        <div class="upx"><i></i><div><div class="lbl">Hora de actualización</div><b id="upL">-</b><small id="upD"></small><small id="kh" style="color:#b07d00"></small></div></div>
       </div>
     </div>
     <div id="sheetBody" style="display:flex;flex-direction:column;gap:12px">
-      <div class="card">
-        <h3>Evolución nacional <span class="rngs" id="rng"><button data-h="24">24h</button><button data-h="48">48h</button><button data-h="72">72h</button><button data-h="168" class="on">7 días</button></span></h3>
-        <div class="cv"><canvas id="evo"></canvas></div>
-        <div class="lbl" style="margin-top:6px;text-transform:none;letter-spacing:0;font-weight:400">Clic en una barra para verla en el mapa (ámbar = hora mostrada).</div>
-      </div>
-      <div class="card">
-        <h3>Por región <small>hora mostrada</small></h3>
-        <div class="cv dn"><canvas id="dn"></canvas></div>
-        <div class="dlg" id="topReg"></div>
-      </div>
-      <div class="card"><h3>Comunas más afectadas en % <small>% de clientes · mín. 20</small></h3><div id="topPct"></div></div>
-      <div class="card"><h3>Comunas más afectadas en clientes <small>clientes · %</small></h3><div id="topCli"></div></div>
-      <div class="card"><details><summary>Cómo se calculan las estimaciones</summary>
-        <p><b>Clientes sin suministro:</b> dato oficial de la SEC por comuna y hora.</p>
-        <p><b>Clientes totales de la comuna (est.)</b> = viviendas ocupadas del Censo 2024 (INE) × <span id="mk">k</span>, para que la suma de todas las comunas coincida con los clientes del país que informa la SEC.</p>
-        <p><b>% de clientes</b> = clientes sin suministro ÷ clientes totales (est.). Las esferas y colores del mapa usan este %.</p>
-        <p><b>Personas sin suministro (est.)</b> = clientes sin suministro × (población del Censo ÷ clientes totales).</p>
-        <p>Es una estimación: el cociente real clientes/viviendas varía entre ~0,9 y ~1,5 según la comuna, por lo que el error por comuna puede ser de ±20–30 %.</p>
-        <p>Colores: percentiles entre las comunas con cortes en la hora mostrada.</p></details></div>
+      <section class="card adj" data-id="evo">
+        <h3><span>Evolución nacional</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb">
+          <div class="rngs" id="rng" style="margin-bottom:8px"><button data-h="24">24h</button><button data-h="48">48h</button><button data-h="72">72h</button><button data-h="168" class="on">7 días</button></div>
+          <div class="cv"><canvas id="evo"></canvas></div>
+          <div class="lbl" style="margin-top:6px;text-transform:none;letter-spacing:0;font-weight:400">Clic en una barra para verla en el mapa (ámbar = hora mostrada).</div>
+        </div>
+      </section>
+      <section class="card adj" data-id="reg">
+        <h3><span>Por región <small id="regT"></small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb"><div class="cv" id="dnw" style="height:300px"><canvas id="dn"></canvas></div></div>
+      </section>
+      <section class="card adj" data-id="pct">
+        <h3><span>Comunas más afectadas en % <small>% de clientes · mín. 20</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb" id="topPct"></div>
+      </section>
+      <section class="card adj" data-id="cli">
+        <h3><span>Comunas más afectadas en clientes <small>clientes · %</small></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb" id="topCli"></div>
+      </section>
+      <section class="card adj au" data-id="autor">
+        <h3><span>Autor y apoyo</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb">
+          <div style="font-weight:600">Diland Castro <span style="color:var(--mu);font-weight:400">· Ingeniero eléctrico, MSc U. de Chile</span></div>
+          <div style="margin-top:4px"><a class="lk" href="https://www.instagram.com/aprendecondiland/" target="_blank" rel="noopener noreferrer">@aprendecondiland</a> · <a class="lk" href="https://www.tiktok.com/@aprendecondiland" target="_blank" rel="noopener noreferrer">TikTok</a> · <a class="lk" href="https://dilandcastro.com" target="_blank" rel="noopener noreferrer">dilandcastro.com</a></div>
+          <a class="mpb" href="https://link.mercadopago.cl/aprendecondiland" target="_blank" rel="noopener noreferrer"><img src="assets/mercadopago.svg" alt="" width="30" height="30"><span><b>Invítame un café</b><small>Sugerido $5.000 · con Mercado Pago</small></span><i>→</i></a>
+        </div>
+      </section>
+      <section class="card adj" data-id="met">
+        <h3><span>Cómo se calculan las estimaciones</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb"><details open><summary>Ver detalle</summary>
+          <p><b>Clientes sin suministro:</b> dato oficial de la SEC por comuna y hora.</p>
+          <p><b>Clientes totales de la comuna (est.)</b> = viviendas ocupadas del Censo 2024 (INE) × <span id="mk">k</span>, para que la suma de todas las comunas coincida con los clientes del país que informa la SEC.</p>
+          <p><b>% de clientes</b> = clientes sin suministro ÷ clientes totales (est.).</p>
+          <p><b>Personas sin suministro (est.)</b> = clientes sin suministro × (población del Censo ÷ clientes totales).</p>
+          <p>Es una estimación: el cociente real clientes/viviendas varía entre ~0,9 y ~1,5 según la comuna, por lo que el error por comuna puede ser de ±20–30 %.</p>
+          <p>Colores: verde = menos afectadas, rojo = más afectadas (percentiles entre las comunas con cortes en la hora mostrada).</p></details></div>
+      </section>
     </div>
   </aside>
+  <div class="rz" id="rz" title="Arrastra para ajustar el ancho del panel"></div>
+  <button class="pt" id="pt" title="Ocultar / mostrar panel" aria-label="Ocultar o mostrar panel">‹</button>
 
   <div class="card ctl">
     <button class="btn pri" id="playb">&#9654; Reproducir</button>
@@ -201,8 +240,8 @@
 
   <div class="card lgd">
     <h3>Leyenda</h3>
-    <div class="seg" id="seg" style="width:100%"><button data-m="pct" class="on" style="flex:1">% clientes</button><button data-m="cli" style="flex:1">Clientes</button><button data-m="per" style="flex:1">Personas</button></div>
-    <div class="lbl" style="margin-top:12px" id="lgt">% de clientes sin suministro</div>
+    <div class="seg" id="seg" style="width:100%"><button data-m="per" class="on" style="flex:1.2">Personas (est.)</button><button data-m="pct" style="flex:1">% clientes</button><button data-m="cli" style="flex:1">Clientes</button></div>
+    <div class="lbl" style="margin-top:12px" id="lgt"></div>
     <div class="sw" id="sw"></div>
     <div class="lb" id="lb"></div>
     <div class="st"><span class="lbl">Comunas con cortes</span><br><b id="nAct">-</b> <span style="color:var(--mu);font-size:12px" id="nTot"></span></div>
@@ -211,37 +250,35 @@
 
 <script>
 const REFRESCO_MIN = 5;     // minutos entre auto-actualizaciones de la vista (los datos nuevos llegan cada hora)
-const ICON = {
-  ig: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.44c-3.14 0-3.51.01-4.75.07-.9.04-1.39.19-1.71.32-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.13.32-.28.81-.32 1.71-.06 1.24-.07 1.61-.07 4.75s.01 3.51.07 4.75c.04.9.19 1.39.32 1.71.17.43.37.74.69 1.06.32.32.63.52 1.06.69.32.13.81.28 1.71.32 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c.9-.04 1.39-.19 1.71-.32.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.13-.32.28-.81.32-1.71.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.04-.9-.19-1.39-.32-1.71a2.85 2.85 0 00-.69-1.06 2.85 2.85 0 00-1.06-.69c-.32-.13-.81-.28-1.71-.32-1.24-.06-1.61-.07-4.75-.07zm0 2.45a5.95 5.95 0 110 11.9 5.95 5.95 0 010-11.9zm0 9.81a3.86 3.86 0 100-7.72 3.86 3.86 0 000 7.72zm7.58-10.05a1.39 1.39 0 11-2.78 0 1.39 1.39 0 012.78 0z"/></svg>',
-  tt: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64c.3 0 .59.04.87.12V9.4a6.34 6.34 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z"/></svg>'
-};
-document.querySelectorAll("[data-ico]").forEach(el => el.innerHTML = ICON[el.dataset.ico]);
+const LS = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v === null ? d : v; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
 
-// paleta de la marca: azul marino -> azul -> ámbar -> amarillo pálido (más afectadas -> menos)
-const CLS = ["#001d3d", "#2b78c2", "#ffc300", "#ffeaa0"], RAD = [15, 12, 9, 7];
-const DON = ["#001d3d", "#003566", "#2b78c2", "#ffc300", "#ffd60a", "#8fb0d4", "#cfd8e3"];
+// colores de verde (bueno) a rojo (malo): el índice 0 = más afectadas
+const CLS = ["#d62828", "#f77f00", "#f5c518", "#2a9d5c"], RAD = [15, 12, 9, 7];
 const NOMB = { pct: "% de clientes sin suministro", cli: "Clientes sin suministro", per: "Personas sin suministro (est.)" };
 const ZOOMS = { chile: [[-56, -76], [-17.5, -66]], norte: [[-30.5, -72], [-17.5, -66.5]], centro: [[-37.6, -73.6], [-32, -69.5]], sur: [[-47, -76], [-37.4, -70.5]] };
 const miles = x => Math.round(Number(x)).toLocaleString("es-CL");
 const fpct = v => (v >= 10 ? v.toFixed(0) : v >= 1 ? v.toFixed(1) : v.toFixed(2)).replace(".", ",") + "%";
 const F = { pct: (c, h) => Math.min(c.a[h] / c.cli, 1) * 100, cli: (c, h) => c.a[h], per: (c, h) => Math.min(c.a[h] * c.ph, c.pob) };
 const FMT = { pct: fpct, cli: miles, per: miles };
-const S = { d: null, metric: "pct", hi: 0, win: 168, reg: "__all__", com: "__all__", byCut: {}, totH: [], perH: [], chart: null, don: null, timer: null, start: 0 };
+const S = { d: null, metric: "per", hi: 0, win: 168, reg: "__all__", com: "__all__", byCut: {}, totH: [], perH: [], chart: null, don: null, timer: null, start: 0, regList: [] };
+const $ = id => document.getElementById(id);
+const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
 let MAP, capa;
 
 let bwTimer = setTimeout(cerrarBienvenida, 5000);
-function cerrarBienvenida() {
-  const el = document.getElementById("bienvenida");
-  if (!el || el.classList.contains("oculto")) return;
-  clearTimeout(bwTimer); el.classList.add("oculto"); setTimeout(() => el.remove(), 450);
-}
-function toggleSheet() { document.getElementById("sheet").classList.toggle("abierto"); }
-window.addEventListener("resize", () => { if (innerWidth > 900) document.getElementById("sheet").classList.remove("abierto"); });
+function cerrarBienvenida() { const el = $("bienvenida"); if (!el || el.classList.contains("oculto")) return; clearTimeout(bwTimer); el.classList.add("oculto"); setTimeout(() => el.remove(), 450); }
+function toggleSheet() { $("sheet").classList.toggle("abierto"); }
+window.addEventListener("resize", () => { if (innerWidth > 900) $("sheet").classList.remove("abierto"); });
 
 const shortReg = r => /Magallanes/i.test(r) ? "Magallanes" : /Ays/i.test(r) ? "Aysén" : /Libertador/i.test(r) ? "O'Higgins" :
   /Metropolitana/i.test(r) ? "Metropolitana" : /B.o-?B.o/i.test(r) ? "Biobío" : r.replace(/^Regi.n (del |de la |de los |de )?/i, "");
 function horaLabel(h) { const d = new Date(S.d.horas[h]); return d.toLocaleDateString("es-CL", { weekday: "short", day: "2-digit", month: "2-digit" }) + " " + String(d.getHours()).padStart(2, "0") + ":00"; }
 function horaCorta(i) { const t = new Date(S.d.horas[i]); return String(t.getDate()).padStart(2, "0") + "-" + String(t.getMonth() + 1).padStart(2, "0") + " " + String(t.getHours()).padStart(2, "0") + ":00"; }
+function fechaLarga(s) {   // "2026-10-21 03:20" -> {dia:"miércoles 21 de octubre de 2026", hora:"03:20"}
+  const m = String(s).match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/); if (!m) return { dia: s, hora: "" };
+  const d = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]);
+  return { dia: d.toLocaleDateString("es-CL", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).replace(",", ""), hora: m[4] + ":" + m[5] };
+}
 
 // tramos por percentil entre las comunas con cortes: 10% más afectadas, 10-30%, 30-60%, 60-100%
 function breaks(vals) { const v = vals.slice().sort((a, b) => b - a), n = v.length, q = p => v[Math.min(n - 1, Math.max(0, Math.ceil(n * p) - 1))]; return [q(0.10), q(0.30), q(0.60)]; }
@@ -249,54 +286,52 @@ const cls = (v, b) => v >= b[0] ? 0 : v >= b[1] ? 1 : v >= b[2] ? 2 : 3;
 const rankCol = (i, n) => { const p = (i + 1) / n; return p <= .10 ? CLS[0] : p <= .30 ? CLS[1] : p <= .60 ? CLS[2] : CLS[3]; };
 function brk(metric, h) { const v = S.d.comunas.filter(c => c.a[h] > 0).map(c => F[metric](c, h)); return v.length ? breaks(v) : [0, 0, 0]; }
 
-// ---------- KPI ----------
+// ---------- KPI y hora de actualización ----------
 function panel() {
-  const h = S.hi, d = S.d, tot = S.totH[h], prev = h > 0 ? S.totH[h - 1] : tot;
-  document.getElementById("ts").textContent = document.getElementById("ts2").textContent = d.actualizado.replace(" ", " · ");
-  document.getElementById("kh").textContent = h === d.horas.length - 1 ? "" : "· " + horaLabel(h);
-  document.getElementById("total").textContent = miles(tot);
-  const dl = prev ? (tot - prev) / prev * 100 : 0, el = document.getElementById("delta");
-  el.className = "chip " + (Math.abs(dl) < 0.05 ? "eq" : dl > 0 ? "up" : "dn");
-  el.textContent = (dl > 0 ? "▲ " : dl < 0 ? "▼ " : "") + fpct(Math.abs(dl)) + " vs. hora anterior";
-  document.getElementById("pct").textContent = fpct(tot / d.total_pais * 100) + " del país";
-  document.getElementById("pers").textContent = "≈ " + miles(S.perH[h]) + " personas (est.)";
-  document.getElementById("mk").textContent = "k = " + String(d.k).replace(".", ",");
-  const a = Math.max(0, h - 23), vals = S.totH.slice(a, h + 1), mx = Math.max(...vals, 1);
-  document.getElementById("mini").innerHTML = vals.map((v, i) => `<i class="${a + i === h ? "sel" : ""}" style="height:${Math.max(6, v / mx * 100)}%" title="${horaCorta(a + i)}: ${miles(v)}"></i>`).join("");
+  const h = S.hi, d = S.d, tot = S.totH[h], fl = fechaLarga(d.actualizado);
+  $("total").textContent = miles(tot);
+  $("pct").textContent = fpct(tot / d.total_pais * 100) + " del país";
+  $("upL").textContent = fl.dia.charAt(0).toUpperCase() + fl.dia.slice(1) + " · " + fl.hora + " hrs";
+  $("upD").textContent = "Datos de la SEC de las " + String(d.hora_datos).slice(-5) + " hrs (hora de Chile)";
+  $("kh").textContent = h === d.horas.length - 1 ? "" : "Mostrando: " + horaLabel(h);
+  $("tsH").textContent = fl.dia.replace(/^(\S+) (\d+) de (\S+) de (\d+)/, (a, w, dd, mo, y) => w.slice(0, 3) + " " + dd + " " + mo.slice(0, 3) + " " + y) + " · " + fl.hora + " hrs";
+  $("mk").textContent = "k = " + String(d.k).replace(".", ",");
 }
 
 // ---------- rankings ----------
 function rowRk(i, color, name, main, sub, w, key) {
   return `<div class="rk" data-k="${key}"><span class="i">${i + 1}</span><span class="d" style="background:${color}"></span>
-    <div style="min-width:0"><span class="nm">${name}</span><div class="b"><i style="width:${Math.max(4, w)}%"></i></div></div>
+    <div style="min-width:0"><span class="nm">${name}</span><div class="b"><i style="width:${Math.max(4, w)}%;background:${color}"></i></div></div>
     <div class="v"><b>${main}</b><small>${sub}</small></div></div>`;
 }
 function tops() {
-  const h = S.hi, cs = S.d.comunas, R = {};
-  for (const c of cs) { const r = (R[c.r] ||= { k: c.r, a: 0, cli: 0 }); r.a += c.a[h]; r.cli += c.cli; }
-  const rall = Object.values(R).filter(r => r.a > 0).sort((x, y) => y.a - x.a);
-  // donut + lista (top 6 y "otras")
-  const top = rall.slice(0, 6), otras = rall.slice(6).reduce((s, r) => s + r.a, 0), tot = S.totH[h];
-  const labels = top.map(r => shortReg(r.k)).concat(otras > 0 ? ["Otras"] : []), data = top.map(r => r.a).concat(otras > 0 ? [otras] : []);
-  if (S.don) S.don.destroy();
-  S.don = new Chart(document.getElementById("dn"), { type: "doughnut",
-    data: { labels, datasets: [{ data, backgroundColor: DON.slice(0, data.length), borderColor: "#fff", borderWidth: 2 }] },
-    options: { responsive: true, maintainAspectRatio: false, animation: false, cutout: "70%", plugins: { legend: { display: false },
-      tooltip: { callbacks: { label: c => `${c.label}: ${miles(c.parsed)} (${fpct(c.parsed / (tot || 1) * 100)})` } } } },
-    plugins: [{ id: "ct", afterDraw(ch) { const { ctx, chartArea: a } = ch, x = (a.left + a.right) / 2, y = (a.top + a.bottom) / 2;
-      ctx.save(); ctx.textAlign = "center"; ctx.fillStyle = "#001d3d"; ctx.font = "800 22px 'Bricolage Grotesque',Inter,sans-serif"; ctx.fillText(miles(tot), x, y + 4);
-      ctx.fillStyle = "#64748b"; ctx.font = "500 10.5px Inter,sans-serif"; ctx.fillText("clientes sin suministro", x, y + 20); ctx.restore(); } }] });
-  document.getElementById("topReg").innerHTML = top.length ? top.map((r, i) =>
-    `<div class="rk" data-k="r:${r.k}"><span class="i"></span><span class="d" style="background:${DON[i]}"></span><span class="nm">${shortReg(r.k)}</span>
-     <div class="v"><b>${miles(r.a)}</b><small>${fpct(r.a / r.cli * 100)} de sus clientes</small></div></div>`).join("") : '<span style="color:var(--mu)">Sin cortes</span>';
-  const vis = cs.filter(c => S.reg === "__all__" || c.r === S.reg), bP = brk("pct", h), bC = brk("cli", h);
+  const h = S.hi, cs = S.d.comunas, vis = cs.filter(c => S.reg === "__all__" || c.r === S.reg), bP = brk("pct", h), bC = brk("cli", h);
   const lp = vis.filter(c => c.a[h] >= 20).map(c => ({ c, v: F.pct(c, h) })).sort((x, y) => y.v - x.v).slice(0, 10);
   const lc = vis.filter(c => c.a[h] > 0).map(c => ({ c, v: c.a[h] })).sort((x, y) => y.v - x.v).slice(0, 10);
   const mP = lp.length ? lp[0].v : 1, mC = lc.length ? lc[0].v : 1;
-  document.getElementById("topPct").innerHTML = lp.length ? lp.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bP)], c.n, fpct(v), miles(c.a[h]) + " clientes", v / mP * 100, "c:" + c.cut)).join("")
+  $("topPct").innerHTML = lp.length ? lp.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bP)], c.n, fpct(v), miles(c.a[h]) + " clientes", v / mP * 100, "c:" + c.cut)).join("")
     : '<span style="color:var(--mu)">Sin comunas sobre el umbral</span>';
-  document.getElementById("topCli").innerHTML = lc.length ? lc.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bC)], c.n, miles(v), fpct(F.pct(c, h)) + " de sus clientes", v / mC * 100, "c:" + c.cut)).join("")
+  $("topCli").innerHTML = lc.length ? lc.map(({ c, v }, i) => rowRk(i, CLS[cls(v, bC)], c.n, miles(v), fpct(F.pct(c, h)) + " de sus clientes", v / mC * 100, "c:" + c.cut)).join("")
     : '<span style="color:var(--mu)">Sin cortes</span>';
+}
+
+// ---------- barras horizontales por región ----------
+function regChart() {
+  const h = S.hi, m = S.metric, R = {};
+  for (const c of S.d.comunas) { const r = (R[c.r] ||= { k: c.r, a: 0, cli: 0, per: 0 }); r.a += c.a[h]; r.cli += c.cli; r.per += F.per(c, h); }
+  const arr = Object.values(R).map(r => ({ ...r, v: m === "pct" ? r.a / r.cli * 100 : m === "per" ? r.per : r.a })).filter(r => r.v > 0).sort((x, y) => y.v - x.v).slice(0, 10);
+  S.regList = arr; $("regT").textContent = "· " + NOMB[m].toLowerCase();
+  $("dnw").style.height = Math.max(70, arr.length * 28 + 16) + "px";
+  if (S.don) S.don.destroy();
+  S.don = new Chart($("dn"), { type: "bar",
+    data: { labels: arr.map(r => shortReg(r.k)), datasets: [{ data: arr.map(r => r.v), backgroundColor: arr.map((r, i) => rankCol(i, arr.length)), borderColor: "#001d3d", borderWidth: 1, borderRadius: 4, barThickness: 17 }] },
+    options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { right: 62 } },
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: "#001d3d", callbacks: { title: it => it[0].label,
+        label: it => { const r = arr[it.dataIndex]; return [`${miles(r.a)} clientes (${fpct(r.a / r.cli * 100)} de sus clientes)`, `≈ ${miles(r.per)} personas (est.)`]; } } } },
+      onClick: (e, els) => { if (els.length) irRegion(arr[els[0].index].k); },
+      scales: { x: { display: false, beginAtZero: true }, y: { grid: { display: false }, border: { display: false }, ticks: { color: "#0b2545", font: { size: 11.5, weight: "500" }, autoSkip: false } } } },
+    plugins: [{ id: "vl", afterDatasetsDraw(ch) { const { ctx } = ch; ctx.save(); ctx.fillStyle = "#0b2545"; ctx.font = "700 11.5px Inter,sans-serif"; ctx.textBaseline = "middle";
+      ch.getDatasetMeta(0).data.forEach((b, i) => ctx.fillText(FMT[m](arr[i].v), b.x + 6, b.y)); ctx.restore(); } }] });
 }
 
 // ---------- popup ----------
@@ -307,7 +342,7 @@ function spark(c, h) {
   return s + "</svg>";
 }
 function popup(c) {
-  const h = S.hi, a = c.a[h], pct = F.pct(c, h), per = F.per(c, h), k = cls(pct, brk("pct", h));
+  const h = S.hi, a = c.a[h], pct = F.pct(c, h), per = F.per(c, h), k = cls(F[S.metric](c, h), brk(S.metric, h));
   const pk = Math.max(...c.a), pkI = c.a.indexOf(pk), ch = c.a.reduce((s, x) => s + x, 0);
   const rank = a > 0 ? S.d.comunas.filter(x => x.a[h] > 0 && F.pct(x, h) > pct).length + 1 : null, nAct = S.d.comunas.filter(x => x.a[h] > 0).length;
   return `<div class="pp"><div class="hh"><b>${c.n}</b><span>${shortReg(c.r)} · ${horaLabel(h)}</span></div><div class="bd">
@@ -323,41 +358,42 @@ function popup(c) {
 }
 
 // ---------- mapa ----------
+const padL = () => (document.body.classList.contains("pc") || innerWidth <= 900) ? 20 : (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pw")) || 372) + 50;
 function leyenda(m, b, hay, nAct) {
-  document.getElementById("lgt").textContent = NOMB[m];
-  document.getElementById("sw").innerHTML = CLS.slice().reverse().map(c => `<i style="background:${c}"></i>`).join("");
+  $("lgt").textContent = NOMB[m];
+  $("sw").innerHTML = CLS.slice().reverse().map(c => `<i style="background:${c}"></i>`).join("");
   const f = FMT[m];
-  document.getElementById("lb").innerHTML = hay ? `<span>&lt; ${f(b[2])}</span><span>${f(b[2])}</span><span>${f(b[1])}</span><span>&ge; ${f(b[0])}</span>` : "<span>Sin cortes en esta hora</span>";
-  document.getElementById("nAct").textContent = nAct; document.getElementById("nTot").textContent = "de " + S.d.comunas.length;
+  $("lb").innerHTML = hay ? `<span>&lt; ${f(b[2])}</span><span>${f(b[2])}</span><span>${f(b[1])}</span><span>&ge; ${f(b[0])}</span>` : "<span>Sin cortes en esta hora</span>";
+  $("nAct").textContent = nAct; $("nTot").textContent = "de " + S.d.comunas.length;
 }
 function mapa() {
   const h = S.hi, m = S.metric;
   if (capa) MAP.removeLayer(capa);
   capa = L.layerGroup();
-  const b = brk(m, h), nAct = S.d.comunas.filter(c => c.a[h] > 0).length, pad = innerWidth > 900 ? [410, 20] : [20, 70];
+  const b = brk(m, h), nAct = S.d.comunas.filter(c => c.a[h] > 0).length, pad = innerWidth > 900 ? [padL(), 20] : [20, 70];
   let cs = S.d.comunas.filter(c => c.a[h] > 0);
   if (S.reg !== "__all__") cs = cs.filter(c => c.r === S.reg);
   if (S.com !== "__all__") cs = cs.filter(c => String(c.cut) === S.com);
   cs.map(c => ({ c, v: F[m](c, h) })).sort((x, y) => y.v - x.v).forEach(({ c, v }) => {
     const k = cls(v, b);
-    const mk = L.circleMarker([c.lat, c.lon], { radius: RAD[k], fillColor: CLS[k], color: "#001d3d", weight: 1.2, fillOpacity: .88 });
+    const mk = L.circleMarker([c.lat, c.lon], { radius: RAD[k], fillColor: CLS[k], color: "#001d3d", weight: 1.2, fillOpacity: .9 });
     mk.bindPopup(() => popup(c), { maxWidth: 310, minWidth: 0, autoPanPaddingTopLeft: pad, autoPanPaddingBottomRight: [20, 20] });
     mk.bindTooltip(`${c.n}: ${FMT[m](v)}`, { sticky: true }); mk.cut = c.cut; capa.addLayer(mk);
   });
-  if (S.com !== "__all__" && S.byCut[S.com] && S.byCut[S.com].a[h] <= 0) {     // comuna elegida sin cortes: marca neutra
-    const c = S.byCut[S.com], mk = L.circleMarker([c.lat, c.lon], { radius: 7, fillColor: "#94a3b8", color: "#475569", weight: 1, fillOpacity: .5 });
+  if (S.com !== "__all__" && S.byCut[S.com] && S.byCut[S.com].a[h] <= 0) {     // comuna buscada sin cortes: marca neutra
+    const c = S.byCut[S.com], mk = L.circleMarker([c.lat, c.lon], { radius: 7, fillColor: CLS[3], color: "#001d3d", weight: 1.2, fillOpacity: .5 });
     mk.bindPopup(() => popup(c), { maxWidth: 310, minWidth: 0, autoPanPaddingTopLeft: pad }); mk.cut = c.cut; capa.addLayer(mk);
   }
   capa.addTo(MAP); leyenda(m, b, nAct > 0, nAct);
 }
 
-// ---------- gráfico de barras ----------
+// ---------- gráfico de barras (evolución nacional) ----------
 function evo() {
   const d = S.d, n = d.horas.length, start = Math.max(0, n - S.win), labels = [], data = [];
   for (let i = start; i < n; i++) { labels.push(horaCorta(i)); data.push(d.serie[i]); }
   S.start = start;
   if (S.chart) S.chart.destroy();
-  S.chart = new Chart(document.getElementById("evo"), { type: "bar",
+  S.chart = new Chart($("evo"), { type: "bar",
     data: { labels, datasets: [{ data, backgroundColor: data.map((_, i) => start + i === S.hi ? "#ffc300" : "#003566"), borderWidth: 0, borderRadius: 2, barPercentage: 1, categoryPercentage: 0.9 }] },
     options: { responsive: true, maintainAspectRatio: false, animation: false, interaction: { mode: "index", intersect: false },
       plugins: { legend: { display: false }, tooltip: { backgroundColor: "#001d3d", callbacks: { title: it => it.length ? it[0].label : "", label: it => miles(it.parsed.y) + " sin suministro",
@@ -371,59 +407,96 @@ function marcaBarra() { if (!S.chart) return; S.chart.data.datasets[0].backgroun
 // ---------- control ----------
 function update() {
   const h = S.hi, d = S.d;
-  document.getElementById("hl").textContent = horaLabel(h) + (h === d.horas.length - 1 ? " (ahora)" : "");
-  document.getElementById("sl").value = h;
-  panel(); tops(); mapa(); marcaBarra();
+  $("hl").textContent = horaLabel(h) + (h === d.horas.length - 1 ? " (ahora)" : "");
+  $("sl").value = h;
+  panel(); tops(); regChart(); mapa(); marcaBarra();
 }
 function setHour(i) { S.hi = Math.max(0, Math.min(S.d.horas.length - 1, +i)); update(); }
-function stop() { clearInterval(S.timer); S.timer = null; document.getElementById("playb").innerHTML = "&#9654; Reproducir"; }
+function stop() { clearInterval(S.timer); S.timer = null; $("playb").innerHTML = "&#9654; Reproducir"; }
+
 function filtros() {
-  const cs = S.d.comunas, fReg = document.getElementById("fReg");
+  const cs = S.d.comunas, fReg = $("fReg");
   const regs = [...new Set(cs.map(c => c.r))].sort((a, b) => shortReg(a).localeCompare(shortReg(b), "es"));
   fReg.innerHTML = `<option value="__all__">Todas las regiones</option>` + regs.map(r => `<option value="${r}">${shortReg(r)}</option>`).join("");
-  fReg.value = S.reg; llenaCom();
+  fReg.value = S.reg; sugerencias();
 }
-function llenaCom() {
-  const fCom = document.getElementById("fCom"), c = S.d.comunas.filter(x => S.reg === "__all__" || x.r === S.reg).sort((a, b) => a.n.localeCompare(b.n, "es"));
-  fCom.innerHTML = `<option value="__all__">Todas las comunas</option>` + c.map(x => `<option value="${x.cut}">${x.n}</option>`).join(""); fCom.value = S.com;
+function sugerencias() {   // lista del buscador: comunas de la región elegida (o todas)
+  const c = S.d.comunas.filter(x => S.reg === "__all__" || x.r === S.reg).sort((a, b) => a.n.localeCompare(b.n, "es"));
+  $("dl").innerHTML = c.map(x => `<option value="${x.n}">${shortReg(x.r)}</option>`).join("");
 }
-function abrePopup(cut) { MAP.stop(); const c = S.byCut[cut]; if (!c) return; MAP.setView([c.lat, c.lon], 10, { animate: false });
-  MAP.panBy(innerWidth > 900 ? [-195, -150] : [0, -60], { animate: false });     // deja la esfera a la derecha del panel y con espacio arriba para el popup
-  capa.eachLayer(l => { if (l.cut === +cut) l.openPopup(); }); }
+function buscar(txt) {
+  const t = norm(txt); if (!t) { S.com = "__all__"; update(); return; }
+  const cs = S.d.comunas, c = cs.find(x => norm(x.n) === t) || cs.find(x => norm(x.n).startsWith(t)) || cs.find(x => norm(x.n).includes(t));
+  if (c) irComuna(c.cut); else $("q").style.boxShadow = "0 0 0 3px rgba(214,40,40,.6)";
+}
+function abrePopup(cut) {
+  MAP.stop(); const c = S.byCut[cut]; if (!c) return;
+  MAP.setView([c.lat, c.lon], 10, { animate: false });
+  MAP.panBy(innerWidth > 900 ? [-(padL() / 2), -150] : [0, -60], { animate: false });     // esfera a la derecha del panel y con espacio arriba para el popup
+  capa.eachLayer(l => { if (l.cut === +cut) l.openPopup(); });
+}
 function irRegion(r) {
-  S.reg = r; S.com = "__all__"; document.getElementById("fReg").value = r; llenaCom(); update();
+  S.reg = r; S.com = "__all__"; $("fReg").value = r; $("q").value = ""; sugerencias(); update();
   const cs = S.d.comunas.filter(c => r === "__all__" || c.r === r); MAP.stop();
-  if (r !== "__all__" && cs.length) MAP.fitBounds(L.latLngBounds(cs.map(c => [c.lat, c.lon])).pad(0.2), { maxZoom: 9, paddingTopLeft: innerWidth > 900 ? [390, 0] : [0, 0] }); else MAP.fitBounds(ZOOMS.chile);
+  if (r !== "__all__" && cs.length) MAP.fitBounds(L.latLngBounds(cs.map(c => [c.lat, c.lon])).pad(0.2), { maxZoom: 9, paddingTopLeft: [padL(), 0] }); else MAP.fitBounds(ZOOMS.chile, { paddingTopLeft: [padL(), 0] });
 }
-function irComuna(cut) { const c = S.byCut[cut]; if (!c) return; S.com = String(cut); document.getElementById("fCom").value = S.com; mapa(); abrePopup(cut); }
+function irComuna(cut) {
+  const c = S.byCut[cut]; if (!c) return;
+  if (S.reg !== "__all__" && c.r !== S.reg) { S.reg = "__all__"; $("fReg").value = "__all__"; sugerencias(); }
+  S.com = String(cut); $("q").value = c.n; $("q").style.boxShadow = ""; update(); abrePopup(cut);
+}
 function calc() {
   const d = S.d; S.byCut = Object.fromEntries(d.comunas.map(c => [c.cut, c]));
   S.totH = d.horas.map((_, h) => d.comunas.reduce((s, c) => s + c.a[h], 0));
   S.perH = d.horas.map((_, h) => d.comunas.reduce((s, c) => s + F.per(c, h), 0));
 }
+
+// ---------- panel regulable: ancho, ocultar, plegar y reordenar tarjetas ----------
+function panelRegulable() {
+  const root = document.documentElement, body = $("sheetBody");
+  let pw = LS.get("pw", 372); root.style.setProperty("--pw", pw + "px");
+  if (LS.get("pc", false)) { document.body.classList.add("pc"); $("pt").textContent = "›"; }
+  const orden = LS.get("orden", []), plegadas = LS.get("plegadas", []);
+  orden.forEach(id => { const el = body.querySelector(`[data-id="${id}"]`); if (el) body.appendChild(el); });
+  plegadas.forEach(id => { const el = body.querySelector(`[data-id="${id}"]`); if (el) { el.classList.add("col"); el.querySelector('[data-a="tg"]').textContent = "+"; } });
+  const guardaOrden = () => LS.set("orden", [...body.querySelectorAll(".adj")].map(e => e.dataset.id));
+  body.addEventListener("click", e => {
+    const b = e.target.closest(".ctr button"); if (!b) return; const card = b.closest(".adj");
+    if (b.dataset.a === "up" && card.previousElementSibling) { body.insertBefore(card, card.previousElementSibling); guardaOrden(); }
+    else if (b.dataset.a === "dn" && card.nextElementSibling) { body.insertBefore(card.nextElementSibling, card); guardaOrden(); }
+    else if (b.dataset.a === "tg") { const c = card.classList.toggle("col"); b.textContent = c ? "+" : "–"; LS.set("plegadas", [...body.querySelectorAll(".adj.col")].map(e => e.dataset.id)); if (!c) { if (S.chart) S.chart.resize(); if (S.don) S.don.resize(); } }
+  });
+  $("pt").onclick = () => { const c = document.body.classList.toggle("pc"); $("pt").textContent = c ? "›" : "‹"; LS.set("pc", c); };
+  const rz = $("rz");
+  rz.onpointerdown = e => { rz.setPointerCapture(e.pointerId); rz.classList.add("on"); };
+  rz.onpointermove = e => { if (!rz.classList.contains("on")) return; pw = Math.round(Math.max(280, Math.min(660, e.clientX - 16, innerWidth - 420))); root.style.setProperty("--pw", pw + "px"); };
+  rz.onpointerup = () => { rz.classList.remove("on"); LS.set("pw", pw); };
+}
+
 async function cargar(primera) {
   try {
     const d = await fetch("mapa.json?t=" + Date.now()).then(r => r.json());
     const alFinal = !S.d || S.hi === S.d.horas.length - 1;
-    S.d = d; calc(); document.getElementById("sl").max = d.horas.length - 1;
+    S.d = d; calc(); $("sl").max = d.horas.length - 1;
     if (primera) { S.hi = d.horas.length - 1; filtros(); inicia(); } else { if (alFinal) S.hi = d.horas.length - 1; evo(); update(); }
-    document.getElementById("estado").style.display = "none"; document.getElementById("err").textContent = "";
+    $("estado").style.display = "none"; $("err").textContent = "";
   } catch (e) {
     console.error(e);
-    document.getElementById("estado").innerHTML = "Error cargando datos:<br><span style='color:#ff8a8a;font-size:11px'>" + (e && e.message ? e.message : e) + "</span>";
-    document.getElementById("err").textContent = "error al actualizar";
+    $("estado").innerHTML = "Error cargando datos:<br><span style='color:#ff8a8a;font-size:11px'>" + (e && e.message ? e.message : e) + "</span>";
+    $("err").textContent = "error al actualizar";
   }
 }
 function inicia() {
+  panelRegulable();
   MAP = L.map("map", { zoomControl: false, zoomSnap: 0.25, minZoom: 4, attributionControl: true });
   MAP.attributionControl.setPrefix(false); L.control.zoom({ position: "topright" }).addTo(MAP);
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 11, attribution: "Tiles © Esri" }).addTo(MAP);
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 11 }).addTo(MAP);
-  MAP.fitBounds(ZOOMS.chile, { paddingTopLeft: innerWidth > 900 ? [390, 0] : [0, 0] });
+  MAP.fitBounds(ZOOMS.chile, { paddingTopLeft: [padL(), 0] });
   evo(); update();
-  const $ = id => document.getElementById(id);
+
   $("seg").onclick = e => { const b = e.target.closest("button"); if (!b) return; S.metric = b.dataset.m; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); update(); };
-  $("zoom").onclick = e => { const b = e.target.closest("button"); if (b) { MAP.stop(); MAP.fitBounds(ZOOMS[b.dataset.z], { paddingTopLeft: innerWidth > 900 ? [390, 0] : [0, 0] }); } };
+  $("zoom").onclick = e => { const b = e.target.closest("button"); if (b) { MAP.stop(); MAP.fitBounds(ZOOMS[b.dataset.z], { paddingTopLeft: [padL(), 0] }); } };
   $("sl").oninput = e => { stop(); setHour(e.target.value); };
   $("now").onclick = () => { stop(); setHour(S.d.horas.length - 1); };
   $("playb").onclick = () => {
@@ -434,9 +507,11 @@ function inicia() {
   };
   $("rng").onclick = e => { const b = e.target.closest("button"); if (!b) return; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); S.win = +b.dataset.h; evo(); };
   $("fReg").onchange = e => irRegion(e.target.value);
-  $("fCom").onchange = e => { if (e.target.value === "__all__") { S.com = "__all__"; update(); } else irComuna(+e.target.value); };
-  const clic = e => { const r = e.target.closest("[data-k]"); if (!r) return; const t = r.dataset.k.slice(0, 1), k = r.dataset.k.slice(2); t === "r" ? irRegion(k) : irComuna(+k); };
-  ["topReg", "topPct", "topCli"].forEach(id => $(id).onclick = clic);
+  $("q").onchange = e => buscar(e.target.value);
+  $("q").onkeydown = e => { if (e.key === "Enter") { buscar(e.target.value); e.target.blur(); } };
+  $("q").oninput = e => { e.target.style.boxShadow = ""; const v = norm(e.target.value); if (!v && S.com !== "__all__") { S.com = "__all__"; update(); } else if (S.d.comunas.some(c => norm(c.n) === v)) buscar(e.target.value); };
+  const clic = e => { const r = e.target.closest("[data-k]"); if (r) irComuna(+r.dataset.k.slice(2)); };
+  ["topPct", "topCli"].forEach(id => $(id).onclick = clic);
 }
 cargar(true);
 setInterval(() => cargar(false), REFRESCO_MIN * 60 * 1000);
