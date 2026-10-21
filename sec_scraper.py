@@ -1,28 +1,38 @@
 #!/usr/bin/env python3
 """
 Scraper de interrupciones electricas - SEC Chile
-Contrato actual de los endpoints (POST, JSON), verificado en actions-page.js del sitio:
+apps.sec.cl bloquea las IPs de GitHub/Google: este script se corre desde un equipo
+local (ver run_local.ps1 / instalar_tarea.ps1), idealmente cada hora.
+
+Contrato de los endpoints (POST, JSON):
   - Get                 -> serie horaria ultimos 7 dias [{anho,mes,dia,hora,clientes_afectados}]
-  - GetPorFecha         -> detalle de una hora [{NOMBRE_REGION,NOMBRE_COMUNA,CLIENTES_AFECTADOS}]
-                           (body: {"anho","mes","dia","hora"})
+  - GetPorFecha         -> detalle de UNA hora [{NOMBRE_REGION,NOMBRE_COMUNA,CLIENTES_AFECTADOS}]
+                           (body {"anho","mes","dia","hora"}; sirve para cualquier hora de los 7 dias)
   - GetClientesNacional -> total clientes pais [{CLIENTES}]
   - GetHoraServer       -> hora oficial del servidor [{FECHA: "dd/mm/yyyy HH:MM"}]
 
+Recuperacion: cada corrida pide el detalle de toda hora de los ultimos 7 dias que aun no
+este guardada (y refresca las 2 ultimas, que pueden cambiar). Si el equipo estuvo apagado
+menos de 7 dias no se pierde historial.
+
 Salidas:
-  cortes_sec.xlsx            historial acumulado (hojas: resumen, nacional, region, comuna)
-  snapshot_comunas.geojson   estado actual por comuna (para mapas)
-  docs/data.json             datos del dashboard (GitHub Pages)
-Uso: python sec_scraper.py   (GitHub Actions, cada hora)
+  data/nacional.csv, data/region.csv, data/comuna.csv   historial por hora (fuente de verdad)
+  cortes_sec.xlsx            resumen + nacional + region + comuna (ultimos 30 dias)
+  docs/data.json             datos del dashboard
+  snapshot_comunas.geojson   ultima hora por comuna (si hay geopandas)
 """
-import json, re, unicodedata, datetime as dt
+import json, re, time, unicodedata, datetime as dt
 from pathlib import Path
 import requests, pandas as pd
 
 BASE = "https://apps.sec.cl/INTONLINEv1/ClientesAfectados"
+DATA = Path("data")
 XLSX = Path("cortes_sec.xlsx")
 GEOJSON_BASE = Path("comunas.geojson")
 GEOJSON_OUT = Path("snapshot_comunas.geojson")
 DATA_JSON = Path("docs/data.json")
+REFRESCAR_ULTIMAS = 2     # horas recientes que se vuelven a pedir (el dato puede ajustarse)
+DIAS_EXCEL_COMUNA = 30
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -58,119 +68,143 @@ def post_json(endpoint, body=None, retries=3):
             return d
         except Exception as e:  # noqa
             last = e
+            time.sleep(2)
     raise RuntimeError(f"Fallo {endpoint}: {last}")
 
 
-def capturar():
-    hora_srv = dt.datetime.strptime(post_json("GetHoraServer")[0]["FECHA"], "%d/%m/%Y %H:%M")
-    ts = hora_srv.strftime("%Y-%m-%d %H:%M")
-    total_pais = int(post_json("GetClientesNacional")[0]["CLIENTES"])
+def leer_csv(nombre, cols):
+    p = DATA / f"{nombre}.csv"
+    if p.exists():
+        return pd.read_csv(p, encoding="utf-8-sig", dtype={"hora": str})
+    return pd.DataFrame(columns=cols)
 
-    serie = pd.DataFrame(post_json("Get"))
-    if serie.empty:
-        raise RuntimeError("SEC devolvio serie horaria vacia")
-    serie = serie.sort_values(["anho", "mes", "dia", "hora"]).reset_index(drop=True)
-    ult = serie.iloc[-1]
-    serie["hora_ts"] = pd.to_datetime(
-        dict(year=serie["anho"], month=serie["mes"], day=serie["dia"], hour=serie["hora"]))
 
-    det = pd.DataFrame(post_json("GetPorFecha", {
-        "anho": int(ult["anho"]), "mes": int(ult["mes"]),
-        "dia": int(ult["dia"]), "hora": int(ult["hora"])}))
+def detalle_hora(h):
+    """h: Timestamp de la hora. Devuelve (region_df, comuna_df) de esa hora."""
+    det = pd.DataFrame(post_json("GetPorFecha", {"anho": h.year, "mes": h.month, "dia": h.day, "hora": h.hour}))
+    hs = h.strftime("%Y-%m-%d %H:00")
     if det.empty:
-        det = pd.DataFrame(columns=["NOMBRE_REGION", "NOMBRE_COMUNA", "CLIENTES_AFECTADOS"])
-    det["afectados"] = pd.to_numeric(det["CLIENTES_AFECTADOS"], errors="coerce").fillna(0)
+        return (pd.DataFrame(columns=["hora", "region", "afectados"]),
+                pd.DataFrame(columns=["hora", "region", "comuna", "key", "afectados"]))
+    det["afectados"] = pd.to_numeric(det["CLIENTES_AFECTADOS"], errors="coerce").fillna(0).astype(int)
     det["comuna"] = det["NOMBRE_COMUNA"].str.strip()
     det["key"] = det["comuna"].map(norm)
     det = det.rename(columns={"NOMBRE_REGION": "region"})
-    tot = int(det["afectados"].sum())
-
-    out = {"ts": ts, "serie": serie, "total_pais": total_pais,
-           "hora_datos": f'{int(ult["dia"]):02d}/{int(ult["mes"]):02d}/{int(ult["anho"])} {int(ult["hora"]):02d}:00'}
-    out["nacional"] = pd.DataFrame({"captured_at": [ts], "hora_datos": [out["hora_datos"]],
-        "total_afectados": [tot], "total_clientes_pais": [total_pais],
-        "pct_sin_suministro": [round(tot / total_pais * 100, 4) if total_pais else None]})
-    out["region"] = det.groupby("region", as_index=False)["afectados"].sum() \
+    reg = det.groupby("region", as_index=False)["afectados"].sum().sort_values("afectados", ascending=False)
+    com = det.groupby(["region", "comuna", "key"], as_index=False)["afectados"].sum() \
         .sort_values("afectados", ascending=False)
-    out["region"].insert(0, "captured_at", ts)
-    out["comuna"] = det.groupby(["region", "comuna", "key"], as_index=False)["afectados"].sum() \
-        .sort_values("afectados", ascending=False)
-    out["comuna"].insert(0, "captured_at", ts)
-    return out
+    reg.insert(0, "hora", hs)
+    com.insert(0, "hora", hs)
+    return reg, com
 
 
-def escribir_excel(cap):
-    keys = ["nacional", "region", "comuna"]
-    hojas = {k: cap[k] for k in keys}
-    if XLSX.exists():
-        prev = pd.read_excel(XLSX, sheet_name=None)
-        for k in keys:
-            if prev.get(k) is not None:
-                hojas[k] = pd.concat([prev[k], cap[k]], ignore_index=True)
-    # evita duplicar si la misma hora se captura dos veces
-    hojas["nacional"] = hojas["nacional"].drop_duplicates("captured_at", keep="last")
-    hojas["region"] = hojas["region"].drop_duplicates(["captured_at", "region"], keep="last")
-    hojas["comuna"] = hojas["comuna"].drop_duplicates(["captured_at", "key"], keep="last")
+def actualizar():
+    ts = dt.datetime.strptime(post_json("GetHoraServer")[0]["FECHA"], "%d/%m/%Y %H:%M")
+    total_pais = int(post_json("GetClientesNacional")[0]["CLIENTES"])
+    serie = pd.DataFrame(post_json("Get"))
+    if serie.empty:
+        raise RuntimeError("SEC devolvio serie horaria vacia")
+    serie["hora_ts"] = pd.to_datetime(
+        dict(year=serie["anho"], month=serie["mes"], day=serie["dia"], hour=serie["hora"]))
+    serie = serie.sort_values("hora_ts").reset_index(drop=True)
+    serie["hkey"] = serie["hora_ts"].dt.strftime("%Y-%m-%d %H:00")
 
-    nac = hojas["nacional"]
-    fila = nac.iloc[-1]
-    top = pd.DataFrame({"metrica": ["Ultima captura", "Primera captura", "Total capturas",
-        "Afectados AHORA", "Total clientes pais", "% sin suministro AHORA"],
-        "valor": [str(nac["captured_at"].max()), str(nac["captured_at"].min()), len(nac),
-        int(fila["total_afectados"]), int(fila["total_clientes_pais"]),
-        f'{fila["pct_sin_suministro"]}%']})
+    cols_n = ["hora", "total_afectados", "total_clientes_pais", "pct_sin_suministro", "capturado"]
+    nac = leer_csv("nacional", cols_n)
+    reg = leer_csv("region", ["hora", "region", "afectados"])
+    com = leer_csv("comuna", ["hora", "region", "comuna", "key", "afectados"])
 
+    guardadas = set(nac["hora"])
+    ultimas = set(serie["hkey"].tail(REFRESCAR_ULTIMAS))
+    pendientes = serie[~serie["hkey"].isin(guardadas) | serie["hkey"].isin(ultimas)]
+    print(f"  serie: {len(serie)} h | pendientes/refresco: {len(pendientes)}")
+
+    nuevas_reg, nuevas_com, nuevas_nac = [], [], []
+    for r in pendientes.itertuples():
+        rg, cm = detalle_hora(r.hora_ts)
+        nuevas_reg.append(rg)
+        nuevas_com.append(cm)
+        tot = int(r.clientes_afectados)
+        nuevas_nac.append({"hora": r.hkey, "total_afectados": tot, "total_clientes_pais": total_pais,
+                           "pct_sin_suministro": round(tot / total_pais * 100, 4) if total_pais else None,
+                           "capturado": ts.strftime("%Y-%m-%d %H:%M")})
+        time.sleep(0.15)
+
+    horas = set(pendientes["hkey"])
+    def unir(hist, nuevas):
+        base = hist[~hist["hora"].isin(horas)]
+        return pd.concat([base] + [n for n in nuevas if len(n)], ignore_index=True).sort_values("hora")
+    nac = unir(nac, [pd.DataFrame(nuevas_nac)])
+    reg = unir(reg, nuevas_reg)
+    com = unir(com, nuevas_com)
+
+    DATA.mkdir(exist_ok=True)
+    nac.to_csv(DATA / "nacional.csv", index=False, encoding="utf-8-sig")
+    reg.to_csv(DATA / "region.csv", index=False, encoding="utf-8-sig")
+    com.to_csv(DATA / "comuna.csv", index=False, encoding="utf-8-sig")
+    return ts, total_pais, serie, nac, reg, com
+
+
+def escribir_excel(nac, reg, com):
+    ult = nac.iloc[-1]
+    top = pd.DataFrame({"metrica": ["Ultima hora con datos", "Primera hora guardada", "Horas guardadas",
+        "Afectados (ultima hora)", "Total clientes pais", "% sin suministro"],
+        "valor": [ult["hora"], nac["hora"].iloc[0], len(nac), int(ult["total_afectados"]),
+                  int(ult["total_clientes_pais"]), f'{ult["pct_sin_suministro"]}%']})
+    reg_now = reg[reg["hora"] == ult["hora"]].sort_values("afectados", ascending=False)[["region", "afectados"]]
+    corte = (pd.Timestamp(ult["hora"]) - pd.Timedelta(days=DIAS_EXCEL_COMUNA)).strftime("%Y-%m-%d %H:00")
     with pd.ExcelWriter(XLSX, engine="openpyxl") as w:
-        r0 = 0
-        top.to_excel(w, sheet_name="resumen", index=False, startrow=r0); r0 += len(top) + 2
-        pd.DataFrame([["POR REGION (AHORA)", ""]]).to_excel(w, sheet_name="resumen", index=False, header=False, startrow=r0); r0 += 1
-        cap["region"][["region", "afectados"]].to_excel(w, sheet_name="resumen", index=False, startrow=r0)
-        for k in keys:
-            hojas[k].to_excel(w, sheet_name=k, index=False)
-    print(f"  Excel -> {XLSX} ({len(nac)} capturas)")
-    return hojas["nacional"]
+        top.to_excel(w, sheet_name="resumen", index=False)
+        pd.DataFrame([["POR REGION (ultima hora)", ""]]).to_excel(
+            w, sheet_name="resumen", index=False, header=False, startrow=len(top) + 2)
+        reg_now.to_excel(w, sheet_name="resumen", index=False, startrow=len(top) + 3)
+        nac.to_excel(w, sheet_name="nacional", index=False)
+        reg.to_excel(w, sheet_name="region", index=False)
+        com[com["hora"] >= corte].to_excel(w, sheet_name="comuna", index=False)
+    print(f"  Excel -> {XLSX} ({len(nac)} horas)")
 
 
-def escribir_json(cap, nac_hist):
+def escribir_json(ts, total_pais, serie, nac, reg, com):
     DATA_JSON.parent.mkdir(parents=True, exist_ok=True)
-    fila = cap["nacional"].iloc[0]
+    ult_h = serie["hkey"].iloc[-1]
+    fila = nac[nac["hora"] == ult_h].iloc[0]
+    u = serie.iloc[-1]
+    hist = nac.tail(24 * 30)
     payload = {
-        "actualizado": cap["ts"],
-        "hora_datos": cap["hora_datos"],
+        "actualizado": ts.strftime("%Y-%m-%d %H:%M"),
+        "hora_datos": f'{int(u["dia"]):02d}/{int(u["mes"]):02d}/{int(u["anho"])} {int(u["hora"]):02d}:00',
         "total_afectados": int(fila["total_afectados"]),
-        "total_clientes_pais": cap["total_pais"],
-        "pct_sin_suministro": fila["pct_sin_suministro"],
-        "serie_7d": [{"t": r.hora_ts.strftime("%Y-%m-%dT%H:00"), "v": int(r.clientes_afectados)}
-                     for r in cap["serie"].itertuples()],
-        "regiones": cap["region"][["region", "afectados"]].astype({"afectados": int}).to_dict("records"),
-        "comunas": cap["comuna"][["region", "comuna", "afectados"]].astype({"afectados": int})
-                       .head(50).to_dict("records"),
-        "capturas": [{"t": str(r.captured_at), "v": int(r.total_afectados)}
-                     for r in nac_hist.itertuples()],
+        "total_clientes_pais": total_pais,
+        "pct_sin_suministro": float(fila["pct_sin_suministro"]),
+        "serie_7d": [{"t": r.hkey.replace(" ", "T"), "v": int(r.clientes_afectados)} for r in serie.itertuples()],
+        "regiones": reg[reg["hora"] == ult_h].sort_values("afectados", ascending=False)[["region", "afectados"]].to_dict("records"),
+        "comunas": com[com["hora"] == ult_h].sort_values("afectados", ascending=False)[["region", "comuna", "afectados"]].head(50).to_dict("records"),
+        "capturas": [{"t": r.hora, "v": int(r.total_afectados)} for r in hist.itertuples()],
     }
     DATA_JSON.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     print(f"  JSON -> {DATA_JSON}")
 
 
-def escribir_geojson(cap):
-    if not GEOJSON_BASE.exists() or cap["comuna"].empty:
-        print("  (sin geojson base o sin datos; omito geojson)"); return
+def escribir_geojson(com, ult_h):
+    ahora = com[com["hora"] == ult_h]
+    if not GEOJSON_BASE.exists() or ahora.empty:
+        return
     try:
         import geopandas as gpd
         geo = gpd.read_file(GEOJSON_BASE)
-        m = geo.merge(cap["comuna"][["key", "afectados"]], on="key", how="left")
+        m = geo.merge(ahora[["key", "afectados"]], on="key", how="left")
         m["afectados"] = m["afectados"].fillna(0)
         m.to_file(GEOJSON_OUT, driver="GeoJSON")
         print(f"  GeoJSON -> {GEOJSON_OUT}")
-    except Exception as e:  # noqa  (el geojson es accesorio: no debe tumbar la captura)
+    except Exception as e:  # noqa  (accesorio: no debe tumbar la captura)
         print(f"  (geojson omitido: {e})")
 
 
 if __name__ == "__main__":
-    cap = capturar()
-    print(f"[{cap['ts']}] SEC: {int(cap['nacional'].iloc[0]['total_afectados']):,} clientes afectados "
-          f"(datos de {cap['hora_datos']})")
-    nac_hist = escribir_excel(cap)
-    escribir_json(cap, nac_hist)
-    escribir_geojson(cap)
+    ts, total_pais, serie, nac, reg, com = actualizar()
+    ult = nac.iloc[-1]
+    print(f"[{ts:%Y-%m-%d %H:%M}] SEC: {int(ult['total_afectados']):,} clientes afectados (hora {ult['hora']})")
+    escribir_excel(nac, reg, com)
+    escribir_json(ts, total_pais, serie, nac, reg, com)
+    escribir_geojson(com, serie["hkey"].iloc[-1])
     print("listo.")
