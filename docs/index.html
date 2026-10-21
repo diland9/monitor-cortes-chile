@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor cortes SEC</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --mute:#6b7683; --line:#e3e7ec; --acc:#d9480f; --acc2:#1c7ed6; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#12161c; --card:#1b212a; --ink:#e8ecf1; --mute:#93a0ae; --line:#2b333f; --acc:#ff8a5c; --acc2:#5aa9f0; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
+  main { max-width:1100px; margin:0 auto; padding:20px 16px 40px; }
+  h1 { font-size:20px; margin:0 0 2px; }
+  .sub { color:var(--mute); font-size:13px; margin-bottom:16px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:12px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .kpi b { display:block; font-size:28px; font-variant-numeric:tabular-nums; }
+  .kpi span { color:var(--mute); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+  @media (max-width:760px) { .grid { grid-template-columns:1fr; } }
+  h2 { font-size:14px; margin:0 0 10px; }
+  .chart { position:relative; height:260px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
+  td,th { padding:5px 4px; border-bottom:1px solid var(--line); text-align:left; }
+  td:last-child,th:last-child { text-align:right; }
+  .scroll { max-height:300px; overflow:auto; }
+  #err { color:var(--acc); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Monitor de cortes de electricidad &ndash; Chile</h1>
+  <div class="sub">Fuente: SEC &middot; <span id="upd">cargando&hellip;</span> <span id="err"></span></div>
+
+  <div class="kpis">
+    <div class="card kpi"><span>Clientes sin suministro</span><b id="k1">&ndash;</b></div>
+    <div class="card kpi"><span>% de clientes del pa&iacute;s</span><b id="k2">&ndash;</b></div>
+    <div class="card kpi"><span>Hora de los datos</span><b id="k3" style="font-size:20px">&ndash;</b></div>
+  </div>
+
+  <div class="card"><h2>Clientes sin suministro por hora (&uacute;ltimos 7 d&iacute;as)</h2>
+    <div class="chart"><canvas id="c7"></canvas></div></div>
+
+  <div class="grid">
+    <div class="card"><h2>Por regi&oacute;n (hora actual)</h2>
+      <div class="chart"><canvas id="cr"></canvas></div></div>
+    <div class="card"><h2>Comunas m&aacute;s afectadas</h2>
+      <div class="scroll"><table id="tc"><thead><tr><th>Comuna</th><th>Regi&oacute;n</th><th>Clientes</th></tr></thead><tbody></tbody></table></div></div>
+  </div>
+</main>
+<script>
+const fmt = n => n.toLocaleString("es-CL");
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let charts = {};
+
+function draw(id, cfg) {
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(document.getElementById(id), cfg);
+}
+
+async function load() {
+  try {
+    const r = await fetch("data.json?t=" + Date.now());
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    document.getElementById("err").textContent = "";
+    document.getElementById("upd").textContent = "actualizado " + d.actualizado + " (hora Chile)";
+    document.getElementById("k1").textContent = fmt(d.total_afectados);
+    document.getElementById("k2").textContent = d.pct_sin_suministro.toFixed(2) + "%";
+    document.getElementById("k3").textContent = d.hora_datos;
+
+    const acc = css("--acc"), acc2 = css("--acc2"), mute = css("--mute"), line = css("--line");
+    const scales = { x:{ ticks:{color:mute, maxTicksLimit:8}, grid:{color:line} },
+                     y:{ ticks:{color:mute, callback:v=>fmt(v)}, grid:{color:line}, beginAtZero:true } };
+    draw("c7", { type:"bar", data:{ labels:d.serie_7d.map(p=>p.t.replace("T"," ")),
+      datasets:[{ data:d.serie_7d.map(p=>p.v), backgroundColor:acc, borderWidth:0 }] },
+      options:{ maintainAspectRatio:false, plugins:{legend:{display:false}}, scales } });
+
+    const reg = d.regiones.slice(0, 12);
+    draw("cr", { type:"bar", data:{ labels:reg.map(x=>x.region),
+      datasets:[{ data:reg.map(x=>x.afectados), backgroundColor:acc2, borderWidth:0 }] },
+      options:{ indexAxis:"y", maintainAspectRatio:false, plugins:{legend:{display:false}},
+        scales:{ x:scales.y, y:{ ticks:{color:mute}, grid:{display:false} } } } });
+
+    document.querySelector("#tc tbody").innerHTML = d.comunas.map(c =>
+      `<tr><td>${c.comuna}</td><td>${c.region}</td><td>${fmt(c.afectados)}</td></tr>`).join("");
+  } catch (e) {
+    document.getElementById("err").textContent = "· error cargando datos";
+  }
+}
+load();
+setInterval(load, 5 * 60 * 1000);   // refresca la vista cada 5 min; los datos nuevos llegan cada hora
+</script>
+</body>
+</html>

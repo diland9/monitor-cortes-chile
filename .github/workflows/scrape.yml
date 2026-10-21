@@ -1,1 +1,41 @@
+name: Snapshot cortes SEC
 
+on:
+  schedule:
+    - cron: "5 * * * *"      # cada hora, minuto 5 (UTC). GitHub puede retrasar corridas.
+  workflow_dispatch:          # ejecucion manual desde la pestana Actions
+
+concurrency:
+  group: sec-scraper
+  cancel-in-progress: false
+
+permissions:
+  contents: write             # necesario para que el bot haga push
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dependencias Python
+        run: pip install requests pandas openpyxl geopandas
+
+      - name: Capturar snapshot
+        run: python sec_scraper.py
+
+      - name: Commit datos
+        run: |
+          git config user.name  "sec-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add cortes_sec.xlsx docs/data.json
+          [ -f snapshot_comunas.geojson ] && git add snapshot_comunas.geojson || true
+          git diff --staged --quiet || git commit -m "snapshot $(date -u +%Y-%m-%dT%H:%M)"
+          git pull --rebase origin main
+          git push
