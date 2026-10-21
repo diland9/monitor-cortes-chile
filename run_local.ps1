@@ -21,7 +21,7 @@ if ((Run "git-pull" { git pull --rebase --autostash origin main }) -ne 0) { Log 
 
 if ((Run "scraper" { & $Python sec_scraper.py }) -ne 0) { Log "ERROR: el scraper fallo"; exit 1 }
 
-git add data docs/data.json
+git add data docs/data.json docs/mapa.json
 git diff --staged --quiet
 if ($LASTEXITCODE -ne 0) {
     $stamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm")

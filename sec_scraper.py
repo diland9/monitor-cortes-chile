@@ -31,6 +31,11 @@ XLSX = Path("cortes_sec.xlsx")
 GEOJSON_BASE = Path("comunas.geojson")
 GEOJSON_OUT = Path("snapshot_comunas.geojson")
 DATA_JSON = Path("docs/data.json")
+MAPA_JSON = Path("docs/mapa.json")
+REF_COMUNAS = Path("data/ref_comunas.csv")      # lo crea build_referencia.py (Censo 2024, INE)
+# nombres que la SEC escribe distinto al INE
+ALIAS = {"la calera": "calera", "marchihue": "marchigue", "paiguano": "paihuano",
+         "punitagui": "punitaqui", "sierra;rda": "sierra gorda"}
 REFRESCAR_ULTIMAS = 2     # horas recientes que se vuelven a pedir (el dato puede ajustarse)
 DIAS_EXCEL_COMUNA = 30
 
@@ -187,6 +192,46 @@ def escribir_json(ts, total_pais, serie, nac, reg, com):
     print(f"  JSON -> {DATA_JSON}")
 
 
+def escribir_mapa(ts, total_pais, serie, com):
+    """Datos del mapa: por comuna, clientes afectados por hora (7 dias) + denominadores estimados.
+    Clientes totales de la comuna (estimado) = viviendas ocupadas (Censo 2024) x k, con
+    k = clientes del pais (SEC) / viviendas ocupadas del pais, para que sume el total real de la SEC.
+    Personas sin suministro (estimado) = clientes afectados x (poblacion / clientes totales)."""
+    if not REF_COMUNAS.exists():
+        print("  (sin data/ref_comunas.csv: corre build_referencia.py; omito mapa)")
+        return
+    ref = pd.read_csv(REF_COMUNAS, encoding="utf-8-sig")
+    k = total_pais / ref["viviendas_ocupadas"].sum()
+    ref["cli"] = (ref["viviendas_ocupadas"] * k).round().astype(int)
+    # comunas sin viviendas ocupadas en el Censo (p. ej. Antartica): usa el promedio nacional de personas por cliente
+    sin_viv = ref["cli"] < 1
+    ref.loc[sin_viv, "cli"] = (ref.loc[sin_viv, "poblacion"] / (ref["poblacion"].sum() / total_pais)).round().clip(lower=1)
+    ref["cli"] = ref["cli"].astype(int)
+    ref["ph"] = (ref["poblacion"] / ref["cli"]).round(3)
+    horas = list(serie["hkey"])
+    c = com[com["hora"].isin(horas)].copy()
+    c["key"] = c["key"].replace(ALIAS)
+    c = c.merge(ref[["key", "cut"]], on="key", how="left")
+    sin = c[c["cut"].isna()]["key"].unique()
+    if len(sin):
+        print(f"  aviso: comunas SEC sin match en el Censo: {list(sin)}")
+    mat = c.dropna(subset=["cut"]).pivot_table(index="cut", columns="hora", values="afectados",
+                                               aggfunc="sum", fill_value=0).reindex(columns=horas, fill_value=0)
+    comunas = []
+    for r in ref.itertuples():
+        a = mat.loc[r.cut].astype(int).tolist() if r.cut in mat.index else [0] * len(horas)
+        comunas.append({"cut": int(r.cut), "n": r.comuna, "r": r.region, "pob": int(r.poblacion),
+                        "cli": int(r.cli), "ph": float(r.ph), "a": a})
+    u = serie.iloc[-1]
+    out = {"actualizado": ts.strftime("%Y-%m-%d %H:%M"),
+           "hora_datos": f'{int(u["dia"]):02d}/{int(u["mes"]):02d}/{int(u["anho"])} {int(u["hora"]):02d}:00',
+           "total_pais": total_pais, "k": round(k, 4), "poblacion_pais": int(ref["poblacion"].sum()),
+           "horas": [h.replace(" ", "T") for h in horas],
+           "serie": [int(v) for v in serie["clientes_afectados"]], "comunas": comunas}
+    MAPA_JSON.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"  Mapa -> {MAPA_JSON} ({MAPA_JSON.stat().st_size/1024:.0f} KB, k={k:.3f})")
+
+
 def escribir_geojson(com, ult_h):
     ahora = com[com["hora"] == ult_h]
     if not GEOJSON_BASE.exists() or ahora.empty:
@@ -208,5 +253,6 @@ if __name__ == "__main__":
     print(f"[{ts:%Y-%m-%d %H:%M}] SEC: {int(ult['total_afectados']):,} clientes afectados (hora {ult['hora']})")
     escribir_excel(nac, reg, com)
     escribir_json(ts, total_pais, serie, nac, reg, com)
+    escribir_mapa(ts, total_pais, serie, com)
     escribir_geojson(com, serie["hkey"].iloc[-1])
     print("listo.")
