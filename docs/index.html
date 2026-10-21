@@ -26,6 +26,9 @@
   .pp .k3 big{display:block;font:800 22px/1 var(--hd);color:var(--n8);white-space:nowrap}.pp .k3 big.p{color:#b07d00}.pp .k3 big.c{color:var(--n7)}
   .pp .k3 small{display:block;font:600 10.5px/1.25 var(--bd);color:var(--tx);margin-top:4px;min-height:26px}
   .pp .k3 .tg{margin:3px 0 0}
+  .ver dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:7px 12px;font-size:12.5px}
+  .ver dt{color:var(--mu);font-weight:500}.ver dd{margin:0;font-weight:600;text-align:right}
+  .ver .ds{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--mu);line-height:1.45}
   .lt{font:800 18px/1.15 var(--hd);color:var(--n8);margin:0 0 10px}
   .opts button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:11px;padding:8px 10px;margin-bottom:6px;cursor:pointer;color:var(--tx)}
   .opts button:hover{border-color:var(--n7)}
@@ -206,6 +209,19 @@
       </div>
     </div>
     <div id="sheetBody" style="display:flex;flex-direction:column;gap:12px">
+      <section class="card adj ver" data-id="ver">
+        <h3><span>Detalle de lo que se está mostrando</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
+        <div class="cb">
+          <dl>
+            <dt>Métrica en el mapa</dt><dd id="vM">-</dd>
+            <dt>Hora mostrada</dt><dd id="vH">-</dd>
+            <dt>Zona</dt><dd id="vZ">-</dd>
+            <dt>Comunas con cortes</dt><dd id="vC">-</dd>
+            <dt>Esferas y colores</dt><dd>verde (menos) → rojo (más afectadas)</dd>
+          </dl>
+          <div class="ds" id="vD"></div>
+        </div>
+      </section>
       <section class="card adj" data-id="evo">
         <h3><span>Evolución nacional <span class="tg of">Clientes · oficial SEC</span></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
         <div class="cb">
@@ -443,7 +459,22 @@ function update() {
   const h = S.hi, d = S.d;
   $("hl").textContent = horaLabel(h) + (h === d.horas.length - 1 ? " (ahora)" : "");
   $("sl").value = h;
-  panel(); tops(); regChart(); mapa(); marcaBarra();
+  panel(); detalle(); tops(); regChart(); mapa(); marcaBarra();
+}
+function detalle() {
+  const h = S.hi, m = S.metric, d = S.d, ult = h === d.horas.length - 1;
+  const com = S.com !== "__all__" && S.byCut[S.com] ? S.byCut[S.com] : null;
+  const zona = com ? com.n + " (" + shortReg(com.r) + ")" : S.reg !== "__all__" ? shortReg(S.reg) : "Todo Chile";
+  let cs = d.comunas.filter(c => S.reg === "__all__" || c.r === S.reg); if (com) cs = [com];
+  const n = cs.filter(c => c.a[h] > 0).length;
+  const txt = { per: "Personas estimadas sin luz = clientes sin suministro × personas por cliente de la comuna (población del Censo 2024 ÷ clientes totales estimados).",
+                pct: "Clientes sin suministro ÷ clientes totales estimados de la comuna. Los clientes totales se estiman con las viviendas ocupadas del Censo 2024.",
+                cli: "Clientes sin suministro tal como los publica la SEC por comuna y hora (dato oficial, sin estimaciones)." };
+  $("vM").innerHTML = NOMB[m] + TAG[m];
+  $("vH").textContent = horaLabel(h) + (ult ? " · última hora publicada" : " · hora anterior");
+  $("vZ").textContent = zona;
+  $("vC").textContent = n + " de " + cs.length;
+  $("vD").textContent = txt[m];
 }
 function setHour(i) { S.hi = Math.max(0, Math.min(S.d.horas.length - 1, +i)); update(); }
 function stop() { clearInterval(S.timer); S.timer = null; $("playb").innerHTML = "&#9654; Reproducir"; }
@@ -501,10 +532,10 @@ function panelRegulable() {
   const root = document.documentElement, body = $("sheetBody");
   let pw = LS.get("pw", 372); root.style.setProperty("--pw", pw + "px");
   if (LS.get("pc", false)) { document.body.classList.add("pc"); $("pt").textContent = "›"; }
-  const orden = LS.get("orden", []), plegadas = LS.get("plegadas", []);
+  const orden = LS.get("orden2", []), plegadas = LS.get("plegadas", []);
   orden.forEach(id => { const el = body.querySelector(`[data-id="${id}"]`); if (el) body.appendChild(el); });
   plegadas.forEach(id => { const el = body.querySelector(`[data-id="${id}"]`); if (el) { el.classList.add("col"); el.querySelector('[data-a="tg"]').textContent = "+"; } });
-  const guardaOrden = () => LS.set("orden", [...body.querySelectorAll(".adj")].map(e => e.dataset.id));
+  const guardaOrden = () => LS.set("orden2", [...body.querySelectorAll(".adj")].map(e => e.dataset.id));
   body.addEventListener("click", e => {
     const b = e.target.closest(".ctr button"); if (!b) return; const card = b.closest(".adj");
     if (b.dataset.a === "up" && card.previousElementSibling) { body.insertBefore(card, card.previousElementSibling); guardaOrden(); }
