@@ -221,7 +221,7 @@ def escribir_mapa(ts, total_pais, serie, com):
     for r in ref.itertuples():
         a = mat.loc[r.cut].astype(int).tolist() if r.cut in mat.index else [0] * len(horas)
         comunas.append({"cut": int(r.cut), "n": r.comuna, "r": r.region, "pob": int(r.poblacion),
-                        "cli": int(r.cli), "ph": float(r.ph), "a": a})
+                        "cli": int(r.cli), "ph": float(r.ph), "lat": float(r.lat), "lon": float(r.lon), "a": a})
     u = serie.iloc[-1]
     out = {"actualizado": ts.strftime("%Y-%m-%d %H:%M"),
            "hora_datos": f'{int(u["dia"]):02d}/{int(u["mes"]):02d}/{int(u["anho"])} {int(u["hora"]):02d}:00',

@@ -2,7 +2,7 @@
 """
 Construye los datos de referencia por comuna (se corre una vez; el Censo no cambia):
   data/ref_comunas.csv   cut, key, comuna, region, poblacion, viviendas_ocupadas, hogares, pers_hogar
-  docs/comunas_geo.json  poligonos simplificados (ligeros) para el mapa del dashboard
+  (lat, lon = centroide de cada comuna, para las esferas del mapa)
 Fuente: INE, Censo 2024, capa publica COMUNA_DPA_INDICADORES (ArcGIS FeatureServer).
 El puente nombre SEC -> codigo comuna (CUT) usa 'key' de comunas.geojson (cod_comuna, key).
 """
@@ -51,15 +51,32 @@ def main():
     ref[cols].sort_values("cut").to_csv("data/ref_comunas.csv", index=False, encoding="utf-8-sig")
     print("poblacion total:", int(ref["poblacion"].sum()), "| viviendas ocupadas:", int(ref["viviendas_ocupadas"].sum()))
 
-    # geometria generalizada (grados): ~0.0015 deg ~ 150 m, suficiente para un mapa nacional
-    g = consulta(outFields="CUT", returnGeometry="true", outSR=4326, maxAllowableOffset=0.0015,
+    # centro de cada comuna (centroide del poligono mas grande) para dibujar esferas en el mapa
+    g = consulta(outFields="CUT", returnGeometry="true", outSR=4326, maxAllowableOffset=0.01,
                  geometryPrecision=4, f="geojson")
-    feats = []
+    cen = {}
     for f in g["features"]:
-        feats.append({"type": "Feature", "properties": {"cut": f["properties"]["CUT"]}, "geometry": f["geometry"]})
-    out = Path("docs/comunas_geo.json")
-    out.write_text(json.dumps({"type": "FeatureCollection", "features": feats}, separators=(",", ":")), encoding="utf-8")
-    print(f"geo -> {out} ({out.stat().st_size/1024:.0f} KB, {len(feats)} comunas)")
+        geom = f["geometry"]
+        polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+        mejor = max(polys, key=lambda p: abs(area(p[0])))
+        cen[f["properties"]["CUT"]] = centroide(mejor[0])
+    ref["lat"] = ref["cut"].map(lambda c: cen[c][1])
+    ref["lon"] = ref["cut"].map(lambda c: cen[c][0])
+    ref[cols + ["lat", "lon"]].sort_values("cut").to_csv("data/ref_comunas.csv", index=False, encoding="utf-8-sig")
+    print("centroides:", len(cen))
+
+
+def area(r):
+    return sum(r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1] for i in range(len(r) - 1)) / 2
+
+
+def centroide(r):
+    a = area(r)
+    if abs(a) < 1e-12:
+        return round(sum(p[0] for p in r) / len(r), 4), round(sum(p[1] for p in r) / len(r), 4)
+    cx = sum((r[i][0] + r[i + 1][0]) * (r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1]) for i in range(len(r) - 1)) / (6 * a)
+    cy = sum((r[i][1] + r[i + 1][1]) * (r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1]) for i in range(len(r) - 1)) / (6 * a)
+    return round(cx, 4), round(cy, 4)
 
 
 if __name__ == "__main__":

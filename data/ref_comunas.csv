@@ -1,347 +1,347 @@
-﻿cut,key,comuna,region,poblacion,viviendas_ocupadas,hogares,pers_hogar,viviendas_total
-1101,iquique,Iquique,Región de Tarapacá,199587,68763,69800,2.8,75372
-1107,alto hospicio,Alto Hospicio,Región de Tarapacá,142086,43731,42150,3.3,46573
-1401,pozo almonte,Pozo Almonte,Región de Tarapacá,16878,5506,5609,2.9,11604
-1402,camina,Camiña,Región de Tarapacá,1335,482,489,2.7,1178
-1403,colchane,Colchane,Región de Tarapacá,790,263,247,2.8,2112
-1404,huara,Huara,Región de Tarapacá,2858,1118,1036,2.8,3215
-1405,pica,Pica,Región de Tarapacá,6272,2209,2180,2.9,3199
-2101,antofagasta,Antofagasta,Región de Antofagasta,401096,131910,134059,3.0,139824
-2102,mejillones,Mejillones,Región de Antofagasta,14084,5130,4740,3.0,5800
-2103,sierra gorda,Sierra Gorda,Región de Antofagasta,1472,507,481,3.0,734
-2104,taltal,Taltal,Región de Antofagasta,12097,4350,4100,2.9,5316
-2201,calama,Calama,Región de Antofagasta,166334,55553,56045,2.9,60835
-2202,ollague,Ollagüe,Región de Antofagasta,256,92,102,2.5,438
-2203,san pedro de atacama,San Pedro de Atacama,Región de Antofagasta,9843,4190,3895,2.5,5071
-2301,tocopilla,Tocopilla,Región de Antofagasta,25400,9154,8690,2.8,11884
-2302,maria elena,María Elena,Región de Antofagasta,4834,1677,1635,2.9,1927
-3101,copiapo,Copiapó,Región de Atacama,168831,57572,56984,2.9,64409
-3102,caldera,Caldera,Región de Atacama,18805,7358,6922,2.7,18105
-3103,tierra amarilla,Tierra Amarilla,Región de Atacama,11846,3910,3857,3.1,4637
-3201,chanaral,Chañaral,Región de Atacama,12345,4863,4383,2.8,7237
-3202,diego de almagro,Diego de Almagro,Región de Atacama,11397,4345,4157,2.7,6808
-3301,vallenar,Vallenar,Región de Atacama,54222,18877,18630,2.9,23410
-3302,alto del carmen,Alto del Carmen,Región de Atacama,4788,1943,1919,2.5,3164
-3303,freirina,Freirina,Región de Atacama,7577,2898,2733,2.8,4397
-3304,huasco,Huasco,Región de Atacama,9369,4272,3472,2.7,7364
-4101,la serena,La Serena,Región de Coquimbo,250141,87698,86442,2.9,109497
-4102,coquimbo,Coquimbo,Región de Coquimbo,263719,90484,89924,2.9,113105
-4103,andacollo,Andacollo,Región de Coquimbo,11566,4308,4064,2.8,5128
-4104,la higuera,La Higuera,Región de Coquimbo,4335,1830,1626,2.7,3214
-4105,paihuano,Paihuano,Región de Coquimbo,4649,2076,1862,2.5,2890
-4106,vicuna,Vicuña,Región de Coquimbo,28047,10337,9817,2.9,12041
-4201,illapel,Illapel,Región de Coquimbo,32009,12109,11573,2.7,14203
-4202,canela,Canela,Región de Coquimbo,9639,4173,3778,2.6,5779
-4203,los vilos,Los Vilos,Región de Coquimbo,22879,9146,8514,2.7,14211
-4204,salamanca,Salamanca,Región de Coquimbo,27823,10244,10035,2.8,12142
-4301,ovalle,Ovalle,Región de Coquimbo,118696,42927,42131,2.8,49654
-4302,combarbala,Combarbalá,Región de Coquimbo,12954,5608,5250,2.5,7647
-4303,monte patria,Monte Patria,Región de Coquimbo,29997,11426,11210,2.7,14470
-4304,punitaqui,Punitaqui,Región de Coquimbo,12076,4645,4461,2.7,5891
-4305,rio hurtado,Río Hurtado,Región de Coquimbo,4334,1880,1880,2.3,2913
-5101,valparaiso,Valparaíso,Región de Valparaíso,284938,115192,108777,2.6,132071
-5102,casablanca,Casablanca,Región de Valparaíso,29876,11097,10564,2.8,13978
-5103,concon,Concón,Región de Valparaíso,48294,19272,18217,2.6,26950
-5104,juan fernandez,Juan Fernández,Región de Valparaíso,904,396,374,2.4,472
-5105,puchuncavi,Puchuncaví,Región de Valparaíso,22539,9049,8480,2.6,21145
-5107,quintero,Quintero,Región de Valparaíso,35754,13703,13028,2.7,19663
-5109,vina del mar,Viña del Mar,Región de Valparaíso,334871,133532,131821,2.5,163496
-5201,isla de pascua,Isla de Pascua,Región de Valparaíso,4800,2360,2069,2.3,3111
-5301,los andes,Los Andes,Región de Valparaíso,63440,24247,23060,2.7,26034
-5302,calle larga,Calle Larga,Región de Valparaíso,16597,5839,5766,2.9,6203
-5303,rinconada,Rinconada,Región de Valparaíso,11855,4120,4043,2.9,4728
-5304,san esteban,San Esteban,Región de Valparaíso,20112,7187,7127,2.8,8216
-5401,la ligua,La Ligua,Región de Valparaíso,39270,14683,14286,2.7,24069
-5402,cabildo,Cabildo,Región de Valparaíso,20015,6733,6777,2.9,7339
-5403,papudo,Papudo,Región de Valparaíso,7561,2757,2713,2.8,8022
-5404,petorca,Petorca,Región de Valparaíso,10206,4018,3817,2.7,5037
-5405,zapallar,Zapallar,Región de Valparaíso,7980,2939,2811,2.8,8100
-5501,quillota,Quillota,Región de Valparaíso,96753,34987,33740,2.8,37234
-5502,calera,Calera,Región de Valparaíso,50631,18472,17419,2.9,19635
-5503,hijuelas,Hijuelas,Región de Valparaíso,19286,6782,6680,2.9,7376
-5504,la cruz,La Cruz,Región de Valparaíso,24939,8931,8580,2.9,9860
-5506,nogales,Nogales,Región de Valparaíso,22136,7878,7525,2.9,8397
-5601,san antonio,San Antonio,Región de Valparaíso,96770,36374,34743,2.7,40846
-5602,algarrobo,Algarrobo,Región de Valparaíso,16076,7044,6430,2.5,21324
-5603,cartagena,Cartagena,Región de Valparaíso,24599,9629,9267,2.6,18209
-5604,el quisco,El Quisco,Región de Valparaíso,18971,8453,7696,2.5,18702
-5605,el tabo,El Tabo,Región de Valparaíso,16260,7580,6765,2.4,25134
-5606,santo domingo,Santo Domingo,Región de Valparaíso,13171,5086,4661,2.8,8895
-5701,san felipe,San Felipe,Región de Valparaíso,80413,29873,29530,2.7,31634
-5702,catemu,Catemu,Región de Valparaíso,13760,5061,4923,2.8,5604
-5703,llaillay,Llaillay,Región de Valparaíso,25484,9344,8913,2.9,10439
-5704,panquehue,Panquehue,Región de Valparaíso,7269,2536,2441,3.0,2863
-5705,putaendo,Putaendo,Región de Valparaíso,17336,6121,6037,2.8,6746
-5706,santa maria,Santa María,Región de Valparaíso,15134,5475,5360,2.8,6090
-5801,quilpue,Quilpué,Región de Valparaíso,162559,62234,59451,2.7,66020
-5802,limache,Limache,Región de Valparaíso,56145,20809,19778,2.8,24683
-5803,olmue,Olmué,Región de Valparaíso,19778,7884,7449,2.7,10530
-5804,villa alemana,Villa Alemana,Región de Valparaíso,139571,51516,49954,2.8,55220
-6101,rancagua,Rancagua,Región del Libertador Bernardo O'Higgins,257744,93905,92398,2.8,100428
-6102,codegua,Codegua,Región del Libertador Bernardo O'Higgins,13955,4773,4654,3.0,5181
-6103,coinco,Coinco,Región del Libertador Bernardo O'Higgins,7916,2914,2795,2.8,3386
-6104,coltauco,Coltauco,Región del Libertador Bernardo O'Higgins,21373,7672,7549,2.8,8586
-6105,donihue,Doñihue,Región del Libertador Bernardo O'Higgins,21925,7838,7699,2.8,8381
-6106,graneros,Graneros,Región del Libertador Bernardo O'Higgins,35938,12273,12105,3.0,12964
-6107,las cabras,Las Cabras,Región del Libertador Bernardo O'Higgins,27554,10050,9823,2.8,14760
-6108,machali,Machalí,Región del Libertador Bernardo O'Higgins,60875,20993,20475,3.0,22681
-6109,malloa,Malloa,Región del Libertador Bernardo O'Higgins,13882,4975,4932,2.8,5736
-6110,mostazal,Mostazal,Región del Libertador Bernardo O'Higgins,27394,9297,9111,3.0,10140
-6111,olivar,Olivar,Región del Libertador Bernardo O'Higgins,13901,4874,4708,2.9,5247
-6112,peumo,Peumo,Región del Libertador Bernardo O'Higgins,14243,4932,4864,2.9,5305
-6113,pichidegua,Pichidegua,Región del Libertador Bernardo O'Higgins,20363,7301,7248,2.8,7991
-6114,quinta de tilcoco,Quinta de Tilcoco,Región del Libertador Bernardo O'Higgins,13558,4807,4856,2.8,5254
-6115,rengo,Rengo,Región del Libertador Bernardo O'Higgins,63620,23556,22338,2.8,25136
-6116,requinoa,Requínoa,Región del Libertador Bernardo O'Higgins,29508,9932,9833,3.0,10491
-6117,san vicente,San Vicente,Región del Libertador Bernardo O'Higgins,49559,17770,17837,2.8,19278
-6201,pichilemu,Pichilemu,Región del Libertador Bernardo O'Higgins,19847,8228,7738,2.6,15007
-6202,la estrella,La Estrella,Región del Libertador Bernardo O'Higgins,4609,1815,1812,2.5,3678
-6203,litueche,Litueche,Región del Libertador Bernardo O'Higgins,8852,3596,3408,2.6,5461
-6204,marchigue,Marchigüe,Región del Libertador Bernardo O'Higgins,8715,3377,3304,2.6,5069
-6205,navidad,Navidad,Región del Libertador Bernardo O'Higgins,8885,3675,3674,2.4,6597
-6206,paredones,Paredones,Región del Libertador Bernardo O'Higgins,7228,2968,2857,2.5,5686
-6301,san fernando,San Fernando,Región del Libertador Bernardo O'Higgins,75585,28464,27300,2.8,31420
-6302,chepica,Chépica,Región del Libertador Bernardo O'Higgins,15668,5468,5531,2.8,5962
-6303,chimbarongo,Chimbarongo,Región del Libertador Bernardo O'Higgins,37258,13374,13277,2.8,14249
-6304,lolol,Lolol,Región del Libertador Bernardo O'Higgins,7791,2896,2897,2.7,3718
-6305,nancagua,Nancagua,Región del Libertador Bernardo O'Higgins,18723,6511,6517,2.9,7111
-6306,palmilla,Palmilla,Región del Libertador Bernardo O'Higgins,13060,4547,4453,2.9,5132
-6307,peralillo,Peralillo,Región del Libertador Bernardo O'Higgins,12493,4481,4485,2.8,5158
-6308,placilla,Placilla,Región del Libertador Bernardo O'Higgins,9438,3424,3287,2.9,3758
-6309,pumanque,Pumanque,Región del Libertador Bernardo O'Higgins,4559,1864,1777,2.6,2567
-6310,santa cruz,Santa Cruz,Región del Libertador Bernardo O'Higgins,41209,15027,14830,2.7,16452
-7101,talca,Talca,Región del Maule,232131,85545,84927,2.7,95397
-7102,constitucion,Constitución,Región del Maule,47004,18392,17554,2.7,23408
-7103,curepto,Curepto,Región del Maule,9519,3812,3788,2.5,5199
-7104,empedrado,Empedrado,Región del Maule,3990,1484,1463,2.7,1892
-7105,maule,Maule,Región del Maule,61081,21218,20399,3.0,23296
-7106,pelarco,Pelarco,Región del Maule,9229,3402,3247,2.8,4073
-7107,pencahue,Pencahue,Región del Maule,9181,3549,3421,2.7,4682
-7108,rio claro,Río Claro,Región del Maule,14276,5425,5130,2.8,6279
-7109,san clemente,San Clemente,Región del Maule,47380,17046,16654,2.8,22312
-7110,san rafael,San Rafael,Región del Maule,11230,4000,3923,2.9,4788
-7201,cauquenes,Cauquenes,Región del Maule,42798,17070,16190,2.6,20238
-7202,chanco,Chanco,Región del Maule,9446,3490,3485,2.7,4442
-7203,pelluhue,Pelluhue,Región del Maule,8578,3900,3484,2.5,7743
-7301,curico,Curicó,Región del Maule,159968,57375,57321,2.8,62225
-7302,hualane,Hualañé,Región del Maule,10775,4246,4066,2.6,5199
-7303,licanten,Licantén,Región del Maule,6892,2670,2666,2.6,4500
-7304,molina,Molina,Región del Maule,48949,17539,17300,2.8,18980
-7305,rauco,Rauco,Región del Maule,11266,4164,4072,2.8,4784
-7306,romeral,Romeral,Región del Maule,17233,6298,6113,2.8,7233
-7307,sagrada familia,Sagrada Familia,Región del Maule,19427,6974,6730,2.9,7533
-7308,teno,Teno,Región del Maule,30113,10962,10735,2.8,12501
-7309,vichuquen,Vichuquén,Región del Maule,4716,1957,1892,2.5,4422
-7401,linares,Linares,Región del Maule,96744,36485,35110,2.7,41380
-7402,colbun,Colbún,Región del Maule,22637,8720,8220,2.7,10583
-7403,longavi,Longaví,Región del Maule,33299,12270,11995,2.8,14133
-7404,parral,Parral,Región del Maule,45323,17579,17034,2.6,20794
-7405,retiro,Retiro,Región del Maule,22310,8507,8218,2.7,10149
-7406,san javier,San Javier,Región del Maule,49559,18891,18058,2.7,22233
-7407,villa alegre,Villa Alegre,Región del Maule,17919,7040,6674,2.7,8164
-7408,yerbas buenas,Yerbas Buenas,Región del Maule,20035,7333,7095,2.8,8088
-8101,concepcion,Concepción,Región del Bío-Bío,230375,90583,91718,2.5,101209
-8102,coronel,Coronel,Región del Bío-Bío,123648,42054,41885,2.9,45743
-8103,chiguayante,Chiguayante,Región del Bío-Bío,85822,29522,29370,2.9,30666
-8104,florida,Florida,Región del Bío-Bío,12958,4952,4952,2.6,6748
-8105,hualqui,Hualqui,Región del Bío-Bío,25795,9167,8815,2.9,10881
-8106,lota,Lota,Región del Bío-Bío,39980,13844,13805,2.9,15968
-8107,penco,Penco,Región del Bío-Bío,48971,16920,16829,2.9,17566
-8108,san pedro de la paz,San Pedro de la Paz,Región del Bío-Bío,150992,54702,52274,2.9,56862
-8109,santa juana,Santa Juana,Región del Bío-Bío,14947,5684,5602,2.7,7532
-8110,talcahuano,Talcahuano,Región del Bío-Bío,147322,50765,50931,2.9,53813
-8111,tome,Tomé,Región del Bío-Bío,56907,20944,20717,2.7,25105
-8112,hualpen,Hualpén,Región del Bío-Bío,87731,31003,30590,2.9,32286
-8201,lebu,Lebu,Región del Bío-Bío,25246,8802,8777,2.9,10238
-8202,arauco,Arauco,Región del Bío-Bío,37163,13191,13185,2.8,15168
-8203,canete,Cañete,Región del Bío-Bío,34640,12560,12530,2.8,14503
-8204,contulmo,Contulmo,Región del Bío-Bío,5905,2312,2288,2.6,2992
-8205,curanilahue,Curanilahue,Región del Bío-Bío,31119,11353,11095,2.8,13203
-8206,los alamos,Los Alamos,Región del Bío-Bío,21950,8177,7985,2.7,9311
-8207,tirua,Tirúa,Región del Bío-Bío,10208,3617,3607,2.8,4896
-8301,los angeles,Los Angeles,Región del Bío-Bío,219441,80465,78445,2.8,93053
-8302,antuco,Antuco,Región del Bío-Bío,4373,1735,1722,2.5,2672
-8303,cabrero,Cabrero,Región del Bío-Bío,31256,11408,11389,2.7,13270
-8304,laja,Laja,Región del Bío-Bío,23706,8569,8562,2.8,10091
-8305,mulchen,Mulchén,Región del Bío-Bío,29036,10087,10163,2.8,11593
-8306,nacimiento,Nacimiento,Región del Bío-Bío,26140,9334,9231,2.8,11089
-8307,negrete,Negrete,Región del Bío-Bío,10723,3807,3762,2.9,4421
-8308,quilaco,Quilaco,Región del Bío-Bío,4440,1743,1727,2.5,2452
-8309,quilleco,Quilleco,Región del Bío-Bío,9700,3649,3582,2.7,4502
-8310,san rosendo,San Rosendo,Región del Bío-Bío,3575,1313,1322,2.7,1867
-8311,santa barbara,Santa Bárbara,Región del Bío-Bío,14075,5379,5215,2.7,6395
-8312,tucapel,Tucapel,Región del Bío-Bío,15729,6406,6176,2.5,7795
-8313,yumbel,Yumbel,Región del Bío-Bío,23170,9056,8890,2.6,14112
-8314,alto biobio,Alto Biobío,Región del Bío-Bío,6016,2084,2029,3.0,2776
-9101,temuco,Temuco,Región de La Araucanía,292518,112823,110496,2.6,129071
-9102,carahue,Carahue,Región de La Araucanía,24957,9473,9090,2.7,11657
-9103,cunco,Cunco,Región de La Araucanía,19177,7929,7324,2.6,10541
-9104,curarrehue,Curarrehue,Región de La Araucanía,7733,3313,2906,2.7,4432
-9105,freire,Freire,Región de La Araucanía,26164,10379,9721,2.7,12597
-9106,galvarino,Galvarino,Región de La Araucanía,12710,4773,4515,2.8,5476
-9107,gorbea,Gorbea,Región de La Araucanía,14148,5784,5583,2.5,6702
-9108,lautaro,Lautaro,Región de La Araucanía,41936,16168,14817,2.8,18221
-9109,loncoche,Loncoche,Región de La Araucanía,25158,10293,9568,2.6,12376
-9110,melipeuco,Melipeuco,Región de La Araucanía,6796,2786,2624,2.6,3614
-9111,nueva imperial,Nueva Imperial,Región de La Araucanía,33988,12741,12109,2.8,14842
-9112,padre las casas,Padre Las Casas,Región de La Araucanía,80656,28908,27708,2.9,32154
-9113,perquenco,Perquenco,Región de La Araucanía,7438,2853,2742,2.7,3345
-9114,pitrufquen,Pitrufquén,Región de La Araucanía,27041,11130,10252,2.6,13102
-9115,pucon,Pucón,Región de La Araucanía,32321,13477,12548,2.6,28770
-9116,saavedra,Saavedra,Región de La Araucanía,12877,5128,4926,2.6,6757
-9117,teodoro schmidt,Teodoro Schmidt,Región de La Araucanía,15639,6333,6048,2.6,8008
-9118,tolten,Toltén,Región de La Araucanía,10041,3911,3857,2.6,4954
-9119,vilcun,Vilcún,Región de La Araucanía,31575,11781,11229,2.8,13928
-9120,villarrica,Villarrica,Región de La Araucanía,67737,28128,25155,2.7,43229
-9121,cholchol,Cholchol,Región de La Araucanía,13167,4670,4549,2.9,5271
-9201,angol,Angol,Región de La Araucanía,53022,20462,19220,2.7,22100
-9202,collipulli,Collipulli,Región de La Araucanía,24303,9388,8764,2.8,10460
-9203,curacautin,Curacautín,Región de La Araucanía,18536,7527,7102,2.6,9923
-9204,ercilla,Ercilla,Región de La Araucanía,7730,3183,2787,2.8,3784
-9205,lonquimay,Lonquimay,Región de La Araucanía,10247,3991,3763,2.7,5662
-9206,los sauces,Los Sauces,Región de La Araucanía,7348,2788,2716,2.7,3373
-9207,lumaco,Lumaco,Región de La Araucanía,9253,3565,3401,2.7,4217
-9208,puren,Purén,Región de La Araucanía,12184,4625,4515,2.7,5300
-9209,renaico,Renaico,Región de La Araucanía,10686,4063,3834,2.8,4519
-9210,traiguen,Traiguén,Región de La Araucanía,18873,7510,7026,2.6,8384
-9211,victoria,Victoria,Región de La Araucanía,34464,13112,12465,2.7,14459
-10101,puerto montt,Puerto Montt,Región de Los Lagos,277040,103572,100163,2.7,116072
-10102,calbuco,Calbuco,Región de Los Lagos,36474,13814,13410,2.7,15942
-10103,cochamo,Cochamó,Región de Los Lagos,4199,1908,1887,2.2,3063
-10104,fresia,Fresia,Región de Los Lagos,12320,5250,4853,2.5,6288
-10105,frutillar,Frutillar,Región de Los Lagos,22554,8724,8159,2.8,10304
-10106,los muermos,Los Muermos,Región de Los Lagos,17162,7125,6657,2.6,8697
-10107,llanquihue,Llanquihue,Región de Los Lagos,18088,6405,6206,2.9,6960
-10108,maullin,Maullín,Región de Los Lagos,15063,6206,5960,2.5,7559
-10109,puerto varas,Puerto Varas,Región de Los Lagos,52942,21262,19108,2.8,25207
-10201,castro,Castro,Región de Los Lagos,46997,19106,17911,2.6,21192
-10202,ancud,Ancud,Región de Los Lagos,40949,16905,15668,2.6,19862
-10203,chonchi,Chonchi,Región de Los Lagos,16078,6676,6355,2.5,8288
-10204,curaco de velez,Curaco de Vélez,Región de Los Lagos,3662,1498,1423,2.6,1915
-10205,dalcahue,Dalcahue,Región de Los Lagos,14894,5868,5610,2.7,7223
-10206,puqueldon,Puqueldón,Región de Los Lagos,4048,1581,1556,2.6,2093
-10207,queilen,Queilén,Región de Los Lagos,5690,2302,2237,2.5,3142
-10208,quellon,Quellón,Región de Los Lagos,28460,11479,10859,2.6,13474
-10209,quemchi,Quemchi,Región de Los Lagos,8409,3457,3373,2.5,4652
-10210,quinchao,Quinchao,Región de Los Lagos,7678,3153,3011,2.5,4153
-10301,osorno,Osorno,Región de Los Lagos,166455,64827,62545,2.6,68763
-10302,puerto octay,Puerto Octay,Región de Los Lagos,8865,3538,3349,2.6,5294
-10303,purranque,Purranque,Región de Los Lagos,19542,7754,7304,2.7,8707
-10304,puyehue,Puyehue,Región de Los Lagos,11712,4676,4404,2.7,5986
-10305,rio negro,Río Negro,Región de Los Lagos,13874,5659,5269,2.6,6493
-10306,san juan de la costa,San Juan de la Costa,Región de Los Lagos,7776,3525,3340,2.3,6797
-10307,san pablo,San Pablo,Región de Los Lagos,10883,4241,4192,2.6,5133
-10401,chaiten,Chaitén,Región de Los Lagos,4025,1804,1676,2.4,2562
-10402,futaleufu,Futaleufú,Región de Los Lagos,3062,1338,1333,2.3,1794
-10403,hualaihue,Hualaihué,Región de Los Lagos,9480,4101,3709,2.6,5218
-10404,palena,Palena,Región de Los Lagos,1903,887,868,2.2,1309
-11101,coyhaique,Coyhaique,Región de Aysén del Gral.Ibañez del Campo,57823,23506,22423,2.5,27989
-11102,lago verde,Lago Verde,Región de Aysén del Gral.Ibañez del Campo,779,411,373,2.0,724
-11201,aysen,Aysén,Región de Aysén del Gral.Ibañez del Campo,23170,9827,9057,2.5,11054
-11202,cisnes,Cisnes,Región de Aysén del Gral.Ibañez del Campo,5137,2534,2180,2.4,3437
-11203,guaitecas,Guaitecas,Región de Aysén del Gral.Ibañez del Campo,1598,605,606,2.6,816
-11301,cochrane,Cochrane,Región de Aysén del Gral.Ibañez del Campo,3458,1521,1462,2.3,2126
-11302,ohiggins,O'Higgins,Región de Aysén del Gral.Ibañez del Campo,647,296,292,2.2,403
-11303,tortel,Tortel,Región de Aysén del Gral.Ibañez del Campo,505,244,231,2.2,395
-11401,chile chico,Chile Chico,Región de Aysén del Gral.Ibañez del Campo,4905,2364,2109,2.3,3108
-11402,rio ibanez,Río Ibáñez,Región de Aysén del Gral.Ibañez del Campo,2723,1302,1231,2.2,2242
-12101,punta arenas,Punta Arenas,Región de Magallanes y Antártica Chilena,132363,52991,49571,2.6,59195
-12102,laguna blanca,Laguna Blanca,Región de Magallanes y Antártica Chilena,269,102,98,1.9,290
-12103,rio verde,Río Verde,Región de Magallanes y Antártica Chilena,102,64,63,1.6,188
-12104,san gregorio,San Gregorio,Región de Magallanes y Antártica Chilena,241,114,110,2.0,444
-12201,cabo de hornos,Cabo de Hornos,Región de Magallanes y Antártica Chilena,1750,619,617,2.8,780
-12202,antartica,Antártica,Región De Magallanes Y De La Antártica Chilena,60,0,0,0.0,4
-12301,porvenir,Porvenir,Región de Magallanes y Antártica Chilena,6809,2823,2770,2.4,3551
-12302,primavera,Primavera,Región de Magallanes y Antártica Chilena,431,179,181,2.4,414
-12303,timaukel,Timaukel,Región de Magallanes y Antártica Chilena,157,65,62,2.4,214
-12401,natales,Natales,Región de Magallanes y Antártica Chilena,24152,10073,9490,2.5,11223
-12402,torres del paine,Torres del Paine,Región de Magallanes y Antártica Chilena,203,100,100,2.0,304
-13101,santiago,Santiago,Región Metropolitana de Santiago,438856,214041,206458,2.1,239265
-13102,cerrillos,Cerrillos,Región Metropolitana de Santiago,85041,29576,28186,3.0,31656
-13103,cerro navia,Cerro Navia,Región Metropolitana de Santiago,127250,39520,41864,3.0,40088
-13104,conchali,Conchalí,Región Metropolitana de Santiago,121587,37714,40727,3.0,38829
-13105,el bosque,El Bosque,Región Metropolitana de Santiago,155257,49136,50233,3.1,50351
-13106,estacion central,Estación Central,Región Metropolitana de Santiago,181049,68989,67722,2.7,76025
-13107,huechuraba,Huechuraba,Región Metropolitana de Santiago,101808,30315,31965,3.2,31102
-13108,independencia,Independencia,Región Metropolitana de Santiago,116943,45882,45411,2.6,50346
-13109,la cisterna,La Cisterna,Región Metropolitana de Santiago,103157,38442,38042,2.7,41616
-13110,la florida,La Florida,Región Metropolitana de Santiago,374836,134657,133631,2.8,143650
-13111,la granja,La Granja,Región Metropolitana de Santiago,112022,36079,37118,3.0,36699
-13112,la pintana,La Pintana,Región Metropolitana de Santiago,175421,52089,53951,3.2,53031
-13113,la reina,La Reina,Región Metropolitana de Santiago,89870,30552,30574,2.9,31640
-13114,las condes,Las Condes,Región Metropolitana de Santiago,296134,121263,116176,2.5,129033
-13115,lo barnechea,Lo Barnechea,Región Metropolitana de Santiago,112620,33535,32458,3.5,36387
-13116,lo espejo,Lo Espejo,Región Metropolitana de Santiago,87295,26649,27387,3.2,27356
-13117,lo prado,Lo Prado,Región Metropolitana de Santiago,91290,30214,31862,2.9,31009
-13118,macul,Macul,Región Metropolitana de Santiago,123800,48631,47555,2.6,50722
-13119,maipu,Maipú,Región Metropolitana de Santiago,503635,165847,167383,3.0,169373
-13120,nunoa,Ñuñoa,Región Metropolitana de Santiago,241467,113378,108555,2.2,121519
-13121,pedro aguirre cerda,Pedro Aguirre Cerda,Región Metropolitana de Santiago,96062,30353,32328,3.0,31034
-13122,penalolen,Peñalolén,Región Metropolitana de Santiago,236478,74090,76078,3.1,75509
-13123,providencia,Providencia,Región Metropolitana de Santiago,143974,70107,69157,2.0,76476
-13124,pudahuel,Pudahuel,Región Metropolitana de Santiago,227820,72268,74144,3.1,73709
-13125,quilicura,Quilicura,Región Metropolitana de Santiago,205624,64965,65059,3.2,66994
-13126,quinta normal,Quinta Normal,Región Metropolitana de Santiago,129351,45008,45700,2.8,46815
-13127,recoleta,Recoleta,Región Metropolitana de Santiago,154615,53386,55579,2.8,55881
-13128,renca,Renca,Región Metropolitana de Santiago,143622,45192,46397,3.1,46455
-13129,san joaquin,San Joaquín,Región Metropolitana de Santiago,95602,32567,33461,2.8,33856
-13130,san miguel,San Miguel,Región Metropolitana de Santiago,150829,62266,60243,2.5,65828
-13131,san ramon,San Ramón,Región Metropolitana de Santiago,76002,23204,24963,3.0,23821
-13132,vitacura,Vitacura,Región Metropolitana de Santiago,86420,32658,31114,2.8,34538
-13201,puente alto,Puente Alto,Región Metropolitana de Santiago,568086,185864,182855,3.1,190374
-13202,pirque,Pirque,Región Metropolitana de Santiago,29060,9677,9183,3.2,10189
-13203,san jose de maipo,San José de Maipo,Región Metropolitana de Santiago,17441,6766,6368,2.7,8027
-13301,colina,Colina,Región Metropolitana de Santiago,173293,52278,50926,3.3,54790
-13302,lampa,Lampa,Región Metropolitana de Santiago,145160,47152,45445,3.2,50284
-13303,tiltil,Tiltil,Región Metropolitana de Santiago,19742,7010,6585,3.0,8234
-13401,san bernardo,San Bernardo,Región Metropolitana de Santiago,306371,99287,98580,3.1,102253
-13402,buin,Buin,Región Metropolitana de Santiago,116969,39777,37620,3.1,42459
-13403,calera de tango,Calera de Tango,Región Metropolitana de Santiago,25491,8140,7852,3.2,8406
-13404,paine,Paine,Región Metropolitana de Santiago,78828,27634,25871,3.0,30818
-13501,melipilla,Melipilla,Región Metropolitana de Santiago,136325,47598,46457,2.9,52240
-13502,alhue,Alhué,Región Metropolitana de Santiago,7768,2787,2770,2.8,3316
-13503,curacavi,Curacaví,Región Metropolitana de Santiago,35165,12692,12001,2.9,14226
-13504,maria pinto,María Pinto,Región Metropolitana de Santiago,15352,5311,5247,2.9,5881
-13505,san pedro,San Pedro,Región Metropolitana de Santiago,11108,4261,3973,2.8,5360
-13601,talagante,Talagante,Región Metropolitana de Santiago,76429,25877,24425,3.1,27535
-13602,el monte,El Monte,Región Metropolitana de Santiago,37497,12628,12141,3.1,13374
-13603,isla de maipo,Isla de Maipo,Región Metropolitana de Santiago,39274,13424,12989,3.0,14531
-13604,padre hurtado,Padre Hurtado,Región Metropolitana de Santiago,81243,27455,26139,3.1,28793
-13605,penaflor,Peñaflor,Región Metropolitana de Santiago,94402,31372,30713,3.1,33046
-14101,valdivia,Valdivia,Región de Los Ríos,170043,64269,63026,2.6,72877
-14102,corral,Corral,Región de Los Ríos,5501,2343,2131,2.6,3360
-14103,lanco,Lanco,Región de Los Ríos,16876,7044,6432,2.6,7784
-14104,los lagos,Los Lagos,Región de Los Ríos,21431,8120,7908,2.7,9573
-14105,mafil,Máfil,Región de Los Ríos,8074,2994,2949,2.7,3441
-14106,mariquina,Mariquina,Región de Los Ríos,22973,8757,8223,2.8,10274
-14107,paillaco,Paillaco,Región de Los Ríos,19802,7573,7294,2.7,8443
-14108,panguipulli,Panguipulli,Región de Los Ríos,35098,14651,13315,2.6,20022
-14201,la union,La Unión,Región de Los Ríos,38907,15358,14579,2.7,17156
-14202,futrono,Futrono,Región de Los Ríos,15635,5876,5761,2.7,7932
-14203,lago ranco,Lago Ranco,Región de Los Ríos,10527,4533,4090,2.6,6248
-14204,rio bueno,Río Bueno,Región de Los Ríos,33363,13654,12935,2.6,16369
-15101,arica,Arica,Región de Arica y Parinacota,241653,77918,79338,3.0,84989
-15102,camarones,Camarones,Región de Arica y Parinacota,861,433,437,2.0,1035
-15201,putre,Putre,Región de Arica y Parinacota,1547,701,619,2.2,1853
-15202,general lagos,General Lagos,Región de Arica y Parinacota,508,224,226,2.2,624
-16101,chillan,Chillán,Región de Ñuble,190382,71676,70003,2.7,81042
-16102,bulnes,Bulnes,Región de Ñuble,23863,8953,8771,2.7,10531
-16103,chillan viejo,Chillán Viejo,Región de Ñuble,32688,12090,11738,2.8,13027
-16104,el carmen,El Carmen,Región de Ñuble,13186,5095,5008,2.6,6212
-16105,pemuco,Pemuco,Región de Ñuble,8930,3326,3243,2.7,4204
-16106,pinto,Pinto,Región de Ñuble,12502,4789,4774,2.6,7664
-16107,quillon,Quillón,Región de Ñuble,19165,8243,7523,2.5,13489
-16108,san ignacio,San Ignacio,Región de Ñuble,17405,6876,6620,2.6,7990
-16109,yungay,Yungay,Región de Ñuble,18680,7904,7309,2.5,10342
-16201,quirihue,Quirihue,Región de Ñuble,11746,4638,4642,2.5,5628
-16202,cobquecura,Cobquecura,Región de Ñuble,5495,2339,2305,2.4,3897
-16203,coelemu,Coelemu,Región de Ñuble,15895,5904,5638,2.8,7087
-16204,ninhue,Ninhue,Región de Ñuble,5763,2313,2308,2.5,2908
-16205,portezuelo,Portezuelo,Región de Ñuble,5203,2057,2045,2.5,2700
-16206,ranquil,Ranquil,Región de Ñuble,6508,2787,2615,2.5,3563
-16207,treguaco,Treguaco,Región de Ñuble,6124,2395,2336,2.6,3053
-16301,san carlos,San Carlos,Región de Ñuble,55847,21485,20672,2.7,23905
-16302,coihueco,Coihueco,Región de Ñuble,29766,10793,10468,2.8,12130
-16303,niquen,Ñiquén,Región de Ñuble,12797,5023,4920,2.6,6008
-16304,san fabian,San Fabián,Región de Ñuble,5245,2065,2022,2.6,3137
-16305,san nicolas,San Nicolás,Región de Ñuble,15099,5461,5442,2.8,6328
+﻿cut,key,comuna,region,poblacion,viviendas_ocupadas,hogares,pers_hogar,viviendas_total,lat,lon
+1101,iquique,Iquique,Región de Tarapacá,199587,68763,69800,2.8,75372,-20.9247,-70.0487
+1107,alto hospicio,Alto Hospicio,Región de Tarapacá,142086,43731,42150,3.3,46573,-20.1894,-70.0133
+1401,pozo almonte,Pozo Almonte,Región de Tarapacá,16878,5506,5609,2.9,11604,-20.7725,-69.507
+1402,camina,Camiña,Región de Tarapacá,1335,482,489,2.7,1178,-19.3698,-69.5013
+1403,colchane,Colchane,Región de Tarapacá,790,263,247,2.8,2112,-19.3544,-68.8457
+1404,huara,Huara,Región de Tarapacá,2858,1118,1036,2.8,3215,-19.602,-69.6644
+1405,pica,Pica,Región de Tarapacá,6272,2209,2180,2.9,3199,-20.481,-68.914
+2101,antofagasta,Antofagasta,Región de Antofagasta,401096,131910,134059,3.0,139824,-24.278,-69.4045
+2102,mejillones,Mejillones,Región de Antofagasta,14084,5130,4740,3.0,5800,-22.947,-70.2041
+2103,sierra gorda,Sierra Gorda,Región de Antofagasta,1472,507,481,3.0,734,-23.2613,-69.3088
+2104,taltal,Taltal,Región de Antofagasta,12097,4350,4100,2.9,5316,-25.3106,-69.8623
+2201,calama,Calama,Región de Antofagasta,166334,55553,56045,2.9,60835,-22.1697,-68.6277
+2202,ollague,Ollagüe,Región de Antofagasta,256,92,102,2.5,438,-21.4568,-68.3156
+2203,san pedro de atacama,San Pedro de Atacama,Región de Antofagasta,9843,4190,3895,2.5,5071,-23.4057,-67.9088
+2301,tocopilla,Tocopilla,Región de Antofagasta,25400,9154,8690,2.8,11884,-21.9978,-70.0223
+2302,maria elena,María Elena,Región de Antofagasta,4834,1677,1635,2.9,1927,-22.0959,-69.4682
+3101,copiapo,Copiapó,Región de Atacama,168831,57572,56984,2.9,64409,-27.3169,-69.8235
+3102,caldera,Caldera,Región de Atacama,18805,7358,6922,2.7,18105,-27.1389,-70.6823
+3103,tierra amarilla,Tierra Amarilla,Región de Atacama,11846,3910,3857,3.1,4637,-27.8632,-69.6699
+3201,chanaral,Chañaral,Región de Atacama,12345,4863,4383,2.8,7237,-26.3726,-70.3373
+3202,diego de almagro,Diego de Almagro,Región de Atacama,11397,4345,4157,2.7,6808,-26.2332,-69.1875
+3301,vallenar,Vallenar,Región de Atacama,54222,18877,18630,2.9,23410,-28.5948,-70.6031
+3302,alto del carmen,Alto del Carmen,Región de Atacama,4788,1943,1919,2.5,3164,-28.9911,-70.1562
+3303,freirina,Freirina,Región de Atacama,7577,2898,2733,2.8,4397,-28.8145,-71.18
+3304,huasco,Huasco,Región de Atacama,9369,4272,3472,2.7,7364,-28.2514,-71.0307
+4101,la serena,La Serena,Región de Coquimbo,250141,87698,86442,2.9,109497,-29.7904,-71.0613
+4102,coquimbo,Coquimbo,Región de Coquimbo,263719,90484,89924,2.9,113105,-30.2267,-71.3593
+4103,andacollo,Andacollo,Región de Coquimbo,11566,4308,4064,2.8,5128,-30.2587,-71.1025
+4104,la higuera,La Higuera,Región de Coquimbo,4335,1830,1626,2.7,3214,-29.3765,-70.9022
+4105,paihuano,Paihuano,Región de Coquimbo,4649,2076,1862,2.5,2890,-30.2339,-70.3713
+4106,vicuna,Vicuña,Región de Coquimbo,28047,10337,9817,2.9,12041,-29.8926,-70.3822
+4201,illapel,Illapel,Región de Coquimbo,32009,12109,11573,2.7,14203,-31.5491,-70.969
+4202,canela,Canela,Región de Coquimbo,9639,4173,3778,2.6,5779,-31.4013,-71.3943
+4203,los vilos,Los Vilos,Región de Coquimbo,22879,9146,8514,2.7,14211,-31.9788,-71.3052
+4204,salamanca,Salamanca,Región de Coquimbo,27823,10244,10035,2.8,12142,-31.8926,-70.6619
+4301,ovalle,Ovalle,Región de Coquimbo,118696,42927,42131,2.8,49654,-30.6728,-71.4033
+4302,combarbala,Combarbalá,Región de Coquimbo,12954,5608,5250,2.5,7647,-31.1469,-70.9659
+4303,monte patria,Monte Patria,Región de Coquimbo,29997,11426,11210,2.7,14470,-30.8344,-70.6496
+4304,punitaqui,Punitaqui,Región de Coquimbo,12076,4645,4461,2.7,5891,-30.9474,-71.3311
+4305,rio hurtado,Río Hurtado,Región de Coquimbo,4334,1880,1880,2.3,2913,-30.4299,-70.6549
+5101,valparaiso,Valparaíso,Región de Valparaíso,284938,115192,108777,2.6,132071,-33.1287,-71.5739
+5102,casablanca,Casablanca,Región de Valparaíso,29876,11097,10564,2.8,13978,-33.3151,-71.4331
+5103,concon,Concón,Región de Valparaíso,48294,19272,18217,2.6,26950,-32.9519,-71.4691
+5104,juan fernandez,Juan Fernández,Región de Valparaíso,904,396,374,2.4,472,-33.7665,-80.791
+5105,puchuncavi,Puchuncaví,Región de Valparaíso,22539,9049,8480,2.6,21145,-32.7459,-71.3873
+5107,quintero,Quintero,Región de Valparaíso,35754,13703,13028,2.7,19663,-32.8415,-71.474
+5109,vina del mar,Viña del Mar,Región de Valparaíso,334871,133532,131821,2.5,163496,-33.03,-71.5167
+5201,isla de pascua,Isla de Pascua,Región de Valparaíso,4800,2360,2069,2.3,3111,-27.1193,-109.356
+5301,los andes,Los Andes,Región de Valparaíso,63440,24247,23060,2.7,26034,-32.9521,-70.2431
+5302,calle larga,Calle Larga,Región de Valparaíso,16597,5839,5766,2.9,6203,-32.9504,-70.5436
+5303,rinconada,Rinconada,Región de Valparaíso,11855,4120,4043,2.9,4728,-32.8761,-70.7073
+5304,san esteban,San Esteban,Región de Valparaíso,20112,7187,7127,2.8,8216,-32.6866,-70.3491
+5401,la ligua,La Ligua,Región de Valparaíso,39270,14683,14286,2.7,24069,-32.3527,-71.2734
+5402,cabildo,Cabildo,Región de Valparaíso,20015,6733,6777,2.9,7339,-32.4174,-70.8259
+5403,papudo,Papudo,Región de Valparaíso,7561,2757,2713,2.8,8022,-32.474,-71.3803
+5404,petorca,Petorca,Región de Valparaíso,10206,4018,3817,2.7,5037,-32.19,-70.8684
+5405,zapallar,Zapallar,Región de Valparaíso,7980,2939,2811,2.8,8100,-32.5868,-71.3386
+5501,quillota,Quillota,Región de Valparaíso,96753,34987,33740,2.8,37234,-32.9064,-71.2738
+5502,calera,Calera,Región de Valparaíso,50631,18472,17419,2.9,19635,-32.7992,-71.1618
+5503,hijuelas,Hijuelas,Región de Valparaíso,19286,6782,6680,2.9,7376,-32.8696,-71.0814
+5504,la cruz,La Cruz,Región de Valparaíso,24939,8931,8580,2.9,9860,-32.826,-71.2394
+5506,nogales,Nogales,Región de Valparaíso,22136,7878,7525,2.9,8397,-32.6915,-71.1762
+5601,san antonio,San Antonio,Región de Valparaíso,96770,36374,34743,2.7,40846,-33.6636,-71.4895
+5602,algarrobo,Algarrobo,Región de Valparaíso,16076,7044,6430,2.5,21324,-33.331,-71.5998
+5603,cartagena,Cartagena,Región de Valparaíso,24599,9629,9267,2.6,18209,-33.5329,-71.4422
+5604,el quisco,El Quisco,Región de Valparaíso,18971,8453,7696,2.5,18702,-33.4158,-71.6537
+5605,el tabo,El Tabo,Región de Valparaíso,16260,7580,6765,2.4,25134,-33.4839,-71.5832
+5606,santo domingo,Santo Domingo,Región de Valparaíso,13171,5086,4661,2.8,8895,-33.8099,-71.6757
+5701,san felipe,San Felipe,Región de Valparaíso,80413,29873,29530,2.7,31634,-32.736,-70.7574
+5702,catemu,Catemu,Región de Valparaíso,13760,5061,4923,2.8,5604,-32.708,-70.9473
+5703,llaillay,Llaillay,Región de Valparaíso,25484,9344,8913,2.9,10439,-32.887,-70.9005
+5704,panquehue,Panquehue,Región de Valparaíso,7269,2536,2441,3.0,2863,-32.7938,-70.8298
+5705,putaendo,Putaendo,Región de Valparaíso,17336,6121,6037,2.8,6746,-32.4795,-70.52
+5706,santa maria,Santa María,Región de Valparaíso,15134,5475,5360,2.8,6090,-32.6858,-70.6116
+5801,quilpue,Quilpué,Región de Valparaíso,162559,62234,59451,2.7,66020,-33.1472,-71.2521
+5802,limache,Limache,Región de Valparaíso,56145,20809,19778,2.8,24683,-33.0302,-71.279
+5803,olmue,Olmué,Región de Valparaíso,19778,7884,7449,2.7,10530,-33.0347,-71.1091
+5804,villa alemana,Villa Alemana,Región de Valparaíso,139571,51516,49954,2.8,55220,-33.0685,-71.3281
+6101,rancagua,Rancagua,Región del Libertador Bernardo O'Higgins,257744,93905,92398,2.8,100428,-34.1277,-70.8152
+6102,codegua,Codegua,Región del Libertador Bernardo O'Higgins,13955,4773,4654,3.0,5181,-34.0571,-70.5474
+6103,coinco,Coinco,Región del Libertador Bernardo O'Higgins,7916,2914,2795,2.8,3386,-34.2839,-70.9738
+6104,coltauco,Coltauco,Región del Libertador Bernardo O'Higgins,21373,7672,7549,2.8,8586,-34.2582,-71.0784
+6105,donihue,Doñihue,Región del Libertador Bernardo O'Higgins,21925,7838,7699,2.8,8381,-34.1934,-70.9197
+6106,graneros,Graneros,Región del Libertador Bernardo O'Higgins,35938,12273,12105,3.0,12964,-34.0657,-70.7467
+6107,las cabras,Las Cabras,Región del Libertador Bernardo O'Higgins,27554,10050,9823,2.8,14760,-34.165,-71.3312
+6108,machali,Machalí,Región del Libertador Bernardo O'Higgins,60875,20993,20475,3.0,22681,-34.3211,-70.3192
+6109,malloa,Malloa,Región del Libertador Bernardo O'Higgins,13882,4975,4932,2.8,5736,-34.4775,-70.8694
+6110,mostazal,Mostazal,Región del Libertador Bernardo O'Higgins,27394,9297,9111,3.0,10140,-33.957,-70.5687
+6111,olivar,Olivar,Región del Libertador Bernardo O'Higgins,13901,4874,4708,2.9,5247,-34.2115,-70.8205
+6112,peumo,Peumo,Región del Libertador Bernardo O'Higgins,14243,4932,4864,2.9,5305,-34.3296,-71.223
+6113,pichidegua,Pichidegua,Región del Libertador Bernardo O'Higgins,20363,7301,7248,2.8,7991,-34.3724,-71.3375
+6114,quinta de tilcoco,Quinta de Tilcoco,Región del Libertador Bernardo O'Higgins,13558,4807,4856,2.8,5254,-34.3589,-70.9962
+6115,rengo,Rengo,Región del Libertador Bernardo O'Higgins,63620,23556,22338,2.8,25136,-34.4564,-70.7173
+6116,requinoa,Requínoa,Región del Libertador Bernardo O'Higgins,29508,9932,9833,3.0,10491,-34.3357,-70.657
+6117,san vicente,San Vicente,Región del Libertador Bernardo O'Higgins,49559,17770,17837,2.8,19278,-34.4771,-71.1231
+6201,pichilemu,Pichilemu,Región del Libertador Bernardo O'Higgins,19847,8228,7738,2.6,15007,-34.3859,-71.912
+6202,la estrella,La Estrella,Región del Libertador Bernardo O'Higgins,4609,1815,1812,2.5,3678,-34.223,-71.6011
+6203,litueche,Litueche,Región del Libertador Bernardo O'Higgins,8852,3596,3408,2.6,5461,-34.1068,-71.7334
+6204,marchigue,Marchigüe,Región del Libertador Bernardo O'Higgins,8715,3377,3304,2.6,5069,-34.3725,-71.6715
+6205,navidad,Navidad,Región del Libertador Bernardo O'Higgins,8885,3675,3674,2.4,6597,-34.0116,-71.8203
+6206,paredones,Paredones,Región del Libertador Bernardo O'Higgins,7228,2968,2857,2.5,5686,-34.6732,-71.9122
+6301,san fernando,San Fernando,Región del Libertador Bernardo O'Higgins,75585,28464,27300,2.8,31420,-34.7439,-70.6016
+6302,chepica,Chépica,Región del Libertador Bernardo O'Higgins,15668,5468,5531,2.8,5962,-34.7915,-71.3603
+6303,chimbarongo,Chimbarongo,Región del Libertador Bernardo O'Higgins,37258,13374,13277,2.8,14249,-34.7529,-70.9773
+6304,lolol,Lolol,Región del Libertador Bernardo O'Higgins,7791,2896,2897,2.7,3718,-34.7687,-71.6501
+6305,nancagua,Nancagua,Región del Libertador Bernardo O'Higgins,18723,6511,6517,2.9,7111,-34.6702,-71.1961
+6306,palmilla,Palmilla,Región del Libertador Bernardo O'Higgins,13060,4547,4453,2.9,5132,-34.5261,-71.3516
+6307,peralillo,Peralillo,Región del Libertador Bernardo O'Higgins,12493,4481,4485,2.8,5158,-34.4666,-71.4957
+6308,placilla,Placilla,Región del Libertador Bernardo O'Higgins,9438,3424,3287,2.9,3758,-34.6218,-71.0852
+6309,pumanque,Pumanque,Región del Libertador Bernardo O'Higgins,4559,1864,1777,2.6,2567,-34.5968,-71.6889
+6310,santa cruz,Santa Cruz,Región del Libertador Bernardo O'Higgins,41209,15027,14830,2.7,16452,-34.6421,-71.4035
+7101,talca,Talca,Región del Maule,232131,85545,84927,2.7,95397,-35.4289,-71.6013
+7102,constitucion,Constitución,Región del Maule,47004,18392,17554,2.7,23408,-35.3634,-72.2756
+7103,curepto,Curepto,Región del Maule,9519,3812,3788,2.5,5199,-35.1304,-71.9541
+7104,empedrado,Empedrado,Región del Maule,3990,1484,1463,2.7,1892,-35.6128,-72.2853
+7105,maule,Maule,Región del Maule,61081,21218,20399,3.0,23296,-35.5097,-71.7085
+7106,pelarco,Pelarco,Región del Maule,9229,3402,3247,2.8,4073,-35.3839,-71.3537
+7107,pencahue,Pencahue,Región del Maule,9181,3549,3421,2.7,4682,-35.3267,-71.8162
+7108,rio claro,Río Claro,Región del Maule,14276,5425,5130,2.8,6279,-35.2595,-71.2693
+7109,san clemente,San Clemente,Región del Maule,47380,17046,16654,2.8,22312,-35.7125,-70.8482
+7110,san rafael,San Rafael,Región del Maule,11230,4000,3923,2.9,4788,-35.3031,-71.502
+7201,cauquenes,Cauquenes,Región del Maule,42798,17070,16190,2.6,20238,-35.9719,-72.2801
+7202,chanco,Chanco,Región del Maule,9446,3490,3485,2.7,4442,-35.6985,-72.4878
+7203,pelluhue,Pelluhue,Región del Maule,8578,3900,3484,2.5,7743,-35.9114,-72.6081
+7301,curico,Curicó,Región del Maule,159968,57375,57321,2.8,62225,-35.1998,-70.894
+7302,hualane,Hualañé,Región del Maule,10775,4246,4066,2.6,5199,-34.9518,-71.7112
+7303,licanten,Licantén,Región del Maule,6892,2670,2666,2.6,4500,-34.9725,-72.059
+7304,molina,Molina,Región del Maule,48949,17539,17300,2.8,18980,-35.3546,-70.9073
+7305,rauco,Rauco,Región del Maule,11266,4164,4072,2.8,4784,-34.9386,-71.4272
+7306,romeral,Romeral,Región del Maule,17233,6298,6113,2.8,7233,-35.0677,-70.7125
+7307,sagrada familia,Sagrada Familia,Región del Maule,19427,6974,6730,2.9,7533,-35.104,-71.4955
+7308,teno,Teno,Región del Maule,30113,10962,10735,2.8,12501,-34.8882,-71.0246
+7309,vichuquen,Vichuquén,Región del Maule,4716,1957,1892,2.5,4422,-34.8427,-72.0225
+7401,linares,Linares,Región del Maule,96744,36485,35110,2.7,41380,-35.9599,-71.3326
+7402,colbun,Colbún,Región del Maule,22637,8720,8220,2.7,10583,-36.0758,-70.9796
+7403,longavi,Longaví,Región del Maule,33299,12270,11995,2.8,14133,-36.1118,-71.4424
+7404,parral,Parral,Región del Maule,45323,17579,17034,2.6,20794,-36.2613,-71.6461
+7405,retiro,Retiro,Región del Maule,22310,8507,8218,2.7,10149,-36.001,-71.8311
+7406,san javier,San Javier,Región del Maule,49559,18891,18058,2.7,22233,-35.629,-71.928
+7407,villa alegre,Villa Alegre,Región del Maule,17919,7040,6674,2.7,8164,-35.6889,-71.6813
+7408,yerbas buenas,Yerbas Buenas,Región del Maule,20035,7333,7095,2.8,8088,-35.6906,-71.5451
+8101,concepcion,Concepción,Región del Bío-Bío,230375,90583,91718,2.5,101209,-36.835,-72.9493
+8102,coronel,Coronel,Región del Bío-Bío,123648,42054,41885,2.9,45743,-37.0043,-73.0813
+8103,chiguayante,Chiguayante,Región del Bío-Bío,85822,29522,29370,2.9,30666,-36.8996,-72.9996
+8104,florida,Florida,Región del Bío-Bío,12958,4952,4952,2.6,6748,-36.8211,-72.7179
+8105,hualqui,Hualqui,Región del Bío-Bío,25795,9167,8815,2.9,10881,-37.0431,-72.8694
+8106,lota,Lota,Región del Bío-Bío,39980,13844,13805,2.9,15968,-37.1188,-73.1064
+8107,penco,Penco,Región del Bío-Bío,48971,16920,16829,2.9,17566,-36.7478,-72.9428
+8108,san pedro de la paz,San Pedro de la Paz,Región del Bío-Bío,150992,54702,52274,2.9,56862,-36.8887,-73.1013
+8109,santa juana,Santa Juana,Región del Bío-Bío,14947,5684,5602,2.7,7532,-37.2737,-72.96
+8110,talcahuano,Talcahuano,Región del Bío-Bío,147322,50765,50931,2.9,53813,-36.7228,-73.1
+8111,tome,Tomé,Región del Bío-Bío,56907,20944,20717,2.7,25105,-36.6155,-72.8581
+8112,hualpen,Hualpén,Región del Bío-Bío,87731,31003,30590,2.9,32286,-36.7883,-73.1459
+8201,lebu,Lebu,Región del Bío-Bío,25246,8802,8777,2.9,10238,-37.609,-73.5604
+8202,arauco,Arauco,Región del Bío-Bío,37163,13191,13185,2.8,15168,-37.2872,-73.3998
+8203,canete,Cañete,Región del Bío-Bío,34640,12560,12530,2.8,14503,-37.8741,-73.3179
+8204,contulmo,Contulmo,Región del Bío-Bío,5905,2312,2288,2.6,2992,-38.0527,-73.211
+8205,curanilahue,Curanilahue,Región del Bío-Bío,31119,11353,11095,2.8,13203,-37.4832,-73.2339
+8206,los alamos,Los Alamos,Región del Bío-Bío,21950,8177,7985,2.7,9311,-37.674,-73.3588
+8207,tirua,Tirúa,Región del Bío-Bío,10208,3617,3607,2.8,4896,-38.2962,-73.3943
+8301,los angeles,Los Angeles,Región del Bío-Bío,219441,80465,78445,2.8,93053,-37.4067,-72.3265
+8302,antuco,Antuco,Región del Bío-Bío,4373,1735,1722,2.5,2672,-37.3284,-71.3646
+8303,cabrero,Cabrero,Región del Bío-Bío,31256,11408,11389,2.7,13270,-37.0634,-72.3822
+8304,laja,Laja,Región del Bío-Bío,23706,8569,8562,2.8,10091,-37.3139,-72.5811
+8305,mulchen,Mulchén,Región del Bío-Bío,29036,10087,10163,2.8,11593,-37.8383,-72.0956
+8306,nacimiento,Nacimiento,Región del Bío-Bío,26140,9334,9231,2.8,11089,-37.4846,-72.8222
+8307,negrete,Negrete,Región del Bío-Bío,10723,3807,3762,2.9,4421,-37.6095,-72.5751
+8308,quilaco,Quilaco,Región del Bío-Bío,4440,1743,1727,2.5,2452,-37.9639,-71.7028
+8309,quilleco,Quilleco,Región del Bío-Bío,9700,3649,3582,2.7,4502,-37.4344,-71.8602
+8310,san rosendo,San Rosendo,Región del Bío-Bío,3575,1313,1322,2.7,1867,-37.2144,-72.7186
+8311,santa barbara,Santa Bárbara,Región del Bío-Bío,14075,5379,5215,2.7,6395,-37.6213,-71.7522
+8312,tucapel,Tucapel,Región del Bío-Bío,15729,6406,6176,2.5,7795,-37.2269,-71.7458
+8313,yumbel,Yumbel,Región del Bío-Bío,23170,9056,8890,2.6,14112,-37.0877,-72.6163
+8314,alto biobio,Alto Biobío,Región del Bío-Bío,6016,2084,2029,3.0,2776,-37.866,-71.3483
+9101,temuco,Temuco,Región de La Araucanía,292518,112823,110496,2.6,129071,-38.6716,-72.6701
+9102,carahue,Carahue,Región de La Araucanía,24957,9473,9090,2.7,11657,-38.6104,-73.2705
+9103,cunco,Cunco,Región de La Araucanía,19177,7929,7324,2.6,10541,-38.9788,-71.9946
+9104,curarrehue,Curarrehue,Región de La Araucanía,7733,3313,2906,2.7,4432,-39.3363,-71.5396
+9105,freire,Freire,Región de La Araucanía,26164,10379,9721,2.7,12597,-38.9558,-72.5888
+9106,galvarino,Galvarino,Región de La Araucanía,12710,4773,4515,2.8,5476,-38.4478,-72.7936
+9107,gorbea,Gorbea,Región de La Araucanía,14148,5784,5583,2.5,6702,-39.171,-72.6701
+9108,lautaro,Lautaro,Región de La Araucanía,41936,16168,14817,2.8,18221,-38.5444,-72.2916
+9109,loncoche,Loncoche,Región de La Araucanía,25158,10293,9568,2.6,12376,-39.356,-72.5832
+9110,melipeuco,Melipeuco,Región de La Araucanía,6796,2786,2624,2.6,3614,-38.8244,-71.6097
+9111,nueva imperial,Nueva Imperial,Región de La Araucanía,33988,12741,12109,2.8,14842,-38.7518,-72.9726
+9112,padre las casas,Padre Las Casas,Región de La Araucanía,80656,28908,27708,2.9,32154,-38.803,-72.5585
+9113,perquenco,Perquenco,Región de La Araucanía,7438,2853,2742,2.7,3345,-38.4271,-72.4381
+9114,pitrufquen,Pitrufquén,Región de La Araucanía,27041,11130,10252,2.6,13102,-39.0838,-72.6692
+9115,pucon,Pucón,Región de La Araucanía,32321,13477,12548,2.6,28770,-39.2719,-71.7919
+9116,saavedra,Saavedra,Región de La Araucanía,12877,5128,4926,2.6,6757,-38.8329,-73.2939
+9117,teodoro schmidt,Teodoro Schmidt,Región de La Araucanía,15639,6333,6048,2.6,8008,-39.0036,-73.1258
+9118,tolten,Toltén,Región de La Araucanía,10041,3911,3857,2.6,4954,-39.219,-73.0658
+9119,vilcun,Vilcún,Región de La Araucanía,31575,11781,11229,2.8,13928,-38.705,-72.1151
+9120,villarrica,Villarrica,Región de La Araucanía,67737,28128,25155,2.7,43229,-39.3027,-72.1843
+9121,cholchol,Cholchol,Región de La Araucanía,13167,4670,4549,2.9,5271,-38.584,-72.9016
+9201,angol,Angol,Región de La Araucanía,53022,20462,19220,2.7,22100,-37.7685,-72.7953
+9202,collipulli,Collipulli,Región de La Araucanía,24303,9388,8764,2.8,10460,-38.0263,-72.125
+9203,curacautin,Curacautín,Región de La Araucanía,18536,7527,7102,2.6,9923,-38.4279,-71.7733
+9204,ercilla,Ercilla,Región de La Araucanía,7730,3183,2787,2.8,3784,-38.0821,-72.351
+9205,lonquimay,Lonquimay,Región de La Araucanía,10247,3991,3763,2.7,5662,-38.474,-71.2382
+9206,los sauces,Los Sauces,Región de La Araucanía,7348,2788,2716,2.7,3373,-37.9827,-72.7976
+9207,lumaco,Lumaco,Región de La Araucanía,9253,3565,3401,2.7,4217,-38.286,-73.0456
+9208,puren,Purén,Región de La Araucanía,12184,4625,4515,2.7,5300,-38.0106,-73.0506
+9209,renaico,Renaico,Región de La Araucanía,10686,4063,3834,2.8,4519,-37.7181,-72.5762
+9210,traiguen,Traiguén,Región de La Araucanía,18873,7510,7026,2.6,8384,-38.2441,-72.6545
+9211,victoria,Victoria,Región de La Araucanía,34464,13112,12465,2.7,14459,-38.2803,-72.2329
+10101,puerto montt,Puerto Montt,Región de Los Lagos,277040,103572,100163,2.7,116072,-41.4881,-72.7929
+10102,calbuco,Calbuco,Región de Los Lagos,36474,13814,13410,2.7,15942,-41.701,-73.2519
+10103,cochamo,Cochamó,Región de Los Lagos,4199,1908,1887,2.2,3063,-41.7706,-72.0687
+10104,fresia,Fresia,Región de Los Lagos,12320,5250,4853,2.5,6288,-41.1547,-73.6043
+10105,frutillar,Frutillar,Región de Los Lagos,22554,8724,8159,2.8,10304,-41.087,-73.0939
+10106,los muermos,Los Muermos,Región de Los Lagos,17162,7125,6657,2.6,8697,-41.3974,-73.5817
+10107,llanquihue,Llanquihue,Región de Los Lagos,18088,6405,6206,2.9,6960,-41.2361,-73.1359
+10108,maullin,Maullín,Región de Los Lagos,15063,6206,5960,2.5,7559,-41.6499,-73.4786
+10109,puerto varas,Puerto Varas,Región de Los Lagos,52942,21262,19108,2.8,25207,-41.191,-72.3853
+10201,castro,Castro,Región de Los Lagos,46997,19106,17911,2.6,21192,-42.4594,-73.8361
+10202,ancud,Ancud,Región de Los Lagos,40949,16905,15668,2.6,19862,-42.0172,-73.8006
+10203,chonchi,Chonchi,Región de Los Lagos,16078,6676,6355,2.5,8288,-42.6816,-73.93
+10204,curaco de velez,Curaco de Vélez,Región de Los Lagos,3662,1498,1423,2.6,1915,-42.4286,-73.5764
+10205,dalcahue,Dalcahue,Región de Los Lagos,14894,5868,5610,2.7,7223,-42.3089,-73.8336
+10206,puqueldon,Puqueldón,Región de Los Lagos,4048,1581,1556,2.6,2093,-42.6266,-73.6345
+10207,queilen,Queilén,Región de Los Lagos,5690,2302,2237,2.5,3142,-42.8193,-73.5954
+10208,quellon,Quellón,Región de Los Lagos,28460,11479,10859,2.6,13474,-43.1119,-73.9616
+10209,quemchi,Quemchi,Región de Los Lagos,8409,3457,3373,2.5,4652,-42.1458,-73.4776
+10210,quinchao,Quinchao,Región de Los Lagos,7678,3153,3011,2.5,4153,-42.5137,-73.4603
+10301,osorno,Osorno,Región de Los Lagos,166455,64827,62545,2.6,68763,-40.6104,-73.0874
+10302,puerto octay,Puerto Octay,Región de Los Lagos,8865,3538,3349,2.6,5294,-40.9336,-72.6009
+10303,purranque,Purranque,Región de Los Lagos,19542,7754,7304,2.7,8707,-40.936,-73.4555
+10304,puyehue,Puyehue,Región de Los Lagos,11712,4676,4404,2.7,5986,-40.7269,-72.379
+10305,rio negro,Río Negro,Región de Los Lagos,13874,5659,5269,2.6,6493,-40.7708,-73.4176
+10306,san juan de la costa,San Juan de la Costa,Región de Los Lagos,7776,3525,3340,2.3,6797,-40.5083,-73.5593
+10307,san pablo,San Pablo,Región de Los Lagos,10883,4241,4192,2.6,5133,-40.4268,-73.1579
+10401,chaiten,Chaitén,Región de Los Lagos,4025,1804,1676,2.4,2562,-43.0976,-72.5727
+10402,futaleufu,Futaleufú,Región de Los Lagos,3062,1338,1333,2.3,1794,-43.1799,-72.0075
+10403,hualaihue,Hualaihué,Región de Los Lagos,9480,4101,3709,2.6,5218,-42.18,-72.3723
+10404,palena,Palena,Región de Los Lagos,1903,887,868,2.2,1309,-43.6852,-71.9837
+11101,coyhaique,Coyhaique,Región de Aysén del Gral.Ibañez del Campo,57823,23506,22423,2.5,27989,-45.5559,-71.993
+11102,lago verde,Lago Verde,Región de Aysén del Gral.Ibañez del Campo,779,411,373,2.0,724,-44.4924,-71.8345
+11201,aysen,Aysén,Región de Aysén del Gral.Ibañez del Campo,23170,9827,9057,2.5,11054,-46.0927,-73.7127
+11202,cisnes,Cisnes,Región de Aysén del Gral.Ibañez del Campo,5137,2534,2180,2.4,3437,-44.3558,-72.6356
+11203,guaitecas,Guaitecas,Región de Aysén del Gral.Ibañez del Campo,1598,605,606,2.6,816,-43.8615,-73.9825
+11301,cochrane,Cochrane,Región de Aysén del Gral.Ibañez del Campo,3458,1521,1462,2.3,2126,-47.3598,-72.7425
+11302,ohiggins,O'Higgins,Región de Aysén del Gral.Ibañez del Campo,647,296,292,2.2,403,-48.4683,-72.8817
+11303,tortel,Tortel,Región de Aysén del Gral.Ibañez del Campo,505,244,231,2.2,395,-47.9374,-73.7949
+11401,chile chico,Chile Chico,Región de Aysén del Gral.Ibañez del Campo,4905,2364,2109,2.3,3108,-46.7661,-72.5863
+11402,rio ibanez,Río Ibáñez,Región de Aysén del Gral.Ibañez del Campo,2723,1302,1231,2.2,2242,-46.2991,-72.4881
+12101,punta arenas,Punta Arenas,Región de Magallanes y Antártica Chilena,132363,52991,49571,2.6,59195,-53.398,-71.4723
+12102,laguna blanca,Laguna Blanca,Región de Magallanes y Antártica Chilena,269,102,98,1.9,290,-52.3318,-71.235
+12103,rio verde,Río Verde,Región de Magallanes y Antártica Chilena,102,64,63,1.6,188,-53.0027,-72.3519
+12104,san gregorio,San Gregorio,Región de Magallanes y Antártica Chilena,241,114,110,2.0,444,-52.3207,-70.213
+12201,cabo de hornos,Cabo de Hornos,Región de Magallanes y Antártica Chilena,1750,619,617,2.8,780,-54.6997,-70.1295
+12202,antartica,Antártica,Región De Magallanes Y De La Antártica Chilena,60,0,0,0.0,4,-62.2127,-58.9837
+12301,porvenir,Porvenir,Región de Magallanes y Antártica Chilena,6809,2823,2770,2.4,3551,-53.3048,-69.379
+12302,primavera,Primavera,Región de Magallanes y Antártica Chilena,431,179,181,2.4,414,-52.8023,-69.3283
+12303,timaukel,Timaukel,Región de Magallanes y Antártica Chilena,157,65,62,2.4,214,-54.2047,-69.5353
+12401,natales,Natales,Región de Magallanes y Antártica Chilena,24152,10073,9490,2.5,11223,-50.3642,-73.7612
+12402,torres del paine,Torres del Paine,Región de Magallanes y Antártica Chilena,203,100,100,2.0,304,-51.0528,-72.8537
+13101,santiago,Santiago,Región Metropolitana de Santiago,438856,214041,206458,2.1,239265,-33.4535,-70.6575
+13102,cerrillos,Cerrillos,Región Metropolitana de Santiago,85041,29576,28186,3.0,31656,-33.5006,-70.7135
+13103,cerro navia,Cerro Navia,Región Metropolitana de Santiago,127250,39520,41864,3.0,40088,-33.4226,-70.7424
+13104,conchali,Conchalí,Región Metropolitana de Santiago,121587,37714,40727,3.0,38829,-33.3819,-70.676
+13105,el bosque,El Bosque,Región Metropolitana de Santiago,155257,49136,50233,3.1,50351,-33.5633,-70.6767
+13106,estacion central,Estación Central,Región Metropolitana de Santiago,181049,68989,67722,2.7,76025,-33.4613,-70.7004
+13107,huechuraba,Huechuraba,Región Metropolitana de Santiago,101808,30315,31965,3.2,31102,-33.362,-70.6385
+13108,independencia,Independencia,Región Metropolitana de Santiago,116943,45882,45411,2.6,50346,-33.4137,-70.6669
+13109,la cisterna,La Cisterna,Región Metropolitana de Santiago,103157,38442,38042,2.7,41616,-33.5271,-70.6638
+13110,la florida,La Florida,Región Metropolitana de Santiago,374836,134657,133631,2.8,143650,-33.529,-70.5416
+13111,la granja,La Granja,Región Metropolitana de Santiago,112022,36079,37118,3.0,36699,-33.5357,-70.6224
+13112,la pintana,La Pintana,Región Metropolitana de Santiago,175421,52089,53951,3.2,53031,-33.5867,-70.6361
+13113,la reina,La Reina,Región Metropolitana de Santiago,89870,30552,30574,2.9,31640,-33.446,-70.5384
+13114,las condes,Las Condes,Región Metropolitana de Santiago,296134,121263,116176,2.5,129033,-33.4216,-70.5007
+13115,lo barnechea,Lo Barnechea,Región Metropolitana de Santiago,112620,33535,32458,3.5,36387,-33.2983,-70.3687
+13116,lo espejo,Lo Espejo,Región Metropolitana de Santiago,87295,26649,27387,3.2,27356,-33.5187,-70.689
+13117,lo prado,Lo Prado,Región Metropolitana de Santiago,91290,30214,31862,2.9,31009,-33.4469,-70.7203
+13118,macul,Macul,Región Metropolitana de Santiago,123800,48631,47555,2.6,50722,-33.4876,-70.6006
+13119,maipu,Maipú,Región Metropolitana de Santiago,503635,165847,167383,3.0,169373,-33.5062,-70.8083
+13120,nunoa,Ñuñoa,Región Metropolitana de Santiago,241467,113378,108555,2.2,121519,-33.4574,-70.6006
+13121,pedro aguirre cerda,Pedro Aguirre Cerda,Región Metropolitana de Santiago,96062,30353,32328,3.0,31034,-33.4912,-70.676
+13122,penalolen,Peñalolén,Región Metropolitana de Santiago,236478,74090,76078,3.1,75509,-33.4836,-70.5242
+13123,providencia,Providencia,Región Metropolitana de Santiago,143974,70107,69157,2.0,76476,-33.4319,-70.6131
+13124,pudahuel,Pudahuel,Región Metropolitana de Santiago,227820,72268,74144,3.1,73709,-33.4241,-70.8516
+13125,quilicura,Quilicura,Región Metropolitana de Santiago,205624,64965,65059,3.2,66994,-33.3545,-70.7374
+13126,quinta normal,Quinta Normal,Región Metropolitana de Santiago,129351,45008,45700,2.8,46815,-33.429,-70.7004
+13127,recoleta,Recoleta,Región Metropolitana de Santiago,154615,53386,55579,2.8,55881,-33.4071,-70.6403
+13128,renca,Renca,Región Metropolitana de Santiago,143622,45192,46397,3.1,46455,-33.3994,-70.7257
+13129,san joaquin,San Joaquín,Región Metropolitana de Santiago,95602,32567,33461,2.8,33856,-33.4957,-70.6283
+13130,san miguel,San Miguel,Región Metropolitana de Santiago,150829,62266,60243,2.5,65828,-33.502,-70.6499
+13131,san ramon,San Ramón,Región Metropolitana de Santiago,76002,23204,24963,3.0,23821,-33.5421,-70.6439
+13132,vitacura,Vitacura,Región Metropolitana de Santiago,86420,32658,31114,2.8,34538,-33.3778,-70.5747
+13201,puente alto,Puente Alto,Región Metropolitana de Santiago,568086,185864,182855,3.1,190374,-33.5911,-70.5575
+13202,pirque,Pirque,Región Metropolitana de Santiago,29060,9677,9183,3.2,10189,-33.7192,-70.5062
+13203,san jose de maipo,San José de Maipo,Región Metropolitana de Santiago,17441,6766,6368,2.7,8027,-33.7045,-70.0966
+13301,colina,Colina,Región Metropolitana de Santiago,173293,52278,50926,3.3,54790,-33.1362,-70.6172
+13302,lampa,Lampa,Región Metropolitana de Santiago,145160,47152,45445,3.2,50284,-33.2776,-70.8762
+13303,tiltil,Tiltil,Región Metropolitana de Santiago,19742,7010,6585,3.0,8234,-33.0617,-70.8765
+13401,san bernardo,San Bernardo,Región Metropolitana de Santiago,306371,99287,98580,3.1,102253,-33.6306,-70.7265
+13402,buin,Buin,Región Metropolitana de Santiago,116969,39777,37620,3.1,42459,-33.7469,-70.7372
+13403,calera de tango,Calera de Tango,Región Metropolitana de Santiago,25491,8140,7852,3.2,8406,-33.6227,-70.7929
+13404,paine,Paine,Región Metropolitana de Santiago,78828,27634,25871,3.0,30818,-33.8632,-70.7572
+13501,melipilla,Melipilla,Región Metropolitana de Santiago,136325,47598,46457,2.9,52240,-33.7429,-71.1954
+13502,alhue,Alhué,Región Metropolitana de Santiago,7768,2787,2770,2.8,3316,-34.0419,-71.0548
+13503,curacavi,Curacaví,Región Metropolitana de Santiago,35165,12692,12001,2.9,14226,-33.3676,-71.077
+13504,maria pinto,María Pinto,Región Metropolitana de Santiago,15352,5311,5247,2.9,5881,-33.4965,-71.21
+13505,san pedro,San Pedro,Región Metropolitana de Santiago,11108,4261,3973,2.8,5360,-33.931,-71.4533
+13601,talagante,Talagante,Región Metropolitana de Santiago,76429,25877,24425,3.1,27535,-33.682,-70.8905
+13602,el monte,El Monte,Región Metropolitana de Santiago,37497,12628,12141,3.1,13374,-33.6703,-71.0339
+13603,isla de maipo,Isla de Maipo,Región Metropolitana de Santiago,39274,13424,12989,3.0,14531,-33.7485,-70.9466
+13604,padre hurtado,Padre Hurtado,Región Metropolitana de Santiago,81243,27455,26139,3.1,28793,-33.5568,-70.8703
+13605,penaflor,Peñaflor,Región Metropolitana de Santiago,94402,31372,30713,3.1,33046,-33.6121,-70.8926
+14101,valdivia,Valdivia,Región de Los Ríos,170043,64269,63026,2.6,72877,-39.8472,-73.1069
+14102,corral,Corral,Región de Los Ríos,5501,2343,2131,2.6,3360,-39.9958,-73.3751
+14103,lanco,Lanco,Región de Los Ríos,16876,7044,6432,2.6,7784,-39.5118,-72.6205
+14104,los lagos,Los Lagos,Región de Los Ríos,21431,8120,7908,2.7,9573,-39.8788,-72.5532
+14105,mafil,Máfil,Región de Los Ríos,8074,2994,2949,2.7,3441,-39.6917,-72.8627
+14106,mariquina,Mariquina,Región de Los Ríos,22973,8757,8223,2.8,10274,-39.5117,-73.016
+14107,paillaco,Paillaco,Región de Los Ríos,19802,7573,7294,2.7,8443,-40.074,-72.842
+14108,panguipulli,Panguipulli,Región de Los Ríos,35098,14651,13315,2.6,20022,-39.7147,-72.0296
+14201,la union,La Unión,Región de Los Ríos,38907,15358,14579,2.7,17156,-40.2007,-73.2223
+14202,futrono,Futrono,Región de Los Ríos,15635,5876,5761,2.7,7932,-40.1198,-72.1159
+14203,lago ranco,Lago Ranco,Región de Los Ríos,10527,4533,4090,2.6,6248,-40.3741,-72.1649
+14204,rio bueno,Río Bueno,Región de Los Ríos,33363,13654,12935,2.6,16369,-40.4959,-72.5363
+15101,arica,Arica,Región de Arica y Parinacota,241653,77918,79338,3.0,84989,-18.5309,-69.9737
+15102,camarones,Camarones,Región de Arica y Parinacota,861,433,437,2.0,1035,-18.9369,-69.7135
+15201,putre,Putre,Región de Arica y Parinacota,1547,701,619,2.2,1853,-18.4268,-69.3114
+15202,general lagos,General Lagos,Región de Arica y Parinacota,508,224,226,2.2,624,-17.83,-69.571
+16101,chillan,Chillán,Región de Ñuble,190382,71676,70003,2.7,81042,-36.6191,-72.1366
+16102,bulnes,Bulnes,Región de Ñuble,23863,8953,8771,2.7,10531,-36.7885,-72.291
+16103,chillan viejo,Chillán Viejo,Región de Ñuble,32688,12090,11738,2.8,13027,-36.6807,-72.2021
+16104,el carmen,El Carmen,Región de Ñuble,13186,5095,5008,2.6,6212,-36.925,-71.8468
+16105,pemuco,Pemuco,Región de Ñuble,8930,3326,3243,2.7,4204,-36.9824,-72.0694
+16106,pinto,Pinto,Región de Ñuble,12502,4789,4774,2.6,7664,-36.9213,-71.5004
+16107,quillon,Quillón,Región de Ñuble,19165,8243,7523,2.5,13489,-36.82,-72.5041
+16108,san ignacio,San Ignacio,Región de Ñuble,17405,6876,6620,2.6,7990,-36.8238,-72.0312
+16109,yungay,Yungay,Región de Ñuble,18680,7904,7309,2.5,10342,-37.1051,-71.934
+16201,quirihue,Quirihue,Región de Ñuble,11746,4638,4642,2.5,5628,-36.2338,-72.5434
+16202,cobquecura,Cobquecura,Región de Ñuble,5495,2339,2305,2.4,3897,-36.1821,-72.7227
+16203,coelemu,Coelemu,Región de Ñuble,15895,5904,5638,2.8,7087,-36.5035,-72.7505
+16204,ninhue,Ninhue,Región de Ñuble,5763,2313,2308,2.5,2908,-36.3587,-72.4118
+16205,portezuelo,Portezuelo,Región de Ñuble,5203,2057,2045,2.5,2700,-36.5466,-72.4665
+16206,ranquil,Ranquil,Región de Ñuble,6508,2787,2615,2.5,3563,-36.6395,-72.5882
+16207,treguaco,Treguaco,Región de Ñuble,6124,2395,2336,2.6,3053,-36.4271,-72.6576
+16301,san carlos,San Carlos,Región de Ñuble,55847,21485,20672,2.7,23905,-36.3856,-72.0193
+16302,coihueco,Coihueco,Región de Ñuble,29766,10793,10468,2.8,12130,-36.7013,-71.5822
+16303,niquen,Ñiquén,Región de Ñuble,12797,5023,4920,2.6,6008,-36.301,-71.897
+16304,san fabian,San Fabián,Región de Ñuble,5245,2065,2022,2.6,3137,-36.58,-71.2891
+16305,san nicolas,San Nicolás,Región de Ñuble,15099,5461,5442,2.8,6328,-36.4788,-72.2276

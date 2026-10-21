@@ -8,276 +8,282 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root { --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --mute:#6b7683; --line:#e3e7ec; --acc:#d9480f; --acc2:#1c7ed6; --btn:#eef1f5; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#12161c; --card:#1b212a; --ink:#e8ecf1; --mute:#93a0ae; --line:#2b333f; --acc:#ff8a5c; --acc2:#5aa9f0; --btn:#262e3a; }
-  }
+  :root { color-scheme:dark; --bg:#070d14; --panel:#0b1620; --line:#14586a; --glow:rgba(25,198,224,.22); --acc:#19c6e0; --ink:#d3e9f1; --mute:#7d9aa8; --red:#e8484b; --org:#f08a24; --yel:#f2c230; --pal:#ecf5d0; }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; }
-  main { max-width:1180px; margin:0 auto; padding:20px 16px 40px; }
-  h1 { font-size:20px; margin:0 0 2px; }
-  h2 { font-size:14px; margin:0 0 10px; }
-  .sub { color:var(--mute); font-size:13px; margin-bottom:16px; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
-  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin-bottom:12px; }
-  .kpi b { display:block; font-size:26px; font-variant-numeric:tabular-nums; }
-  .kpi span { color:var(--mute); font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
-  .kpi small { color:var(--mute); font-size:12px; }
-  .chart { position:relative; height:240px; }
-  .row { display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-top:12px; }
-  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
-  @media (max-width:820px) { .row, .row2 { grid-template-columns:1fr; } }
-  .ctrl { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin-bottom:10px; }
-  .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-  .seg button, .ctrl > button { border:0; background:var(--btn); color:var(--ink); padding:6px 11px; font:inherit; font-size:13px; cursor:pointer; }
-  .seg button + button { border-left:1px solid var(--line); }
-  .seg button.on { background:var(--acc); color:#fff; }
-  .ctrl > button { border:1px solid var(--line); border-radius:8px; }
-  .hora { font-variant-numeric:tabular-nums; font-size:13px; color:var(--mute); min-width:150px; }
-  input[type=range] { flex:1; min-width:160px; accent-color:var(--acc); }
-  #map { height:540px; border-radius:8px; background:var(--btn); }
-  .leaflet-container { font:inherit; }
-  .legend { background:var(--card); color:var(--ink); padding:8px 10px; border-radius:8px; border:1px solid var(--line); font-size:12px; line-height:1.6; }
-  .legend i { display:inline-block; width:14px; height:12px; margin-right:6px; vertical-align:-1px; border-radius:2px; }
-  .pop b { font-size:14px; } .pop table { margin-top:4px; border-collapse:collapse; font-size:12.5px; }
-  .pop td { padding:1px 10px 1px 0; } .pop td:last-child { text-align:right; font-variant-numeric:tabular-nums; padding-right:0; }
-  ol.crit { margin:0; padding:0; list-style:none; max-height:520px; overflow:auto; }
-  ol.crit li { padding:7px 4px; border-bottom:1px solid var(--line); cursor:pointer; display:flex; justify-content:space-between; gap:8px; }
-  ol.crit li:hover { background:var(--btn); }
-  ol.crit .n { font-weight:600; } ol.crit .r { color:var(--mute); font-size:12px; }
-  ol.crit .v { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; } ol.crit .v small { display:block; color:var(--mute); font-size:11.5px; }
-  details { margin-top:12px; font-size:13px; color:var(--mute); } details p { margin:6px 0; } summary { cursor:pointer; color:var(--ink); }
-  #err { color:var(--acc); }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:13.5px/1.4 system-ui,-apple-system,Segoe UI,sans-serif; }
+  .app { display:grid; grid-template-columns:320px 1fr; gap:10px; padding:10px; height:100vh; }
+  .side { overflow:auto; display:flex; flex-direction:column; gap:10px; padding-right:2px; }
+  .main { display:grid; grid-template-rows:200px 1fr; gap:10px; min-height:0; min-width:0; }
+  .box { background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:0 0 14px var(--glow); padding:10px 12px; }
+  .box h3 { margin:0 0 8px; font-size:12px; font-weight:600; color:var(--acc); }
+  .src { display:flex; align-items:center; gap:10px; color:var(--mute); }
+  .src b { background:#fff; color:#c8102e; padding:2px 10px; border-radius:6px; letter-spacing:.06em; font-size:15px; }
+  .total .l { color:var(--mute); font-size:12px; } .total .n { font-size:28px; font-weight:700; color:#fff; font-variant-numeric:tabular-nums; }
+  .total .p { color:var(--acc); } .total .pp { color:var(--mute); font-size:12px; margin-top:2px; }
+  label.f { display:block; color:var(--mute); font-size:12px; margin:2px 0 4px; }
+  select { width:100%; background:#0a1219; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 8px; font:inherit; }
+  .rank { list-style:none; margin:0; padding:0; } .rank li { display:grid; grid-template-columns:18px 14px 1fr auto; gap:6px; align-items:center; padding:3px 0; cursor:pointer; }
+  .rank li:hover .nm { color:#fff; } .rank .i { color:var(--mute); font-size:11px; text-align:right; }
+  .rank .d { width:9px; height:9px; border-radius:50%; } .rank .nm { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .rank .v { font-variant-numeric:tabular-nums; } .rank .bar { grid-column:3 / 5; height:3px; background:#102431; border-radius:2px; margin-top:-2px; } .rank .bar i { display:block; height:100%; border-radius:2px; }
+  .chartbox { display:flex; flex-direction:column; min-height:0; } .chartbox .hd { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .chartbox .cv { position:relative; flex:1; min-height:0; }
+  .btns { display:inline-flex; gap:4px; } .btns button { background:#0a1219; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:3px 9px; font:inherit; font-size:12px; cursor:pointer; }
+  .btns button.on { background:var(--acc); color:#04222a; border-color:var(--acc); font-weight:600; }
+  .mapbox { display:flex; flex-direction:column; min-height:0; padding:8px; }
+  .ctrl { display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; padding:2px 4px 8px; }
+  .ctrl input[type=range] { flex:1; min-width:140px; accent-color:var(--acc); } .hora { color:var(--mute); font-variant-numeric:tabular-nums; min-width:128px; }
+  #map { flex:1; min-height:360px; border-radius:10px; background:#0a1219; }
+  .leaflet-container { font:inherit; background:#0a1219; }
+  .leaflet-control-zoom a, .leaflet-bar a { background:#0c1722; color:var(--ink); border-color:var(--line); }
+  .leaflet-control-layers, .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#0c1722; color:var(--ink); border:1px solid var(--line); }
+  .leaflet-popup-content { margin:10px 12px; } .leaflet-container a.leaflet-popup-close-button { color:var(--mute); }
+  .leaflet-tooltip { background:#0c1722; color:var(--ink); border:1px solid var(--line); box-shadow:none; } .leaflet-tooltip:before { display:none; }
+  .legend { background:rgba(11,22,32,.92); color:var(--ink); padding:8px 10px; border-radius:10px; border:1px solid var(--line); font-size:12px; line-height:1.65; }
+  .legend i { display:inline-block; width:11px; height:11px; margin-right:7px; border-radius:50%; vertical-align:-1px; }
+  .pop b { font-size:14px; color:#fff; } .pop .s { color:var(--mute); font-size:12px; }
+  .pop table { margin-top:5px; border-collapse:collapse; font-size:12.5px; } .pop td { padding:1px 12px 1px 0; } .pop td:last-child { text-align:right; font-variant-numeric:tabular-nums; padding-right:0; }
+  details { color:var(--mute); font-size:12px; } details summary { cursor:pointer; color:var(--ink); } details p { margin:6px 0; }
+  #err { color:var(--org); }
+  @media (max-width:900px) {
+    html, body { height:auto; } .app { grid-template-columns:1fr; height:auto; } .side { overflow:visible; }
+    .main { grid-template-rows:auto auto; } .chartbox { height:230px; } .mapbox { height:78vh; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Monitor de cortes de electricidad &ndash; Chile</h1>
-  <div class="sub">Fuente: SEC (clientes sin suministro por hora) + Censo 2024 (INE) &middot; <span id="upd">cargando&hellip;</span> <span id="err"></span></div>
-
-  <div class="kpis">
-    <div class="card kpi"><span>Clientes sin suministro</span><b id="k1">&ndash;</b><small id="k1s"></small></div>
-    <div class="card kpi"><span>Personas sin suministro (est.)</span><b id="k2">&ndash;</b><small>clientes &times; personas por cliente</small></div>
-    <div class="card kpi"><span>% de clientes del pa&iacute;s</span><b id="k3">&ndash;</b><small id="k3s"></small></div>
-    <div class="card kpi"><span>Comunas afectadas</span><b id="k4">&ndash;</b><small id="k4s"></small></div>
-  </div>
-
-  <div class="card"><h2>Clientes sin suministro por hora (&uacute;ltimos 7 d&iacute;as) &middot; haz clic en una barra para verla en el mapa</h2>
-    <div class="chart"><canvas id="c7"></canvas></div></div>
-
-  <div class="card" style="margin-top:12px">
-    <h2>Mapa de puntos cr&iacute;ticos por comuna</h2>
-    <div class="ctrl">
-      <div class="seg" id="seg">
-        <button data-m="pct" class="on">% de clientes</button>
-        <button data-m="cli">Clientes</button>
-        <button data-m="per">Personas (est.)</button>
-      </div>
-      <button id="play" title="Reproducir las &uacute;ltimas horas">&#9654; Reproducir</button>
-      <input type="range" id="sl" min="0" max="0" value="0" aria-label="Hora a mostrar">
-      <span class="hora" id="hl"></span>
-      <button id="now">Ahora</button>
-      <div class="seg" id="zoom">
-        <button data-z="chile">Chile</button><button data-z="norte">Norte</button><button data-z="centro">Centro</button><button data-z="sur">Sur</button>
-      </div>
+<div class="app">
+  <aside class="side">
+    <div class="box src">Fuente: <b>SEC</b><span id="upd" style="font-size:12px">cargando&hellip;</span></div>
+    <div class="box total">
+      <div class="l">Total clientes sin suministro</div>
+      <div class="n" id="k1">&ndash;</div>
+      <div class="p" id="k3"></div>
+      <div class="pp" id="k2"></div>
     </div>
-    <div class="row" style="margin-top:0">
-      <div id="map"></div>
-      <div><h2 id="crit-t">Comunas m&aacute;s afectadas</h2><ol class="crit" id="crit"></ol></div>
+    <div class="box">
+      <label class="f" for="fr">Filtrar por regi&oacute;n</label><select id="fr"></select>
+      <label class="f" for="fc" style="margin-top:8px">Filtrar por comuna</label><select id="fc"></select>
     </div>
-  </div>
-
-  <div class="row2">
-    <div class="card"><h2>Por regi&oacute;n (hora seleccionada)</h2><div class="chart" style="height:340px"><canvas id="cr"></canvas></div></div>
-    <div class="card">
-      <h2>C&oacute;mo se calculan las estimaciones</h2>
-      <div style="font-size:13px;color:var(--mute)">
-        <p style="margin-top:0"><b style="color:var(--ink)">Clientes sin suministro</b>: dato oficial de la SEC por comuna y hora.</p>
-        <p><b style="color:var(--ink)">Clientes totales de la comuna (est.)</b> = viviendas ocupadas del Censo 2024 &times; <span id="mk">k</span>.
-        El factor k hace que la suma de todas las comunas coincida con los clientes del pa&iacute;s que informa la SEC.</p>
-        <p><b style="color:var(--ink)">% de clientes</b> = clientes sin suministro &divide; clientes totales (est.). Equivale al % de habitantes sin suministro si se reparten parejo.</p>
+    <div class="box"><h3>10 regiones m&aacute;s afectadas</h3><ol class="rank" id="rr"></ol></div>
+    <div class="box"><h3 id="ct">10 comunas m&aacute;s afectadas</h3><ol class="rank" id="rc"></ol></div>
+    <div class="box">
+      <details><summary>C&oacute;mo se calculan las estimaciones</summary>
+        <p><b style="color:var(--ink)">Clientes sin suministro</b>: dato oficial de la SEC por comuna y hora.</p>
+        <p><b style="color:var(--ink)">Clientes totales de la comuna (est.)</b> = viviendas ocupadas del Censo 2024 (INE) &times; <span id="mk">k</span>, para que la suma de todas las comunas coincida con los clientes del pa&iacute;s que informa la SEC.</p>
+        <p><b style="color:var(--ink)">% de clientes</b> = clientes sin suministro &divide; clientes totales (est.); equivale al % de habitantes si el corte se reparte parejo.</p>
         <p><b style="color:var(--ink)">Personas sin suministro (est.)</b> = clientes sin suministro &times; (poblaci&oacute;n del Censo &divide; clientes totales).</p>
-        <p>Son estimaciones: k es nacional, y en comunas con mucho comercio (p. ej. Providencia) los clientes reales superan a las viviendas, mientras que en comunas populares ocurre lo contrario (contrastado con datos de ENEL: entre 0,9 y 1,5 clientes por vivienda). El error por comuna puede ser de &plusmn;20&ndash;30 %.</p>
-      </div>
+        <p>Es una estimaci&oacute;n: k es nacional y el cociente real clientes/viviendas var&iacute;a entre ~0,9 y ~1,5 seg&uacute;n la comuna (contrastado con datos de ENEL), por lo que el error por comuna puede ser de &plusmn;20&ndash;30 %.</p>
+        <p>Colores: percentiles entre las comunas con cortes en la hora mostrada.</p>
+      </details>
     </div>
-  </div>
-</main>
+  </aside>
+
+  <section class="main">
+    <div class="box chartbox">
+      <div class="hd"><h3 style="margin:0">Evoluci&oacute;n nacional &ndash; clientes sin suministro <span style="color:var(--mute);font-weight:400">(clic en el gr&aacute;fico para ver esa hora en el mapa)</span></h3>
+        <div class="btns" id="rng"><button data-h="24">24h</button><button data-h="48">48h</button><button data-h="72">72h</button><button data-h="168" class="on">7 d&iacute;as</button></div></div>
+      <div class="cv"><canvas id="c7"></canvas></div>
+    </div>
+    <div class="box mapbox">
+      <div class="ctrl">
+        <div class="btns" id="seg"><button data-m="pct" class="on">% de clientes</button><button data-m="cli">Clientes</button><button data-m="per">Personas (est.)</button></div>
+        <div class="btns"><button id="playb">&#9654; Reproducir</button></div>
+        <input type="range" id="sl" min="0" max="0" value="0" aria-label="Hora a mostrar">
+        <span class="hora" id="hl"></span>
+        <div class="btns"><button id="now">Ahora</button></div>
+        <div class="btns" id="zoom"><button data-z="chile">Chile</button><button data-z="norte">Norte</button><button data-z="centro">Centro</button><button data-z="sur">Sur</button></div>
+        <span id="err"></span>
+      </div>
+      <div id="map"></div>
+    </div>
+  </section>
+</div>
 
 <script>
 const fmt = n => Math.round(n).toLocaleString("es-CL");
 const fpct = v => (v >= 10 ? v.toFixed(0) : v >= 1 ? v.toFixed(1) : v.toFixed(2)).replace(".", ",") + "%";
-const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const dark = matchMedia("(prefers-color-scheme: dark)").matches;
-const COLORS = ["#fde8d3", "#fbc08a", "#f58f4c", "#e0601f", "#b13d0e", "#6f2308"];
+const CL = ["#e8484b", "#f08a24", "#f2c230", "#ecf5d0"];
 const METRICS = {
-  pct: { bins: [0.1, 0.5, 1, 2, 5, 10], unit: "% de clientes", f: (c, h) => Math.min(c.a[h] / c.cli, 1) * 100, fmt: fpct, min: 20 },
-  cli: { bins: [10, 50, 200, 1000, 3000, 8000], unit: "clientes", f: (c, h) => c.a[h], fmt: v => fmt(v), min: 1 },
-  per: { bins: [25, 120, 500, 2000, 7000, 20000], unit: "personas (est.)", f: (c, h) => Math.min(c.a[h] * c.ph, c.pob), fmt: v => fmt(v), min: 1 }
+  pct: { f: (c, h) => Math.min(c.a[h] / c.cli, 1) * 100, fmt: fpct, tit: "% de clientes sin suministro por comuna" },
+  cli: { f: (c, h) => c.a[h], fmt: fmt, tit: "Clientes sin suministro por comuna" },
+  per: { f: (c, h) => Math.min(c.a[h] * c.ph, c.pob), fmt: fmt, tit: "Personas sin suministro (est.) por comuna" }
 };
 const ZOOMS = { chile: [[-56, -76], [-17.5, -66]], norte: [[-30.5, -72], [-17.5, -66.5]], centro: [[-37.6, -73.6], [-32, -69.5]], sur: [[-47, -76], [-37.4, -70.5]] };
-const S = { d: null, metric: "pct", hi: 0, geo: null, layer: null, byCut: {}, charts: {}, timer: null };
+const S = { d: null, metric: "pct", hi: 0, win: 168, reg: "", com: "", byCut: {}, chart: null, timer: null, start: 0 };
 
-const map = L.map("map", { zoomSnap: 0.25, minZoom: 4 });
-// Mapas base sin clave de API: Esri Gray Canvas (claro/oscuro según el tema) y OpenStreetMap.
-const gris = L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${dark ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`,
-  { attribution: "Tiles &copy; Esri", maxZoom: 11 }).addTo(map);
-const osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap", maxZoom: 14 });
-const sinBase = L.layerGroup();
-L.control.layers({ "Gris (Esri)": gris, "OpenStreetMap": osm, "Sin mapa base": sinBase }, null, { position: "topright" }).addTo(map);
-map.fitBounds(ZOOMS.chile);
-
-const legend = L.control({ position: "bottomleft" });
-legend.onAdd = () => { const el = L.DomUtil.create("div", "legend"); el.id = "lg"; return el; };
-legend.addTo(map);
-
-function cls(v, m) { let i = 0; while (i < m.bins.length && v >= m.bins[i]) i++; return i; }   // 0 = bajo el primer corte
-
-function styleFor(feat) {
-  const c = S.byCut[feat.properties.cut]; const m = METRICS[S.metric];
-  if (!c || c.a[S.hi] <= 0) return { weight: 0.4, color: "#8a94a0", fillColor: "#8a94a0", fillOpacity: 0.04 };
-  const v = m.f(c, S.hi);
-  return { weight: 0.5, color: "#666", fillColor: COLORS[Math.min(cls(v, m), COLORS.length - 1)], fillOpacity: 0.82 };
-}
-
-function popupHtml(c) {
-  const h = S.hi, a = c.a[h], pk = Math.max(...c.a), ch = c.a.reduce((s, x) => s + x, 0);
-  const pct = Math.min(a / c.cli, 1) * 100, per = Math.min(a * c.ph, c.pob);
-  return `<div class="pop"><b>${c.n}</b><div style="color:#6b7683;font-size:12px">${shortReg(c.r)} &middot; ${horaLabel(h)}</div>
-  <table>
-   <tr><td>Clientes sin suministro</td><td><b>${fmt(a)}</b></td></tr>
-   <tr><td>Clientes totales (est.)</td><td>${fmt(c.cli)}</td></tr>
-   <tr><td>% de clientes</td><td><b>${fpct(pct)}</b></td></tr>
-   <tr><td>Personas sin suministro (est.)</td><td><b>${fmt(per)}</b></td></tr>
-   <tr><td>Poblaci&oacute;n (Censo 2024)</td><td>${fmt(c.pob)}</td></tr>
-   <tr><td>M&aacute;ximo en 7 d&iacute;as</td><td>${fmt(pk)} clientes</td></tr>
-   <tr><td>Cliente-horas 7 d&iacute;as</td><td>${fmt(ch)}</td></tr></table></div>`;
-}
-
-const shortReg = r => r.replace(/^Regi.n (del |de la |de los |de )?/i, "").replace(/ Libertador.*$/, "").replace(/^Metropolitana.*/, "Metropolitana");
+const shortReg = r => /Magallanes/i.test(r) ? "Magallanes" : /Ays/i.test(r) ? "Aysén" : /Libertador/i.test(r) ? "O'Higgins" :
+  /Metropolitana/i.test(r) ? "Metropolitana" : /B.o-?B.o/i.test(r) ? "Biobío" : r.replace(/^Regi.n (del |de la |de los |de )?/i, "");
 function horaLabel(h) {
   const d = new Date(S.d.horas[h]);
   return d.toLocaleDateString("es-CL", { weekday: "short", day: "2-digit", month: "2-digit" }) + " " + String(d.getHours()).padStart(2, "0") + ":00";
 }
 
-function drawLegend() {
-  const m = METRICS[S.metric];
-  let h = `<b>${m.unit}</b><br>`;
-  for (let i = m.bins.length; i >= 0; i--) {
-    const lo = i === 0 ? null : m.bins[i - 1];
-    h += `<i style="background:${COLORS[Math.min(i, COLORS.length - 1)]}"></i>${i === 0 ? "menos de " + m.fmt(m.bins[0]) : m.fmt(lo) + (i === m.bins.length ? " o m&aacute;s" : " &ndash; " + m.fmt(m.bins[i]))}<br>`;
-  }
-  h += `<i style="background:#8a94a0;opacity:.3"></i>sin cortes`;
-  document.getElementById("lg").innerHTML = h;
+// ---- mapa (mapa base oscuro de Esri, sin clave de API) ----
+const map = L.map("map", { zoomSnap: 0.25, minZoom: 4 });
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+  { attribution: "Tiles &copy; Esri", maxZoom: 11 }).addTo(map);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 11, opacity: 0.8 }).addTo(map);
+map.fitBounds(ZOOMS.chile);
+const bubbles = L.layerGroup().addTo(map);
+const legend = L.control({ position: "bottomright" });
+legend.onAdd = () => { const el = L.DomUtil.create("div", "legend"); el.id = "lg"; return el; };
+legend.addTo(map);
+
+function popupHtml(c) {
+  const h = S.hi, a = c.a[h], pk = Math.max(...c.a), ch = c.a.reduce((s, x) => s + x, 0);
+  return `<div class="pop"><b>${c.n}</b><div class="s">${shortReg(c.r)} &middot; ${horaLabel(h)}</div><table>
+   <tr><td>Clientes sin suministro</td><td><b>${fmt(a)}</b></td></tr>
+   <tr><td>Clientes totales (est.)</td><td>${fmt(c.cli)}</td></tr>
+   <tr><td>% de clientes</td><td><b>${fpct(Math.min(a / c.cli, 1) * 100)}</b></td></tr>
+   <tr><td>Personas sin suministro (est.)</td><td><b>${fmt(Math.min(a * c.ph, c.pob))}</b></td></tr>
+   <tr><td>Población (Censo 2024)</td><td>${fmt(c.pob)}</td></tr>
+   <tr><td>Máximo en 7 días</td><td>${fmt(pk)} clientes</td></tr>
+   <tr><td>Cliente-horas 7 días</td><td>${fmt(ch)}</td></tr></table></div>`;
 }
 
-function totals(h) {
-  let a = 0, per = 0, n = 0; const reg = {};
-  for (const c of S.d.comunas) {
-    const x = c.a[h]; if (x <= 0) continue;
-    a += x; n++; per += Math.min(x * c.ph, c.pob);
-    const r = (reg[c.r] ||= { a: 0, per: 0, cli: 0 }); r.a += x; r.per += Math.min(x * c.ph, c.pob);
+// percentiles entre comunas afectadas: 10% más afectadas, 10-30%, 30-60%, 60-100%
+function breaks(vals) {
+  const v = vals.slice().sort((a, b) => b - a), n = v.length, q = p => v[Math.min(n - 1, Math.max(0, Math.ceil(n * p) - 1))];
+  return [q(0.10), q(0.30), q(0.60)];
+}
+const cls = (v, b) => v >= b[0] ? 0 : v >= b[1] ? 1 : v >= b[2] ? 2 : 3;
+const visibles = () => S.d.comunas.filter(c => !S.reg || c.r === S.reg);
+
+function drawMap() {
+  const h = S.hi, m = METRICS[S.metric];
+  const act = visibles().filter(c => c.a[h] > 0).map(c => ({ c, v: m.f(c, h) }));
+  const allAct = S.d.comunas.filter(c => c.a[h] > 0).map(c => m.f(c, h));
+  const b = allAct.length ? breaks(allAct) : [0, 0, 0], vmax = Math.max(1e-9, allAct.length ? b[0] * 1.6 : 1);   // tamaño relativo al tramo alto (evita que un valor extremo achique al resto)
+  bubbles.clearLayers();
+  act.sort((x, y) => y.v - x.v).forEach(({ c, v }) => {
+    L.circleMarker([c.lat, c.lon], { radius: 3 + 14 * Math.sqrt(Math.min(v / vmax, 1)), color: "#0b1118", weight: 1, fillColor: CL[cls(v, b)], fillOpacity: 0.85 })
+      .bindPopup(() => popupHtml(c), { maxWidth: 300 }).bindTooltip(`${c.n}: ${m.fmt(v)}`, { sticky: true }).addTo(bubbles);
+  });
+  if (S.com && S.byCut[S.com] && S.byCut[S.com].a[h] <= 0) {         // comuna elegida sin cortes: marca neutra
+    const c = S.byCut[S.com];
+    L.circleMarker([c.lat, c.lon], { radius: 6, color: "#7d9aa8", weight: 1, fillColor: "#7d9aa8", fillOpacity: 0.3 }).bindPopup(() => popupHtml(c)).addTo(bubbles);
   }
-  for (const c of S.d.comunas) if (reg[c.r]) reg[c.r].cli += c.cli;
-  return { a, per, n, reg };
+  const f = x => m.fmt(x);
+  document.getElementById("lg").innerHTML = allAct.length ?
+    `<b>${m.tit}</b><br>
+     <i style="background:${CL[0]}"></i>10% más afectadas: &ge; ${f(b[0])}<br>
+     <i style="background:${CL[1]}"></i>10–30%: ${f(b[1])} – ${f(b[0])}<br>
+     <i style="background:${CL[2]}"></i>30–60%: ${f(b[2])} – ${f(b[1])}<br>
+     <i style="background:${CL[3]}"></i>60–100%: &lt; ${f(b[2])}` : `<b>${m.tit}</b><br>Sin cortes en esta hora`;
+}
+
+function rankHtml(items, fmtv) {
+  const max = Math.max(1e-9, ...items.map(x => x.v));
+  const dot = i => i === 0 ? CL[0] : i < 4 ? CL[1] : i < 8 ? CL[2] : CL[3];
+  return items.map((x, i) => `<li data-k="${x.k}"><span class="i">${i + 1}</span><span class="d" style="background:${dot(i)}"></span>
+    <span class="nm">${x.n}</span><span class="v">${fmtv(x.v)}</span>
+    <span class="bar"><i style="width:${x.v / max * 100}%;background:${dot(i)}"></i></span></li>`).join("");
+}
+
+function updateSide() {
+  const h = S.hi, m = METRICS[S.metric], d = S.d;
+  let a = 0, per = 0;
+  for (const c of d.comunas) { a += c.a[h]; per += Math.min(c.a[h] * c.ph, c.pob); }
+  document.getElementById("k1").textContent = fmt(a);
+  document.getElementById("k3").textContent = fpct(a / d.total_pais * 100) + " del país";
+  document.getElementById("k2").textContent = "≈ " + fmt(per) + " personas (est.) · " + horaLabel(h);
+  const R = {};
+  for (const c of d.comunas) { const r = (R[c.r] ||= { n: shortReg(c.r), k: c.r, a: 0, cli: 0, per: 0 }); r.a += c.a[h]; r.cli += c.cli; r.per += Math.min(c.a[h] * c.ph, c.pob); }
+  const rv = Object.values(R).map(r => ({ ...r, v: S.metric === "pct" ? r.a / r.cli * 100 : S.metric === "per" ? r.per : r.a }))
+    .filter(r => r.v > 0).sort((x, y) => y.v - x.v).slice(0, 10);
+  document.getElementById("rr").innerHTML = rankHtml(rv, m.fmt);
+  const cv = visibles().filter(c => S.metric !== "pct" || c.a[h] >= 20).map(c => ({ k: c.cut, n: c.n, v: m.f(c, h) })).filter(c => c.v > 0).sort((x, y) => y.v - x.v).slice(0, 10);
+  document.getElementById("ct").textContent = "10 comunas más afectadas" + (S.reg ? " · " + shortReg(S.reg) : "") + (S.metric === "pct" ? " (≥ 20 clientes)" : "");
+  document.getElementById("rc").innerHTML = rankHtml(cv, m.fmt);
+}
+
+function drawChart() {
+  const d = S.d, n = d.horas.length, start = Math.max(0, n - S.win), labels = [], data = [];
+  for (let i = start; i < n; i++) { const t = new Date(d.horas[i]); labels.push(String(t.getDate()).padStart(2, "0") + "-" + String(t.getMonth() + 1).padStart(2, "0") + " " + String(t.getHours()).padStart(2, "0") + ":00"); data.push(d.serie[i]); }
+  S.start = start;
+  if (S.chart) S.chart.destroy();
+  S.chart = new Chart(document.getElementById("c7"), { type: "line",
+    data: { labels, datasets: [{ data, borderColor: "#19c6e0", backgroundColor: "rgba(25,198,224,.14)", fill: true, pointRadius: 0, borderWidth: 1.6, tension: 0.15 }] },
+    options: { maintainAspectRatio: false, animation: false, interaction: { mode: "index", intersect: false },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.parsed.y) + " clientes" } } },
+      onClick: (e, els, ch) => { const p = ch.getElementsAtEventForMode(e, "index", { intersect: false }, true); if (p.length) { stop(); setHour(S.start + p[0].index); } },
+      scales: { x: { ticks: { color: "#7d9aa8", maxTicksLimit: 8, maxRotation: 0 }, grid: { color: "rgba(125,154,168,.12)" } },
+                y: { beginAtZero: true, ticks: { color: "#7d9aa8", callback: v => fmt(v) }, grid: { color: "rgba(125,154,168,.12)" } } } },
+    plugins: [{ id: "sel", afterDatasetsDraw(ch) {
+      const i = S.hi - S.start; if (i < 0 || i >= ch.data.labels.length) return;
+      const x = ch.scales.x.getPixelForValue(i), { top, bottom } = ch.chartArea, g = ch.ctx;
+      g.save(); g.strokeStyle = "#f08a24"; g.setLineDash([4, 3]); g.lineWidth = 1.2; g.beginPath(); g.moveTo(x, top); g.lineTo(x, bottom); g.stroke(); g.restore(); } }] });
 }
 
 function update() {
-  const d = S.d, h = S.hi, m = METRICS[S.metric], T = totals(h);
+  const d = S.d, h = S.hi;
   document.getElementById("hl").textContent = horaLabel(h) + (h === d.horas.length - 1 ? " (ahora)" : "");
   document.getElementById("sl").value = h;
-  document.getElementById("k1").textContent = fmt(T.a);
-  document.getElementById("k1s").textContent = "SEC, " + horaLabel(h);
-  document.getElementById("k2").textContent = "≈ " + fmt(T.per);
-  document.getElementById("k3").textContent = fpct(T.a / d.total_pais * 100);
-  document.getElementById("k3s").textContent = "de " + fmt(d.total_pais) + " clientes";
-  document.getElementById("k4").textContent = T.n;
-  document.getElementById("k4s").textContent = "de " + d.comunas.length + " comunas";
-
-  if (S.layer) S.layer.setStyle(styleFor);
-  drawLegend();
-
-  const ranked = d.comunas.filter(c => c.a[h] >= m.min).map(c => ({ c, v: m.f(c, h) })).sort((x, y) => y.v - x.v).slice(0, 12);
-  document.getElementById("crit-t").textContent = "Puntos críticos (" + m.unit + (S.metric === "pct" ? ", con ≥ 20 clientes" : "") + ")";
-  document.getElementById("crit").innerHTML = ranked.length ? ranked.map(({ c, v }) =>
-    `<li data-cut="${c.cut}"><div><span class="n">${c.n}</span><br><span class="r">${shortReg(c.r)}</span></div>
-     <div class="v"><b>${m.fmt(v)}</b><small>${fmt(c.a[h])} cl. &middot; ${fmt(Math.min(c.a[h] * c.ph, c.pob))} pers.</small></div></li>`).join("")
-    : '<li style="cursor:default">Sin comunas sobre el umbral en esta hora</li>';
-
-  // gráficos
-  const ch7 = S.charts.c7;
-  if (ch7) { ch7.data.datasets[0].backgroundColor = d.serie.map((_, i) => i === h ? css("--acc") : css("--acc2") + "88"); ch7.update("none"); }
-  const regs = Object.entries(T.reg).sort((x, y) => y[1].a - x[1].a).slice(0, 12);
-  drawBar("cr", regs.map(([k]) => shortReg(k)), regs.map(([, v]) => v.a),
-    regs.map(([, v]) => `${fmt(v.a)} clientes · ${fpct(v.a / v.cli * 100)} · ≈ ${fmt(v.per)} personas`));
+  updateSide(); drawMap();
+  if (S.chart) S.chart.draw();
 }
-
-function drawBar(id, labels, data, tips) {
-  const mute = css("--mute"), line = css("--line");
-  if (S.charts[id]) S.charts[id].destroy();
-  S.charts[id] = new Chart(document.getElementById(id), { type: "bar",
-    data: { labels, datasets: [{ data, backgroundColor: css("--acc2"), borderWidth: 0 }] },
-    options: { indexAxis: "y", maintainAspectRatio: false, animation: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => tips[ctx.dataIndex] } } },
-      scales: { x: { ticks: { color: mute, callback: v => fmt(v) }, grid: { color: line } }, y: { ticks: { color: mute, autoSkip: false }, grid: { display: false } } } } });
-}
-
 function setHour(i) { S.hi = Math.max(0, Math.min(S.d.horas.length - 1, +i)); update(); }
-function stop() { clearInterval(S.timer); S.timer = null; document.getElementById("play").innerHTML = "&#9654; Reproducir"; }
+function stop() { clearInterval(S.timer); S.timer = null; document.getElementById("playb").innerHTML = "&#9654; Reproducir"; }
+
+function fillSelects() {
+  const regs = [...new Set(S.d.comunas.map(c => c.r))].sort((a, b) => shortReg(a).localeCompare(shortReg(b), "es"));
+  document.getElementById("fr").innerHTML = '<option value="">Todas las regiones</option>' + regs.map(r => `<option value="${r}">${shortReg(r)}</option>`).join("");
+  document.getElementById("fr").value = S.reg; fillComunas();
+}
+function fillComunas() {
+  const cs = visibles().slice().sort((a, b) => a.n.localeCompare(b.n, "es"));
+  document.getElementById("fc").innerHTML = '<option value="">Todas las comunas</option>' + cs.map(c => `<option value="${c.cut}">${c.n}</option>`).join("");
+  document.getElementById("fc").value = S.com;
+}
+function focusComuna(cut) {
+  const c = S.byCut[cut]; if (!c) return;
+  S.com = String(cut); document.getElementById("fc").value = S.com; drawMap();
+  map.stop(); map.setView([c.lat, c.lon], 10);
+  bubbles.eachLayer(l => { const ll = l.getLatLng(); if (Math.abs(ll.lat - c.lat) < 1e-6 && Math.abs(ll.lng - c.lon) < 1e-6) l.openPopup(); });
+}
 
 function build(first) {
-  const d = S.d, mute = css("--mute"), line = css("--line");
+  const d = S.d;
   S.byCut = Object.fromEntries(d.comunas.map(c => [c.cut, c]));
   document.getElementById("mk").textContent = "k = " + String(d.k).replace(".", ",");
   document.getElementById("upd").textContent = "actualizado " + d.actualizado + " (hora Chile)";
-  const sl = document.getElementById("sl"); sl.max = d.horas.length - 1;
-  if (first) S.hi = d.horas.length - 1;
-  if (S.charts.c7) S.charts.c7.destroy();
-  S.charts.c7 = new Chart(document.getElementById("c7"), { type: "bar",
-    data: { labels: d.horas.map((_, i) => horaLabel(i)), datasets: [{ data: d.serie, borderWidth: 0, barPercentage: 1, categoryPercentage: 0.92 }] },
-    options: { maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } },
-      onClick: (e, els, chart) => { const p = chart.getElementsAtEventForMode(e, "index", { intersect: false }, true); if (p.length) { stop(); setHour(p[0].index); } },
-      scales: { x: { ticks: { color: mute, maxTicksLimit: 8, maxRotation: 0 }, grid: { display: false } },
-                y: { beginAtZero: true, ticks: { color: mute, callback: v => fmt(v) }, grid: { color: line } } } } });
-  if (S.geo && !S.layer) {
-    S.layer = L.geoJSON(S.geo, { style: styleFor, onEachFeature: (f, l) => {
-      const c = () => S.byCut[f.properties.cut];
-      l.bindPopup(() => c() ? popupHtml(c()) : "", { maxWidth: 300 });
-      l.on("mouseover", e => { const k = c(); if (k && k.a[S.hi] > 0) e.target.setStyle({ weight: 2, color: css("--ink") }); });
-      l.on("mouseout", e => S.layer.resetStyle(e.target) || e.target.setStyle(styleFor(f)));
-      l.bindTooltip(() => c() ? `${c().n}: ${METRICS[S.metric].fmt(METRICS[S.metric].f(c(), S.hi))}` : "", { sticky: true });
-    } }).addTo(map);
-  }
-  update();
+  document.getElementById("sl").max = d.horas.length - 1;
+  if (first) { S.hi = d.horas.length - 1; fillSelects(); }
+  drawChart(); update();
 }
-
 async function load(first) {
   try {
-    const [d, g] = await Promise.all([fetch("mapa.json?t=" + Date.now()).then(r => r.json()),
-      S.geo ? Promise.resolve(S.geo) : fetch("comunas_geo.json").then(r => r.json())]);
+    const d = await fetch("mapa.json?t=" + Date.now()).then(r => r.json());
     const atEnd = !S.d || S.hi === S.d.horas.length - 1;
-    S.d = d; S.geo = g;
-    build(first || atEnd);
+    S.d = d; build(first || atEnd);
     document.getElementById("err").textContent = "";
-  } catch (e) { document.getElementById("err").textContent = "· error cargando datos"; console.error(e); }
+  } catch (e) { document.getElementById("err").textContent = "error cargando datos"; console.error(e); }
 }
 
-document.getElementById("seg").addEventListener("click", e => {
-  const b = e.target.closest("button"); if (!b) return;
-  S.metric = b.dataset.m; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); update();
-});
+document.getElementById("seg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  S.metric = b.dataset.m; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); update(); });
+document.getElementById("rng").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  S.win = +b.dataset.h; [...e.currentTarget.children].forEach(x => x.classList.toggle("on", x === b)); drawChart(); });
 document.getElementById("zoom").addEventListener("click", e => { const b = e.target.closest("button"); if (b) map.fitBounds(ZOOMS[b.dataset.z]); });
 document.getElementById("sl").addEventListener("input", e => { stop(); setHour(e.target.value); });
 document.getElementById("now").addEventListener("click", () => { stop(); setHour(S.d.horas.length - 1); });
-document.getElementById("play").addEventListener("click", () => {
+document.getElementById("playb").addEventListener("click", () => {
   if (S.timer) return stop();
-  if (S.hi >= S.d.horas.length - 1) S.hi = Math.max(0, S.d.horas.length - 73);   // reproduce las últimas 72 h
-  document.getElementById("play").innerHTML = "&#10074;&#10074; Pausar";
+  if (S.hi >= S.d.horas.length - 1) S.hi = Math.max(0, S.d.horas.length - 73);
+  document.getElementById("playb").innerHTML = "&#10074;&#10074; Pausar";
   S.timer = setInterval(() => { if (S.hi >= S.d.horas.length - 1) return stop(); setHour(S.hi + 1); }, 350);
 });
-document.getElementById("crit").addEventListener("click", e => {
-  const li = e.target.closest("li[data-cut]"); if (!li) return;
-  S.layer.eachLayer(l => { if (String(l.feature.properties.cut) === li.dataset.cut) { map.fitBounds(l.getBounds(), { maxZoom: 9 }); l.openPopup(); } });
+document.getElementById("fr").addEventListener("change", e => {
+  S.reg = e.target.value; S.com = ""; fillComunas(); update();
+  const cs = visibles(); if (S.reg && cs.length) map.fitBounds(L.latLngBounds(cs.map(c => [c.lat, c.lon])).pad(0.2), { maxZoom: 9 }); else map.fitBounds(ZOOMS.chile);
 });
+document.getElementById("fc").addEventListener("change", e => { S.com = e.target.value; if (S.com) focusComuna(+S.com); else update(); });
+document.getElementById("rc").addEventListener("click", e => { const li = e.target.closest("li[data-k]"); if (li) focusComuna(+li.dataset.k); });
+document.getElementById("rr").addEventListener("click", e => { const li = e.target.closest("li[data-k]"); if (!li) return;
+  S.reg = li.dataset.k; S.com = ""; document.getElementById("fr").value = S.reg; fillComunas(); update();
+  map.fitBounds(L.latLngBounds(visibles().map(c => [c.lat, c.lon])).pad(0.2), { maxZoom: 9 }); });
 load(true);
 setInterval(() => load(false), 5 * 60 * 1000);   // los datos nuevos llegan cada hora; la vista se refresca sola
 </script>
