@@ -249,7 +249,7 @@
       </section>
       <section class="card adj" data-id="cont">
         <h3><span>Continuidad: duración y recurrencia <span class="tg of">Derivado SEC</span></span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
-        <div class="cb"><div class="cont-s" style="margin-bottom:6px">Dónde la continuidad requiere más atención en los últimos 7 días: horas sin suministro por cliente (tipo SAIDI, estimado), con horas con corte, episodios y racha más larga.</div><div id="topCont"></div></div>
+        <div class="cb"><div class="cont-s" style="margin-bottom:6px">Últimos 7 días, con datos de la SEC: cliente-horas = clientes sin suministro × horas (cuánto servicio se perdió), junto con las horas con corte y la racha más larga.</div><div id="topCont"></div></div>
       </section>
       <section class="card adj dl" data-id="datos">
         <h3><span>Datos abiertos · registro histórico</span><span class="ctr"><button data-a="up" title="Subir">▲</button><button data-a="dn" title="Bajar">▼</button><button data-a="tg" title="Plegar">–</button></span></h3>
@@ -299,8 +299,6 @@
       <button data-m="per" class="on"><i></i><span class="t"><b>Personas sin suministro</b><small>Estimado con el Censo 2024</small></span><span class="tg es">Estimado</span></button>
       <button data-m="pct"><i></i><span class="t"><b>% de clientes de la comuna</b><small>Clientes sin suministro ÷ clientes de la comuna</small></span><span class="tg es">Estimado</span></button>
       <button data-m="cli"><i></i><span class="t"><b>Clientes sin suministro</b><small>Dato publicado por la SEC</small></span><span class="tg of">Oficial SEC</span></button>
-      <button data-m="dur"><i></i><span class="t"><b>Horas con corte (7 días)</b><small>Duración acumulada: horas con clientes sin luz</small></span><span class="tg of">Derivado SEC</span></button>
-      <button data-m="rec"><i></i><span class="t"><b>Episodios de corte (7 días)</b><small>Recurrencia: cuántas veces se interrumpió</small></span><span class="tg of">Derivado SEC</span></button>
     </div>
     <div class="lbl" style="margin-top:8px" id="lgt"></div>
     <div class="sw" id="sw"></div>
@@ -316,16 +314,14 @@ const LS = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); re
 
 // colores de verde (bueno) a rojo (malo): el índice 0 = más afectadas
 const CLS = ["#d62828", "#f77f00", "#f5c518", "#2a9d5c"], RAD = [15, 12, 9, 7];
-const NOMB = { pct: "% de clientes de la comuna", cli: "Clientes sin suministro", per: "Personas sin suministro", dur: "Horas con corte en 7 días", rec: "Episodios de corte en 7 días" };
-const TAG = { pct: '<span class="tg es">Estimado</span>', cli: '<span class="tg of">Dato oficial SEC</span>', per: '<span class="tg es">Estimado</span>', dur: '<span class="tg of">Derivado SEC</span>', rec: '<span class="tg of">Derivado SEC</span>' };
-const UNIT = { pct: " de clientes (est.)", cli: " clientes (SEC)", per: " personas (est.)", dur: " h con corte", rec: " episodios" };
+const NOMB = { pct: "% de clientes de la comuna", cli: "Clientes sin suministro", per: "Personas sin suministro" };
+const TAG = { pct: '<span class="tg es">Estimado</span>', cli: '<span class="tg of">Dato oficial SEC</span>', per: '<span class="tg es">Estimado</span>' };
+const UNIT = { pct: " de clientes (est.)", cli: " clientes (SEC)", per: " personas (est.)" };
 const ZOOMS = { chile: [[-56, -76], [-17.5, -66]], norte: [[-30.5, -72], [-17.5, -66.5]], centro: [[-37.6, -73.6], [-32, -69.5]], sur: [[-47, -76], [-37.4, -70.5]] };
 const miles = x => Math.round(Number(x)).toLocaleString("es-CL");
 const fpct = v => (v >= 10 ? v.toFixed(0) : v >= 1 ? v.toFixed(1) : v.toFixed(2)).replace(".", ",") + "%";
-const F = { pct: (c, h) => Math.min(c.a[h] / c.cli, 1) * 100, cli: (c, h) => c.a[h], per: (c, h) => Math.min(c.a[h] * c.ph, c.pob), dur: c => c.hc, rec: c => c.ep };
-const DER = { dur: 1, rec: 1 };                        // métricas de continuidad (7 días), no dependen de la hora elegida
-const activa = (c, h) => (DER[S.metric] ? c.hc > 0 : c.a[h] > 0);
-const FMT = { pct: fpct, cli: miles, per: miles, dur: miles, rec: miles };
+const F = { pct: (c, h) => Math.min(c.a[h] / c.cli, 1) * 100, cli: (c, h) => c.a[h], per: (c, h) => Math.min(c.a[h] * c.ph, c.pob) };
+const FMT = { pct: fpct, cli: miles, per: miles };
 const S = { d: null, metric: "per", hi: 0, win: 168, reg: "__all__", com: "__all__", byCut: {}, totH: [], perH: [], chart: null, don: null, timer: null, start: 0, regList: [] };
 const $ = id => document.getElementById(id);
 const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
@@ -350,7 +346,7 @@ function fechaLarga(s) {   // "2026-10-21 03:20" -> {dia:"miércoles 21 de octub
 function breaks(vals) { const v = vals.slice().sort((a, b) => b - a), n = v.length, q = p => v[Math.min(n - 1, Math.max(0, Math.ceil(n * p) - 1))]; return [q(0.10), q(0.30), q(0.60)]; }
 const cls = (v, b) => v >= b[0] ? 0 : v >= b[1] ? 1 : v >= b[2] ? 2 : 3;
 const rankCol = (i, n) => { const p = (i + 1) / n; return p <= .10 ? CLS[0] : p <= .30 ? CLS[1] : p <= .60 ? CLS[2] : CLS[3]; };
-function brk(metric, h) { const v = S.d.comunas.filter(c => (DER[metric] ? c.hc > 0 : c.a[h] > 0)).map(c => F[metric](c, h)); return v.length ? breaks(v) : [0, 0, 0]; }
+function brk(metric, h) { const v = S.d.comunas.filter(c => c.a[h] > 0).map(c => F[metric](c, h)); return v.length ? breaks(v) : [0, 0, 0]; }
 
 // ---------- KPI y hora de actualización ----------
 function panel() {
@@ -428,9 +424,7 @@ function popup(c) {
       ${rank ? `<tr><td>Puesto por % (esta hora)</td><td>${rank} de ${nAct} comunas</td></tr>` : ""}</table>
     <div class="sec"><span>Continuidad · últimos 7 días</span><span class="tg of" style="margin:0">Derivado SEC</span></div>
     <table><tr><td>Horas con corte</td><td>${c.hc} de ${S.nh} h</td></tr>
-      <tr><td>Episodios (cortes distintos)</td><td>${c.ep}</td></tr>
-      <tr><td>Racha más larga</td><td>${c.mr} h seguidas</td></tr>
-      <tr><td>Horas sin suministro por cliente <span class="cont-s">(tipo SAIDI, est.)</span></td><td>≈ ${c.sd.toFixed(2).replace(".", ",")} h</td></tr></table>
+      <tr><td>Racha más larga</td><td>${c.mr} h seguidas</td></tr></table>
     <div class="sp">${spark(c, h)}<small>Clientes sin suministro (oficial SEC), últimos 7 días · ámbar = hora mostrada</small></div></div></div>`;
 }
 
@@ -447,8 +441,8 @@ function mapa() {
   const h = S.hi, m = S.metric;
   if (capa) MAP.removeLayer(capa);
   capa = L.layerGroup();
-  const b = brk(m, h), nAct = S.d.comunas.filter(c => activa(c, h)).length, pad = innerWidth > 900 ? [padL(), 20] : [20, 70];
-  let cs = S.d.comunas.filter(c => activa(c, h));
+  const b = brk(m, h), nAct = S.d.comunas.filter(c => c.a[h] > 0).length, pad = innerWidth > 900 ? [padL(), 20] : [20, 70];
+  let cs = S.d.comunas.filter(c => c.a[h] > 0);
   if (S.reg !== "__all__") cs = cs.filter(c => c.r === S.reg);
   if (S.com !== "__all__") cs = cs.filter(c => String(c.cut) === S.com);
   cs.map(c => ({ c, v: F[m](c, h) })).sort((x, y) => y.v - x.v).forEach(({ c, v }) => {
@@ -493,12 +487,10 @@ function detalle() {
   const com = S.com !== "__all__" && S.byCut[S.com] ? S.byCut[S.com] : null;
   const zona = com ? com.n + " (" + shortReg(com.r) + ")" : S.reg !== "__all__" ? shortReg(S.reg) : "Todo Chile";
   let cs = d.comunas.filter(c => S.reg === "__all__" || c.r === S.reg); if (com) cs = [com];
-  const n = cs.filter(c => activa(c, h)).length;
+  const n = cs.filter(c => c.a[h] > 0).length;
   const txt = { per: "Personas estimadas sin luz = clientes sin suministro × personas por cliente de la comuna (población del Censo 2024 ÷ clientes totales estimados).",
                 pct: "Clientes sin suministro ÷ clientes totales estimados de la comuna. Los clientes totales se estiman con las viviendas ocupadas del Censo 2024.",
-                cli: "Clientes sin suministro tal como los publica la SEC por comuna y hora (dato oficial, sin estimaciones).",
-                dur: "Horas, de las últimas 168 (7 días), en que la comuna tuvo al menos un cliente sin suministro según la SEC. No depende de la hora elegida.",
-                rec: "Cantidad de episodios distintos (tramos de horas seguidas con cortes) en los últimos 7 días. Mide recurrencia; no depende de la hora elegida." };
+                cli: "Clientes sin suministro tal como los publica la SEC por comuna y hora (dato oficial, sin estimaciones)." };
   $("vM").innerHTML = NOMB[m] + TAG[m];
   $("vH").textContent = horaLabel(h) + (ult ? " · última hora publicada" : " · hora anterior");
   $("vZ").textContent = zona;
@@ -506,10 +498,10 @@ function detalle() {
   $("vD").textContent = txt[m];
 }
 function continuidad() {
-  const l = S.d.comunas.filter(c => c.hc >= 3).sort((x, y) => y.sd - x.sd).slice(0, 10), mx = l.length ? l[0].sd : 1;
-  const b = breaks(l.map(c => c.sd));
-  $("topCont").innerHTML = l.length ? l.map((c, i) => rowRk(i, CLS[cls(c.sd, b)], c.n, "≈ " + c.sd.toFixed(2).replace(".", ",") + " h",
-    c.hc + " h con corte · " + c.ep + " episodios · racha " + c.mr + " h", c.sd / mx * 100, "c:" + c.cut)).join("") : '<span style="color:var(--mu)">Sin datos suficientes</span>';
+  const l = S.d.comunas.filter(c => c.hc >= 3).sort((x, y) => y.chs - x.chs).slice(0, 10), mx = l.length ? l[0].chs : 1;
+  const b = breaks(l.map(c => c.chs));
+  $("topCont").innerHTML = l.length ? l.map((c, i) => rowRk(i, CLS[cls(c.chs, b)], c.n, miles(c.chs) + " cliente-horas",
+    c.hc + " h con corte · racha más larga " + c.mr + " h", c.chs / mx * 100, "c:" + c.cut)).join("") : '<span style="color:var(--mu)">Sin datos suficientes</span>';
 }
 function setHour(i) { S.hi = Math.max(0, Math.min(S.d.horas.length - 1, +i)); update(); }
 function stop() { clearInterval(S.timer); S.timer = null; $("playb").innerHTML = "&#9654; Reproducir"; }
@@ -562,10 +554,10 @@ function calc() {
   S.perH = d.horas.map((_, h) => d.comunas.reduce((s, c) => s + F.per(c, h), 0));
   const H = d.horas.length, desde = Math.max(0, H - 168);
   S.nh = H - desde;
-  for (const c of d.comunas) {     // continuidad: horas con corte, episodios, racha máxima y cliente-horas
-    let hc = 0, ep = 0, run = 0, mr = 0, chs = 0;
-    for (let i = desde; i < H; i++) { const v = c.a[i]; chs += v; if (v > 0) { hc++; run++; if (run === 1) ep++; if (run > mr) mr = run; } else run = 0; }
-    c.hc = hc; c.ep = ep; c.mr = mr; c.chs = chs; c.sd = chs / Math.max(1, c.cli);
+  for (const c of d.comunas) {     // continuidad: horas con corte, racha máxima y cliente-horas (medidos con los datos de la SEC)
+    let hc = 0, run = 0, mr = 0, chs = 0;
+    for (let i = desde; i < H; i++) { const v = c.a[i]; chs += v; if (v > 0) { hc++; run++; if (run > mr) mr = run; } else run = 0; }
+    c.hc = hc; c.mr = mr; c.chs = chs;
   }
 }
 
