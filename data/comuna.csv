@@ -49337,34 +49337,35 @@
 2026-10-25 22:00,Ñuble,San Carlos,san carlos,1
 2026-10-25 22:00,Ñuble,Treguaco,treguaco,3
 2026-10-25 23:00,Antofagasta,Antofagasta,antofagasta,9
-2026-10-25 23:00,Antofagasta,Calama,calama,6
+2026-10-25 23:00,Antofagasta,Calama,calama,5
 2026-10-25 23:00,Antofagasta,Tocopilla,tocopilla,1
-2026-10-25 23:00,Arica y Parinacota,Arica,arica,304
+2026-10-25 23:00,Arica y Parinacota,Arica,arica,296
 2026-10-25 23:00,Aysén,Coyhaique,coyhaique,2
-2026-10-25 23:00,Biobio,Chiguayante,chiguayante,3
-2026-10-25 23:00,Biobio,Concepcion,concepcion,3
+2026-10-25 23:00,Biobio,Chiguayante,chiguayante,2
+2026-10-25 23:00,Biobio,Concepcion,concepcion,1
 2026-10-25 23:00,Biobio,Hualqui,hualqui,4
-2026-10-25 23:00,Biobio,Los Angeles,los angeles,25
-2026-10-25 23:00,Biobio,San Pedro de la Paz,san pedro de la paz,3425
-2026-10-25 23:00,Biobio,Talcahuano,talcahuano,2
-2026-10-25 23:00,Biobio,Tome,tome,62
+2026-10-25 23:00,Biobio,Los Angeles,los angeles,26
+2026-10-25 23:00,Biobio,Mulchen,mulchen,14
+2026-10-25 23:00,Biobio,San Pedro de la Paz,san pedro de la paz,6
+2026-10-25 23:00,Biobio,Talcahuano,talcahuano,1
+2026-10-25 23:00,Biobio,Tome,tome,2
 2026-10-25 23:00,Coquimbo,Canela,canela,4
 2026-10-25 23:00,Coquimbo,Combarbala,combarbala,1
-2026-10-25 23:00,Coquimbo,Coquimbo,coquimbo,8
-2026-10-25 23:00,Coquimbo,La Serena,la serena,76
+2026-10-25 23:00,Coquimbo,Coquimbo,coquimbo,13
+2026-10-25 23:00,Coquimbo,La Serena,la serena,2
 2026-10-25 23:00,Coquimbo,Los Vilos,los vilos,1
 2026-10-25 23:00,Coquimbo,Ovalle,ovalle,2
 2026-10-25 23:00,Coquimbo,Vicuña,vicuna,1
 2026-10-25 23:00,La Araucania,Carahue,carahue,1
 2026-10-25 23:00,La Araucania,Cunco,cunco,1
+2026-10-25 23:00,La Araucania,Curarrehue,curarrehue,1
 2026-10-25 23:00,La Araucania,Freire,freire,344
-2026-10-25 23:00,La Araucania,Lautaro,lautaro,50
 2026-10-25 23:00,La Araucania,Los Sauces,los sauces,1
 2026-10-25 23:00,La Araucania,Nueva Imperial,nueva imperial,34
 2026-10-25 23:00,La Araucania,Padre Las Casas,padre las casas,638
 2026-10-25 23:00,La Araucania,Perquenco,perquenco,6
-2026-10-25 23:00,La Araucania,Pucon,pucon,3
-2026-10-25 23:00,La Araucania,Temuco,temuco,34
+2026-10-25 23:00,La Araucania,Pucon,pucon,2
+2026-10-25 23:00,La Araucania,Temuco,temuco,1
 2026-10-25 23:00,Los Lagos,Calbuco,calbuco,14
 2026-10-25 23:00,Los Lagos,Castro,castro,5
 2026-10-25 23:00,Los Lagos,Chonchi,chonchi,7
@@ -49373,68 +49374,73 @@
 2026-10-25 23:00,Los Lagos,Llanquihue,llanquihue,5
 2026-10-25 23:00,Los Lagos,Los Muermos,los muermos,1
 2026-10-25 23:00,Los Lagos,Maullin,maullin,5
-2026-10-25 23:00,Los Lagos,Osorno,osorno,105
+2026-10-25 23:00,Los Lagos,Osorno,osorno,158
 2026-10-25 23:00,Los Lagos,Puerto Montt,puerto montt,295
+2026-10-25 23:00,Los Lagos,Puyehue,puyehue,1
+2026-10-25 23:00,Los Lagos,Quellon,quellon,25
 2026-10-25 23:00,Los Lagos,Quinchao,quinchao,9
 2026-10-25 23:00,Los Rios,La Union,la union,1
 2026-10-25 23:00,Los Rios,Los Lagos,los lagos,2
-2026-10-25 23:00,Los Rios,Mafil,mafil,74
-2026-10-25 23:00,Los Rios,Mariquina,mariquina,13
+2026-10-25 23:00,Los Rios,Mafil,mafil,1
+2026-10-25 23:00,Los Rios,Mariquina,mariquina,15
 2026-10-25 23:00,Los Rios,Panguipulli,panguipulli,11
 2026-10-25 23:00,Los Rios,Valdivia,valdivia,73
-2026-10-25 23:00,Magallanes,Punta Arenas,punta arenas,1
+2026-10-25 23:00,Magallanes,Punta Arenas,punta arenas,2
 2026-10-25 23:00,Maule,Constitucion,constitucion,1
-2026-10-25 23:00,Maule,Curico,curico,4
+2026-10-25 23:00,Maule,Curico,curico,2
 2026-10-25 23:00,Maule,Empedrado,empedrado,1
-2026-10-25 23:00,Maule,Longavi,longavi,75
+2026-10-25 23:00,Maule,Licanten,licanten,1
+2026-10-25 23:00,Maule,Longavi,longavi,1
 2026-10-25 23:00,Maule,Maule,maule,370
 2026-10-25 23:00,Maule,Parral,parral,1
-2026-10-25 23:00,Maule,Rauco,rauco,1
+2026-10-25 23:00,Maule,Rauco,rauco,10
 2026-10-25 23:00,Maule,Retiro,retiro,1
 2026-10-25 23:00,Maule,Romeral,romeral,1
 2026-10-25 23:00,Maule,San Clemente,san clemente,1
-2026-10-25 23:00,Maule,Talca,talca,5
+2026-10-25 23:00,Maule,Talca,talca,1
 2026-10-25 23:00,Maule,Teno,teno,52
-2026-10-25 23:00,Maule,Yerbas Buenas,yerbas buenas,44
-2026-10-25 23:00,Metropolitana,Buin,buin,29
+2026-10-25 23:00,Maule,Yerbas Buenas,yerbas buenas,43
+2026-10-25 23:00,Metropolitana,Buin,buin,36
 2026-10-25 23:00,Metropolitana,Cerro Navia,cerro navia,6
 2026-10-25 23:00,Metropolitana,Colina,colina,27
 2026-10-25 23:00,Metropolitana,Conchali,conchali,2
 2026-10-25 23:00,Metropolitana,El Monte,el monte,1
+2026-10-25 23:00,Metropolitana,Estacion Central,estacion central,1
 2026-10-25 23:00,Metropolitana,Independencia,independencia,1
 2026-10-25 23:00,Metropolitana,Isla de Maipo,isla de maipo,1
 2026-10-25 23:00,Metropolitana,La Cisterna,la cisterna,3
 2026-10-25 23:00,Metropolitana,La Florida,la florida,5
-2026-10-25 23:00,Metropolitana,La Pintana,la pintana,8
-2026-10-25 23:00,Metropolitana,La Reina,la reina,2
+2026-10-25 23:00,Metropolitana,La Pintana,la pintana,10
+2026-10-25 23:00,Metropolitana,La Reina,la reina,3
 2026-10-25 23:00,Metropolitana,Lampa,lampa,24
 2026-10-25 23:00,Metropolitana,Las Condes,las condes,4
 2026-10-25 23:00,Metropolitana,Lo Barnechea,lo barnechea,12
 2026-10-25 23:00,Metropolitana,Macul,macul,2
 2026-10-25 23:00,Metropolitana,Maipu,maipu,5
 2026-10-25 23:00,Metropolitana,Melipilla,melipilla,1
-2026-10-25 23:00,Metropolitana,Padre Hurtado,padre hurtado,3923
+2026-10-25 23:00,Metropolitana,Padre Hurtado,padre hurtado,3910
 2026-10-25 23:00,Metropolitana,Paine,paine,1
 2026-10-25 23:00,Metropolitana,Pedro Aguirre Cerda,pedro aguirre cerda,1
-2026-10-25 23:00,Metropolitana,Peñaflor,penaflor,8967
+2026-10-25 23:00,Metropolitana,Peñaflor,penaflor,58
 2026-10-25 23:00,Metropolitana,Peñalolen,penalolen,5
 2026-10-25 23:00,Metropolitana,Providencia,providencia,3
-2026-10-25 23:00,Metropolitana,Pudahuel,pudahuel,13
-2026-10-25 23:00,Metropolitana,Puente Alto,puente alto,10
+2026-10-25 23:00,Metropolitana,Pudahuel,pudahuel,15
+2026-10-25 23:00,Metropolitana,Puente Alto,puente alto,4
 2026-10-25 23:00,Metropolitana,Quilicura,quilicura,10
 2026-10-25 23:00,Metropolitana,Recoleta,recoleta,4
 2026-10-25 23:00,Metropolitana,Renca,renca,4
 2026-10-25 23:00,Metropolitana,San Bernardo,san bernardo,18
 2026-10-25 23:00,Metropolitana,San Joaquin,san joaquin,4
-2026-10-25 23:00,Metropolitana,San Ramon,san ramon,5
+2026-10-25 23:00,Metropolitana,San Ramon,san ramon,1
 2026-10-25 23:00,Metropolitana,Santiago,santiago,11
 2026-10-25 23:00,Metropolitana,Vitacura,vitacura,4
 2026-10-25 23:00,Metropolitana,Ñuñoa,nunoa,4
+2026-10-25 23:00,O`Higgins,Coltauco,coltauco,1
 2026-10-25 23:00,O`Higgins,Marchihue,marchihue,1
 2026-10-25 23:00,O`Higgins,Rancagua,rancagua,6
 2026-10-25 23:00,O`Higgins,Rengo,rengo,1
 2026-10-25 23:00,O`Higgins,San Vicente,san vicente,1
-2026-10-25 23:00,Tarapaca,Alto Hospicio,alto hospicio,7
+2026-10-25 23:00,Tarapaca,Alto Hospicio,alto hospicio,4
 2026-10-25 23:00,Tarapaca,Pozo Almonte,pozo almonte,1
 2026-10-25 23:00,Valparaiso,El Tabo,el tabo,46
 2026-10-25 23:00,Valparaiso,La Ligua,la ligua,1
@@ -49447,10 +49453,122 @@
 2026-10-25 23:00,Valparaiso,Quintero,quintero,4
 2026-10-25 23:00,Valparaiso,San Antonio,san antonio,14
 2026-10-25 23:00,Valparaiso,Villa Alemana,villa alemana,112
-2026-10-25 23:00,Ñuble,Chillan,chillan,38
+2026-10-25 23:00,Valparaiso,Viña del Mar,vina del mar,1
+2026-10-25 23:00,Ñuble,Chillan,chillan,2
 2026-10-25 23:00,Ñuble,Cobquecura,cobquecura,58
 2026-10-25 23:00,Ñuble,Coelemu,coelemu,1
 2026-10-25 23:00,Ñuble,Coihueco,coihueco,2
 2026-10-25 23:00,Ñuble,Quirihue,quirihue,20
-2026-10-25 23:00,Ñuble,Treguaco,treguaco,4
+2026-10-25 23:00,Ñuble,San Carlos,san carlos,1
+2026-10-25 23:00,Ñuble,Treguaco,treguaco,2
 2026-10-25 23:00,Ñuble,Yungay,yungay,1
+2026-10-26 00:00,Antofagasta,Antofagasta,antofagasta,9
+2026-10-26 00:00,Antofagasta,Calama,calama,5
+2026-10-26 00:00,Antofagasta,Tocopilla,tocopilla,1
+2026-10-26 00:00,Arica y Parinacota,Arica,arica,288
+2026-10-26 00:00,Aysén,Coyhaique,coyhaique,2
+2026-10-26 00:00,Biobio,Chiguayante,chiguayante,2
+2026-10-26 00:00,Biobio,Hualqui,hualqui,4
+2026-10-26 00:00,Biobio,Los Angeles,los angeles,26
+2026-10-26 00:00,Biobio,San Pedro de la Paz,san pedro de la paz,6
+2026-10-26 00:00,Biobio,Talcahuano,talcahuano,1
+2026-10-26 00:00,Biobio,Tome,tome,2
+2026-10-26 00:00,Coquimbo,Canela,canela,4
+2026-10-26 00:00,Coquimbo,Combarbala,combarbala,1
+2026-10-26 00:00,Coquimbo,Coquimbo,coquimbo,6
+2026-10-26 00:00,Coquimbo,La Serena,la serena,2
+2026-10-26 00:00,Coquimbo,Ovalle,ovalle,2
+2026-10-26 00:00,Coquimbo,Vicuña,vicuna,1
+2026-10-26 00:00,La Araucania,Carahue,carahue,1
+2026-10-26 00:00,La Araucania,Cunco,cunco,1
+2026-10-26 00:00,La Araucania,Curarrehue,curarrehue,1
+2026-10-26 00:00,La Araucania,Freire,freire,344
+2026-10-26 00:00,La Araucania,Los Sauces,los sauces,1
+2026-10-26 00:00,La Araucania,Nueva Imperial,nueva imperial,34
+2026-10-26 00:00,La Araucania,Padre Las Casas,padre las casas,637
+2026-10-26 00:00,La Araucania,Pucon,pucon,2
+2026-10-26 00:00,La Araucania,Temuco,temuco,1
+2026-10-26 00:00,Los Lagos,Calbuco,calbuco,14
+2026-10-26 00:00,Los Lagos,Castro,castro,5
+2026-10-26 00:00,Los Lagos,Chonchi,chonchi,7
+2026-10-26 00:00,Los Lagos,Curaco de Velez,curaco de velez,5
+2026-10-26 00:00,Los Lagos,Los Muermos,los muermos,1
+2026-10-26 00:00,Los Lagos,Maullin,maullin,5
+2026-10-26 00:00,Los Lagos,Osorno,osorno,108
+2026-10-26 00:00,Los Lagos,Puerto Montt,puerto montt,296
+2026-10-26 00:00,Los Lagos,Puyehue,puyehue,1
+2026-10-26 00:00,Los Lagos,Quellon,quellon,25
+2026-10-26 00:00,Los Lagos,Quinchao,quinchao,9
+2026-10-26 00:00,Los Rios,La Union,la union,1
+2026-10-26 00:00,Los Rios,Los Lagos,los lagos,2
+2026-10-26 00:00,Los Rios,Mafil,mafil,1
+2026-10-26 00:00,Los Rios,Mariquina,mariquina,15
+2026-10-26 00:00,Los Rios,Valdivia,valdivia,73
+2026-10-26 00:00,Magallanes,Punta Arenas,punta arenas,2
+2026-10-26 00:00,Maule,Constitucion,constitucion,1
+2026-10-26 00:00,Maule,Curico,curico,1
+2026-10-26 00:00,Maule,Licanten,licanten,1
+2026-10-26 00:00,Maule,Longavi,longavi,1
+2026-10-26 00:00,Maule,Maule,maule,370
+2026-10-26 00:00,Maule,Parral,parral,1
+2026-10-26 00:00,Maule,Romeral,romeral,1
+2026-10-26 00:00,Maule,San Clemente,san clemente,1
+2026-10-26 00:00,Maule,Talca,talca,1
+2026-10-26 00:00,Maule,Yerbas Buenas,yerbas buenas,42
+2026-10-26 00:00,Metropolitana,Buin,buin,37
+2026-10-26 00:00,Metropolitana,Cerro Navia,cerro navia,6
+2026-10-26 00:00,Metropolitana,Colina,colina,25
+2026-10-26 00:00,Metropolitana,Conchali,conchali,2
+2026-10-26 00:00,Metropolitana,El Monte,el monte,1
+2026-10-26 00:00,Metropolitana,Estacion Central,estacion central,1
+2026-10-26 00:00,Metropolitana,Independencia,independencia,1
+2026-10-26 00:00,Metropolitana,Isla de Maipo,isla de maipo,1
+2026-10-26 00:00,Metropolitana,La Cisterna,la cisterna,1
+2026-10-26 00:00,Metropolitana,La Florida,la florida,5
+2026-10-26 00:00,Metropolitana,La Pintana,la pintana,10
+2026-10-26 00:00,Metropolitana,La Reina,la reina,3
+2026-10-26 00:00,Metropolitana,Lampa,lampa,24
+2026-10-26 00:00,Metropolitana,Las Condes,las condes,4
+2026-10-26 00:00,Metropolitana,Lo Barnechea,lo barnechea,12
+2026-10-26 00:00,Metropolitana,Macul,macul,2
+2026-10-26 00:00,Metropolitana,Maipu,maipu,5
+2026-10-26 00:00,Metropolitana,Melipilla,melipilla,1
+2026-10-26 00:00,Metropolitana,Padre Hurtado,padre hurtado,3910
+2026-10-26 00:00,Metropolitana,Peñaflor,penaflor,58
+2026-10-26 00:00,Metropolitana,Peñalolen,penalolen,5
+2026-10-26 00:00,Metropolitana,Pirque,pirque,1
+2026-10-26 00:00,Metropolitana,Providencia,providencia,3
+2026-10-26 00:00,Metropolitana,Pudahuel,pudahuel,14
+2026-10-26 00:00,Metropolitana,Puente Alto,puente alto,4
+2026-10-26 00:00,Metropolitana,Quilicura,quilicura,10
+2026-10-26 00:00,Metropolitana,Recoleta,recoleta,5
+2026-10-26 00:00,Metropolitana,Renca,renca,4
+2026-10-26 00:00,Metropolitana,San Bernardo,san bernardo,16
+2026-10-26 00:00,Metropolitana,San Joaquin,san joaquin,4
+2026-10-26 00:00,Metropolitana,San Ramon,san ramon,1
+2026-10-26 00:00,Metropolitana,Santiago,santiago,11
+2026-10-26 00:00,Metropolitana,Vitacura,vitacura,4
+2026-10-26 00:00,Metropolitana,Ñuñoa,nunoa,4
+2026-10-26 00:00,O`Higgins,Coltauco,coltauco,1
+2026-10-26 00:00,O`Higgins,Rancagua,rancagua,6
+2026-10-26 00:00,O`Higgins,Rengo,rengo,1
+2026-10-26 00:00,O`Higgins,San Vicente,san vicente,1
+2026-10-26 00:00,Tarapaca,Alto Hospicio,alto hospicio,4
+2026-10-26 00:00,Tarapaca,Iquique,iquique,1
+2026-10-26 00:00,Tarapaca,Pozo Almonte,pozo almonte,1
+2026-10-26 00:00,Valparaiso,La Ligua,la ligua,1
+2026-10-26 00:00,Valparaiso,Los Andes,los andes,1
+2026-10-26 00:00,Valparaiso,Panquehue,panquehue,17
+2026-10-26 00:00,Valparaiso,Papudo,papudo,1
+2026-10-26 00:00,Valparaiso,Petorca,petorca,2
+2026-10-26 00:00,Valparaiso,Quilpue,quilpue,1
+2026-10-26 00:00,Valparaiso,Villa Alemana,villa alemana,112
+2026-10-26 00:00,Valparaiso,Viña del Mar,vina del mar,1
+2026-10-26 00:00,Ñuble,Chillan,chillan,2
+2026-10-26 00:00,Ñuble,Cobquecura,cobquecura,58
+2026-10-26 00:00,Ñuble,Coelemu,coelemu,1
+2026-10-26 00:00,Ñuble,Coihueco,coihueco,1
+2026-10-26 00:00,Ñuble,Quirihue,quirihue,20
+2026-10-26 00:00,Ñuble,San Carlos,san carlos,1
+2026-10-26 00:00,Ñuble,Treguaco,treguaco,2
+2026-10-26 00:00,Ñuble,Yungay,yungay,1
